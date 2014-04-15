@@ -1,6 +1,7 @@
 package config;
 
 import java.io.File;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,13 +31,10 @@ public class ConfigData implements IConfigData {
     public boolean parse(String filename) {
 
         try {
-            File f = new File(filename);
-            if (!f.exists())
-                return false;
-
+            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(filename);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(f);
+            Document doc = dBuilder.parse(inputStream);
             Element e = doc.getDocumentElement();
             e.normalize();
 
@@ -53,7 +51,7 @@ public class ConfigData implements IConfigData {
                 return false;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
 
         return true;
