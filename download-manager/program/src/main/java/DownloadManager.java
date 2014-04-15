@@ -8,12 +8,18 @@ public class DownloadManager {
      */
     public static void main(String[] args) {
         if(args.length != 2) {
-            System.out.println("Download manager: incorrect amount of arguments");
-            System.out.println("Download manager: usage: <--post-dl / --pre-dl> <config filename>");
+            System.out.println("download-manager: incorrect amount of arguments");
+            System.out.println("download-manager: usage: <--post-dl / --pre-dl> <config filename>");
             return;
         }
 
+        System.out.println("download-manager: starting...");
+        System.out.println();
+
         getRunnable(args).run();
+
+        System.out.println();
+        System.out.println("download-manager: finished");
     }
 
     /**
@@ -27,7 +33,7 @@ public class DownloadManager {
             case "--pre-dl":
                 return new PreDL(args[1]);
             default:
-                throw new RuntimeException("DownloadManager: unknown flag (" + args[0] + ")");
+                throw new RuntimeException("download-manager: unknown flag (" + args[0] + ")");
         }
     }
 }
