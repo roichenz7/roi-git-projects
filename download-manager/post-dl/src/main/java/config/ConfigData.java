@@ -1,13 +1,11 @@
 package config;
 
-import java.io.File;
-import java.io.InputStream;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import java.io.InputStream;
 
 
 public class ConfigData implements IConfigData {
