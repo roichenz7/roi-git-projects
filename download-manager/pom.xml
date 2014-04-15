@@ -7,11 +7,13 @@
     <groupId>roi-git-projects</groupId>
     <artifactId>download-manager</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
+
     <modules>
         <module>pre-dl</module>
         <module>post-dl</module>
         <module>common</module>
+        <module>program</module>
     </modules>
 
 
