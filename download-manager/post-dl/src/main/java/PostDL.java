@@ -18,57 +18,6 @@ public class PostDL implements Runnable {
         this.configFilename = configFilename;
     }
 
-    /**
-     * Builds TV shows collection from root directory
-     *
-     * @param directory: TV shows directory
-     * @return collection of TV shows
-     */
-    private Collection<String> buildTVShows(File directory) {
-        Collection<String> shows = new LinkedList<String>();
-        for (File f : directory.listFiles(new DirectoryFilter())) {
-            shows.add(f.getName());
-        }
-        return shows;
-    }
-
-    /**
-     * Searches for given show in shows collection
-     *
-     * @param shows:  collection of shows to search in
-     * @param show:   show data to look for
-     * @param update: true if should update to exact title
-     * @return true if found, false otherwise
-     */
-    private boolean lookup(Collection<String> shows, ShowData show, boolean update) {
-        for (String temp : shows) {
-            if (show.getTitle().toLowerCase().contains(temp.toLowerCase())) {
-                if (update)
-                    show.setTitle(temp);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Adds files to list according to given filer, starting from given root directory (recursively)
-     *
-     * @param dir:    directory to check
-     * @param filter: filename filter to use
-     * @param list:   list to add files to
-     */
-    private void addFiles(File dir, FilenameFilter filter, List<File> list) {
-        for (File f : dir.listFiles()) {
-            if (!f.isDirectory()) {
-                if (filter.accept(f, f.getName()))
-                    list.add(f);
-            } else {
-                addFiles(f, filter, list);
-            }
-        }
-    }
-
     @Override
     public void run() {
         IConfigData config = new ConfigData();
@@ -104,7 +53,7 @@ public class PostDL implements Runnable {
         System.out.println("post-dl: TV shows dir: " + config.tvShowsDir());
 
         // Create list of files to move
-        List<File> files = new LinkedList<File>();
+        List<File> files = new LinkedList<>();
 
         // Add all relevant files to list
         System.out.println("post-dl: adding relevant files in source directory");
@@ -176,4 +125,55 @@ public class PostDL implements Runnable {
         System.out.println("post-dl: finished");
     }
 
+
+    /**
+     * Builds TV shows collection from root directory
+     *
+     * @param directory: TV shows directory
+     * @return collection of TV shows
+     */
+    private Collection<String> buildTVShows(File directory) {
+        Collection<String> shows = new LinkedList<>();
+        for (File f : directory.listFiles(new DirectoryFilter())) {
+            shows.add(f.getName());
+        }
+        return shows;
+    }
+
+    /**
+     * Searches for given show in shows collection
+     *
+     * @param shows:  collection of shows to search in
+     * @param show:   show data to look for
+     * @param update: true if should update to exact title
+     * @return true if found, false otherwise
+     */
+    private boolean lookup(Collection<String> shows, ShowData show, boolean update) {
+        for (String temp : shows) {
+            if (show.getTitle().toLowerCase().contains(temp.toLowerCase())) {
+                if (update)
+                    show.setTitle(temp);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Adds files to list according to given filer, starting from given root directory (recursively)
+     *
+     * @param dir:    directory to check
+     * @param filter: filename filter to use
+     * @param list:   list to add files to
+     */
+    private void addFiles(File dir, FilenameFilter filter, List<File> list) {
+        for (File f : dir.listFiles()) {
+            if (!f.isDirectory()) {
+                if (filter.accept(f, f.getName()))
+                    list.add(f);
+            } else {
+                addFiles(f, filter, list);
+            }
+        }
+    }
 }
