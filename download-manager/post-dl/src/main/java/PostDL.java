@@ -19,35 +19,6 @@ public class PostDL implements Runnable {
     }
 
     /**
-     * Parses given filename to extract show data
-     *
-     * @param filename: filename to parse
-     * @param data:     show data to set
-     * @return true whether parsing succeeded, false otherwise
-     */
-    private boolean parse(String filename, ShowData data) {
-        String title = "";
-        String[] tokens = filename.split("[.]");
-        for (String temp : tokens) {
-            if (temp.matches("S[0-9][0-9](E[0-9][0-9])+")) { // found season & episode/s
-                char c1 = temp.charAt(1);
-                char c2 = temp.charAt(2);
-                if (c1 == '0')
-                    data.setSeason("Season " + c2);
-                else
-                    data.setSeason("Season " + c1 + c2);
-
-                data.setTitle(title.trim());
-                return true;
-            } else {
-                title = title + " " + temp;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Builds TV shows collection from root directory
      *
      * @param directory: TV shows directory
@@ -159,12 +130,11 @@ public class PostDL implements Runnable {
         int required = files.size();
         int completed = 0;
         for (File file : files) {
-
             System.out.println("post-dl: processing file: " + file.getName());
 
-            ShowData data = new ShowData();
             // Parse file: extract show data
-            if (!parse(file.getName(), data)) {
+            ShowData data = ShowData.fromFilename(file.getName());
+            if (data.isEmpty()) {
                 System.out.println("post-dl: error parsing file: " + file.getName());
                 continue;
             }
