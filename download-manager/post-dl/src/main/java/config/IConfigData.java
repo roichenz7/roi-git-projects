@@ -28,7 +28,7 @@ public interface IConfigData {
     String username();
 
     /**
-     * @return passwoed
+     * @return password
      */
     String password();
 
