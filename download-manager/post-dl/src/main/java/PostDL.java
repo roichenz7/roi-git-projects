@@ -66,6 +66,27 @@ public class PostDL implements Runnable {
         }
         System.out.println("post-dl: found " + files.size() + " relevant files");
 
+        if (config.isMarkAsAcquired()) {
+            System.out.println("post-dl: marking all files as acquired");
+            try {
+                Process process = new ProcessBuilder("lib\\FileBot\\filebot.exe",
+                                "-script",
+                                "fn:update-mes",
+                                sourceDir.getPath(),
+                                "--def",
+                                String.format("login=%s:%s", config.username(), config.password()),
+                                "tick=acquired",
+                                "addshows=n")
+                        .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+                        .redirectError(ProcessBuilder.Redirect.INHERIT)
+                        .start();
+                process.waitFor();
+            } catch (Exception e) {
+                System.out.println("post-dl: failed to mark files as acquired: " + e);
+            }
+            System.out.println("post-dl: all files marked as acquired");
+        }
+
         // Build TV shows collection
         System.out.println("post-dl: building TV shows collection");
         Collection<String> tvShows = buildTVShows(tvShowsDir);
@@ -122,12 +143,6 @@ public class PostDL implements Runnable {
         }
 
         System.out.println("post-dl: " + completed + " of " + required + " files completed");
-
-        if (config.isMarkAsAcquired()) {
-            System.out.println("post-dl: marking all files as acquired");
-            // TODO
-        }
-
         System.out.println("post-dl: finished");
     }
 
