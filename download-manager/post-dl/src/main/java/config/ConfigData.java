@@ -10,6 +10,11 @@ import java.io.InputStream;
 
 public class ConfigData implements IConfigData {
 
+    private String sourceDir;
+    private String targetDir;
+    private String tvShowsDir;
+    private boolean isMarkAsAcquired;
+
     @Override
     public String sourceDir() {
         return sourceDir;
@@ -26,8 +31,12 @@ public class ConfigData implements IConfigData {
     }
 
     @Override
-    public boolean parse(String filename) {
+    public boolean isMarkAsAcquired() {
+        return isMarkAsAcquired;
+    }
 
+    @Override
+    public boolean parse(String filename) {
         try {
             InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(filename);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -48,15 +57,15 @@ public class ConfigData implements IConfigData {
             if (tvShowsDir.isEmpty())
                 return false;
 
+            String attr = e.getAttribute("mark_as_acquired");
+            if (attr != null) {
+                isMarkAsAcquired = Boolean.parseBoolean(attr);
+            }
+
         } catch (Exception e) {
             return false;
         }
 
         return true;
     }
-
-
-    private String sourceDir;
-    private String targetDir;
-    private String tvShowsDir;
 }
