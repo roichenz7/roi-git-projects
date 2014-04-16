@@ -1,5 +1,7 @@
 <post-dl-config source_dir="//NAS/cache/.apps/torrents/ready"
                 target_dir="//NAS/cache/Media/TV Shows"
                 tv_shows_dir="//NAS/Media/TV Shows"
-                mark_as_acquired="true">
+                mark_as_acquired="true"
+                username="roichenz7"
+                password="7roi7roi">
 </post-dl-config>

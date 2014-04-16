@@ -14,6 +14,8 @@ public class ConfigData implements IConfigData {
     private String targetDir;
     private String tvShowsDir;
     private boolean isMarkAsAcquired;
+    private String username;
+    private String password;
 
     @Override
     public String sourceDir() {
@@ -33,6 +35,16 @@ public class ConfigData implements IConfigData {
     @Override
     public boolean isMarkAsAcquired() {
         return isMarkAsAcquired;
+    }
+
+    @Override
+    public String username() {
+        return username;
+    }
+
+    @Override
+    public String password() {
+        return password;
     }
 
     @Override
@@ -61,6 +73,14 @@ public class ConfigData implements IConfigData {
             if (attr != null) {
                 isMarkAsAcquired = Boolean.parseBoolean(attr);
             }
+
+            username = e.getAttribute("username");
+            if (username.isEmpty())
+                return false;
+
+            password = e.getAttribute("password");
+            if (password.isEmpty())
+                return false;
 
         } catch (Exception e) {
             return false;

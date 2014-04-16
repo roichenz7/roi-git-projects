@@ -23,6 +23,16 @@ public interface IConfigData {
     boolean isMarkAsAcquired();
 
     /**
+     * @return username
+     */
+    String username();
+
+    /**
+     * @return passwoed
+     */
+    String password();
+
+    /**
      * Parses given configuration file
      *
      * @param filename configuration file
