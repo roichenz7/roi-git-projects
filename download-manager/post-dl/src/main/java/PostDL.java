@@ -69,7 +69,7 @@ public class PostDL implements Runnable {
         if (config.isMarkAsAcquired()) {
             System.out.println("post-dl: marking all files as acquired");
             try {
-                Process process = new ProcessBuilder("lib\\FileBot\\filebot.exe",
+                Process process = new ProcessBuilder("filebot.exe",
                                 "-script",
                                 "fn:update-mes",
                                 sourceDir.getPath(),
