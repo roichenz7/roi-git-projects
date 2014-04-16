@@ -122,6 +122,12 @@ public class PostDL implements Runnable {
         }
 
         System.out.println("post-dl: " + completed + " of " + required + " files completed");
+
+        if (config.isMarkAsAcquired()) {
+            System.out.println("post-dl: marking all files as acquired");
+            // TODO
+        }
+
         System.out.println("post-dl: finished");
     }
 
