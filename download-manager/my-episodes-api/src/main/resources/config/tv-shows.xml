@@ -1,5 +1,50 @@
 <tv-shows>
-    <tv_show id="8353" name="Suits"/>
+    <tv_show id="3" name="24"/>
+    <tv_show id="1109" name="30 Rock"/>
+    <tv_show id="3652" name="Alphas"/>
+    <tv_show id="60" name="Arrested Development"/>
     <tv_show id="10321" name="Arrow"/>
+    <tv_show id="9912" name="Black Mirror"/>
+    <tv_show id="5521" name="Boardwalk Empire"/>
+    <tv_show id="3077" name="Breaking Bad"/>
+    <tv_show id="12718" name="Brooklyn Nine Nine"/>
+    <tv_show id="2151" name="Burn Notice"/>
+    <tv_show id="2183" name="Californication"/>
+    <tv_show id="5073" name="Community"/>
+    <tv_show id="10557" name="Continuum"/>
+    <tv_show id="11367" name="Crossing Lines"/>
+    <tv_show id="10406" name="Defiance"/>
+    <tv_show id="1123" name="Dexter"/>
+    <tv_show id="92" name="Entourage"/>
+    <tv_show id="4470" name="FlashForward"/>
+    <tv_show id="5926" name="Game Of Thrones"/>
+    <tv_show id="6684" name="Happy Endings"/>
+    <tv_show id="8272" name="Homeland"/>
+    <tv_show id="12343" name="Hostages"/>
+    <tv_show id="8208" name="House of Cards"/>
+    <tv_show id="12227" name="Intelligence"/>
+    <tv_show id="10163" name="Last Resort"/>
+    <tv_show id="3217" name="Leverage"/>
+    <tv_show id="11339" name="Marvels Agents of S H I E L D"/>
+    <tv_show id="5083" name="Modern Family"/>
+    <tv_show id="8548" name="New Girl"/>
+    <tv_show id="11711" name="Orange Is The New Black"/>
+    <tv_show id="8595" name="Person of Interest"/>
+    <tv_show id="225" name="Prison Break"/>
+    <tv_show id="10459" name="Revolution"/>
+    <tv_show id="8603" name="Scandal"/>
+    <tv_show id="6607" name="Strike Back"/>
+    <tv_show id="8353" name="Suits"/>
+    <tv_show id="3558" name="Survivors"/>
+    <tv_show id="6678" name="Terra Nova"/>
     <tv_show id="12348" name="The 100"/>
+    <tv_show id="1115" name="The Big Bang Theory"/>
+    <tv_show id="12550" name="The Blacklist"/>
+    <tv_show id="5139" name="The Good Wife"/>
+    <tv_show id="7810" name="The Killing"/>
+    <tv_show id="3524" name="The Mentalist"/>
+    <tv_show id="834" name="The Office"/>
+    <tv_show id="10765" name="True Detective"/>
+    <tv_show id="7684" name="Under the Dome"/>
+    <tv_show id="315" name="Weeds"/>
 </tv-shows>
