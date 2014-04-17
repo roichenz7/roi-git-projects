@@ -18,21 +18,6 @@ public interface IConfigData {
     String tvShowsDir();
 
     /**
-     * @return mark as acquired flag value
-     */
-    boolean isMarkAsAcquired();
-
-    /**
-     * @return username
-     */
-    String username();
-
-    /**
-     * @return password
-     */
-    String password();
-
-    /**
      * Parses given configuration file
      *
      * @param filename configuration file
