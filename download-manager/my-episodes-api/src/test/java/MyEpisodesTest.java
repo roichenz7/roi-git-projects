@@ -16,8 +16,20 @@ public class MyEpisodesTest {
     }
 
     @Test
+    public void testMarkAsAcquiredWithName() {
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+        myEpisodesService.markAsAcquired("Suits", 1, 1);
+    }
+
+    @Test
     public void testMarkAsWatched() {
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
         myEpisodesService.markAsWatched(8353, 1, 1);
+    }
+
+    @Test
+    public void testMarkAsWatchedWithName() {
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+        myEpisodesService.markAsWatched("Suits", 1, 1);
     }
 }
