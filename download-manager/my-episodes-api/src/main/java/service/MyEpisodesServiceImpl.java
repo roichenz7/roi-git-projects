@@ -1,5 +1,8 @@
 package service;
 
+import data.ITvShowParser;
+import data.TvShowData;
+import data.TvShowParser;
 import exceptions.LoginException;
 import exceptions.UpdateException;
 import http.HttpMethod;
@@ -9,10 +12,16 @@ import http.IHttpResponse;
 public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     private final String baseUrl = "http://www.myepisodes.com";
+    private final ITvShowParser tvShowParser = new TvShowParser();
     private String cookies = "";
 
     public MyEpisodesServiceImpl(final String username, final String password) {
         login(username, password);
+    }
+
+    @Override
+    public void configure(String filename) {
+        tvShowParser.deserialize(filename);
     }
 
     @Override
@@ -37,6 +46,15 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     }
 
     @Override
+    public void markAsAcquired(String showName, int season, int episode) {
+        TvShowData tvShowData = tvShowParser.getShowByName(showName);
+        if (tvShowData == null)
+            throw new UpdateException(showName, season, episode, "Show doesn't exist in configuration");
+
+        markAsAcquired(tvShowData.getId(), season, episode);
+    }
+
+    @Override
     public void markAsWatched(int showId, int season, int episode) {
         IHttpResponse response;
         try {
@@ -55,6 +73,15 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
             throw new UpdateException(showId, season, episode, "Http response: " + response);
         }
+    }
+
+    @Override
+    public void markAsWatched(String showName, int season, int episode) {
+        TvShowData tvShowData = tvShowParser.getShowByName(showName);
+        if (tvShowData == null)
+            throw new UpdateException(showName, season, episode, "Show doesn't exist in configuration");
+
+        markAsWatched(tvShowData.getId(), season, episode);
     }
 
     private void login(final String username, final String password) {
