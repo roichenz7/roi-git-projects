@@ -2,6 +2,5 @@
                 target_dir="//NAS/cache/Media/TV Shows"
                 tv_shows_dir="//NAS/Media/TV Shows"
                 mark_as_acquired="true"
-                username="roichenz7"
-                password="7roi7roi">
+                tv_shows_config="config/tv-shows.xml">
 </post-dl-config>
