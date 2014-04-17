@@ -18,6 +18,7 @@ public class MyEpisodesTest {
     @Test
     public void testMarkAsAcquiredWithName() {
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+        myEpisodesService.configure("config/tv-shows.xml");
         myEpisodesService.markAsAcquired("Suits", 1, 1);
     }
 
@@ -30,6 +31,7 @@ public class MyEpisodesTest {
     @Test
     public void testMarkAsWatchedWithName() {
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+        myEpisodesService.configure("config/tv-shows.xml");
         myEpisodesService.markAsWatched("Suits", 1, 1);
     }
 }
