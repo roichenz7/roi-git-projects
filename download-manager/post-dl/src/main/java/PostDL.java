@@ -3,6 +3,8 @@ import config.IConfigData;
 import data.ShowData;
 import filters.DirectoryFilter;
 import filters.VideoFileFilter;
+import service.MyEpisodesService;
+import service.MyEpisodesServiceImpl;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,9 +15,23 @@ import java.util.List;
 public class PostDL implements Runnable {
 
     private final String configFilename;
+    private final String tvShowsConfigFilename;
+    private final String username;
+    private final String password;
+    private boolean isMarkAsAcquired;
+    private MyEpisodesService myEpisodesService;
 
     public PostDL(String configFilename) {
+        this(configFilename, null, null, null);
+        this.isMarkAsAcquired = false;
+    }
+
+    public PostDL(String configFilename, String tvShowsConfigFilename, String username, String password) {
         this.configFilename = configFilename;
+        this.tvShowsConfigFilename = tvShowsConfigFilename;
+        this.username = username;
+        this.password = password;
+        this.isMarkAsAcquired = true;
     }
 
     @Override
@@ -66,25 +82,12 @@ public class PostDL implements Runnable {
         }
         System.out.println("post-dl: found " + files.size() + " relevant files");
 
-        if (config.isMarkAsAcquired()) {
-            System.out.println("post-dl: marking all files as acquired");
-            try {
-                Process process = new ProcessBuilder("filebot.exe",
-                                "-script",
-                                "fn:update-mes",
-                                sourceDir.getPath(),
-                                "--def",
-                                String.format("login=%s:%s", config.username(), config.password()),
-                                "tick=acquired",
-                                "addshows=n")
-                        .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-                        .redirectError(ProcessBuilder.Redirect.INHERIT)
-                        .start();
-                process.waitFor();
-            } catch (Exception e) {
-                System.out.println("post-dl: failed to mark files as acquired: " + e);
-            }
-            System.out.println("post-dl: all files marked as acquired");
+        if (isMarkAsAcquired) {
+            System.out.println("post-dl: logging in to my episodes, username: " + username);
+            myEpisodesService = new MyEpisodesServiceImpl(username, password);
+
+            System.out.println("post-dl: loading tv shows configuration file: " + tvShowsConfigFilename);
+            myEpisodesService.configure(tvShowsConfigFilename);
         }
 
         // Build TV shows collection
@@ -139,6 +142,17 @@ public class PostDL implements Runnable {
                 completed++;
             } else {
                 System.out.println("failed");
+            }
+
+            if (isMarkAsAcquired) {
+                System.out.println("post-dl: marking file as acquired: " + file.getName());
+                try {
+                    myEpisodesService.markAsAcquired(data.getTitle(),
+                            data.getSeasonNumber(),
+                            data.getEpisodeNumber());
+                } catch (Exception e) {
+                    System.out.println("post-dl: failed to mark file as acquired: " + file.getName());
+                }
             }
         }
 
