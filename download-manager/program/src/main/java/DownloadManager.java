@@ -7,9 +7,9 @@ public class DownloadManager {
      * args[1] = config filename
      */
     public static void main(String[] args) {
-        if(args.length != 2) {
+        if(args.length != 2 && args.length != 5) {
             System.out.println("download-manager: incorrect amount of arguments");
-            System.out.println("download-manager: usage: <--post-dl / --pre-dl> <config filename>");
+            System.out.println("download-manager: usage: <--post-dl / --pre-dl> <config> [<tv-shows config> <username> <password>]");
             return;
         }
 
@@ -28,8 +28,14 @@ public class DownloadManager {
      */
     private static Runnable getRunnable(String[] args) {
         switch (args[0]) {
-            case "--post-dl":
-                return new PostDL(args[1]);
+            case "--post-dl": {
+                if (args.length == 2)
+                    return new PostDL(args[1]);
+                else if (args.length == 5)
+                    return new PostDL(args[1], args[2], args[3], args[4]);
+                else
+                    throw new RuntimeException("Error");
+            }
             case "--pre-dl":
                 return new PreDL(args[1]);
             default:
