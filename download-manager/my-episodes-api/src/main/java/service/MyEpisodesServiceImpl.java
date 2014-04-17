@@ -1,19 +1,15 @@
 package service;
 
-import com.ning.http.client.cookie.Cookie;
 import exceptions.LoginException;
-import http.CookieFactory;
+import exceptions.UpdateException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     private final String baseUrl = "http://www.myepisodes.com";
-    private List<Cookie> cookies;
+    private String cookies = "";
 
     public MyEpisodesServiceImpl(final String username, final String password) {
         login(username, password);
@@ -21,12 +17,44 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public void markAsAcquired(int showId, int season, int episode) {
+        IHttpResponse response;
+        try {
+            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
+                    .withUrlParam("action", "Update")
+                    .withUrlParam("showid", String.valueOf(showId))
+                    .withUrlParam("season", String.valueOf(season))
+                    .withUrlParam("episode", String.valueOf(episode))
+                    .withUrlParam("seen", "0")
+                    .withHeader("Cookie", cookies)
+                    .execute();
+        } catch (Exception e) {
+            throw new UpdateException(showId, season, episode, e);
+        }
 
+        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+            throw new UpdateException(showId, season, episode, "Http response: " + response);
+        }
     }
 
     @Override
     public void markAsWatched(int showId, int season, int episode) {
+        IHttpResponse response;
+        try {
+            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
+                    .withUrlParam("action", "Update")
+                    .withUrlParam("showid", String.valueOf(showId))
+                    .withUrlParam("season", String.valueOf(season))
+                    .withUrlParam("episode", String.valueOf(episode))
+                    .withUrlParam("seen", "1")
+                    .withHeader("Cookie", cookies)
+                    .execute();
+        } catch (Exception e) {
+            throw new UpdateException(showId, season, episode, e);
+        }
 
+        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+            throw new UpdateException(showId, season, episode, "Http response: " + response);
+        }
     }
 
     private void login(final String username, final String password) {
@@ -41,9 +69,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new LoginException(username, e);
         }
 
-        cookies = response.getHeaders("Set-Cookie")
-                .stream()
-                .map(CookieFactory::create)
-                .collect(Collectors.toList());
+        response.getHeaders("Set-Cookie")
+                .forEach(cookie -> cookies += (cookie + "; "));
     }
 }
