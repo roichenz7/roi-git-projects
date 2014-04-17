@@ -119,7 +119,9 @@ public class PostDL implements Runnable {
             }
 
             System.out.println("post-dl: file parsed. " +
-                    "title = " + data.getTitle() + ", season = " + data.getSeason());
+                    "title = " + data.getTitle() +
+                    ", season = " + data.getSeasonNumber() +
+                    ", episode = " + data.getEpisodeNumber());
 
             String targetDirStrCurr = targetDirStr + "/"
                     + data.getTitle()
@@ -151,7 +153,7 @@ public class PostDL implements Runnable {
                             data.getSeasonNumber(),
                             data.getEpisodeNumber());
                 } catch (Exception e) {
-                    System.out.println("post-dl: failed to mark file as acquired: " + file.getName());
+                    System.out.println("post-dl: failed to mark file as acquired: " + file.getName() + ". " + e);
                 }
             }
         }
