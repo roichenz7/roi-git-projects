@@ -6,18 +6,18 @@ public class MyEpisodesTest {
 
     @Test
     public void testLogin() {
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "7roi7roi");
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
     }
 
     @Test
     public void testMarkAsAcquired() {
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "7roi7roi");
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
         myEpisodesService.markAsAcquired(8353, 1, 1);
     }
 
     @Test
     public void testMarkAsWatched() {
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "7roi7roi");
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
         myEpisodesService.markAsWatched(8353, 1, 1);
     }
 }
