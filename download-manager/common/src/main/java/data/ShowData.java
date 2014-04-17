@@ -54,11 +54,11 @@ public class ShowData {
                 char c2 = temp.charAt(2);
                 if (c1 == '0') {
                     showData.setSeason("Season " + c2);
-                    showData.seasonNumber = c2;
+                    showData.seasonNumber = Integer.parseInt(String.valueOf(c2));
                 }
                 else {
                     showData.setSeason("Season " + c1 + c2);
-                    showData.seasonNumber = c1 + c2;
+                    showData.seasonNumber = Integer.parseInt(String.valueOf(c1) + String.valueOf(c2));
                 }
 
                 // TODO: handle multiple episodes...
@@ -66,10 +66,10 @@ public class ShowData {
                 char c3 = temp.charAt(index + 1);
                 char c4 = temp.charAt(index + 2);
                 if (c3 == '0') {
-                    showData.episodeNumber = c3;
+                    showData.episodeNumber = Integer.parseInt(String.valueOf(c4));
                 }
                 else {
-                    showData.episodeNumber = c3 + c4;
+                    showData.episodeNumber = Integer.parseInt(String.valueOf(c3) + String.valueOf(c4));
                 }
 
                 showData.setTitle(title.trim());
