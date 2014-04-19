@@ -1,5 +1,6 @@
 package service;
 
+import com.ning.http.client.cookie.Cookie;
 import data.ITvShowParser;
 import data.TvShowData;
 import data.TvShowParser;
@@ -8,12 +9,15 @@ import exceptions.UpdateException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
+import http.cookies.CookieAdapter;
+import http.cookies.CookieListAdapter;
+import java.util.List;
 
 public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     private final String baseUrl = "http://www.myepisodes.com";
     private final ITvShowParser tvShowParser = new TvShowParser();
-    private String cookies = "";
+    private List<Cookie> cookies;
 
     public MyEpisodesServiceImpl(final String username, final String password) {
         login(username, password);
@@ -34,7 +38,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
                     .withUrlParam("season", String.valueOf(season))
                     .withUrlParam("episode", String.valueOf(episode))
                     .withUrlParam("seen", "0")
-                    .withHeader("Cookie", cookies)
+                    .withHeader("Cookie", cookies.toString())
                     .execute();
         } catch (Exception e) {
             throw new UpdateException(showId, season, episode, e);
@@ -64,7 +68,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
                     .withUrlParam("season", String.valueOf(season))
                     .withUrlParam("episode", String.valueOf(episode))
                     .withUrlParam("seen", "1")
-                    .withHeader("Cookie", cookies)
+                    .withHeader("Cookie", cookies.toString())
                     .execute();
         } catch (Exception e) {
             throw new UpdateException(showId, season, episode, e);
@@ -96,7 +100,9 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new LoginException(username, e);
         }
 
-        response.getHeaders("Set-Cookie")
-                .forEach(cookie -> cookies += (cookie + "; "));
+        cookies = response.getHeaders("Set-Cookie")
+                .stream()
+                .map(CookieAdapter::fromString)
+                .collect(CookieListAdapter.toCookieList());
     }
 }
