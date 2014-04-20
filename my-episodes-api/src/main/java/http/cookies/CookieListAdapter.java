@@ -1,7 +1,7 @@
 package http.cookies;
 
 import com.ning.http.client.cookie.Cookie;
-import common.collectors.DefaultCollector;
+import collectors.DefaultCollector;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -20,7 +20,7 @@
         </dependency>
 
         <dependency>
-            <groupId>roi-git-projects</groupId>
+            <groupId>my-episodes-api</groupId>
             <artifactId>my-episodes-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

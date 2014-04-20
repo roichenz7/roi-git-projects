@@ -14,7 +14,6 @@
         <module>post-dl</module>
         <module>common</module>
         <module>program</module>
-        <module>my-episodes-api</module>
     </modules>
 
 

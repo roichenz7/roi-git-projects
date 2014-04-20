@@ -1,4 +1,4 @@
-package common.collectors;
+package collectors;
 
 import java.util.Set;
 import java.util.function.BiConsumer;
