@@ -18,5 +18,8 @@ public class PreDLTest {
     @Test
     public void testPhd() {
         IProvider provider = new PhdProvider();
+        List<ResultData> results = provider.search("Arrow", 2, 17, Quality.HD_720p);
+        ResultData result = provider.getBestResult(results);
+        provider.downloadFile(result);
     }
 }
