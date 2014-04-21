@@ -7,10 +7,10 @@ import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
 
-import java.util.ArrayList;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class PhdProvider implements IProvider {
@@ -44,14 +44,10 @@ public class PhdProvider implements IProvider {
             throw new SearchException(query, "Http response: " + response);
         }
 
-        Pattern pattern = Pattern.compile("<tr>[^(</tr>)]*</tr>", Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(response.getBody());
-        List<String> values = new ArrayList<>();
-        while (matcher.find()) {
-            values.add(matcher.group(1));
-        }
-
-        return values.stream()
+        Document document = Jsoup.parse(response.getBody());
+        return document.select("tr")
+                .stream()
+                .filter(e -> e.html().contains("<a href=\"magnet:?"))
                 .map(ResultData::new)
                 .collect(Collectors.toList());
     }
