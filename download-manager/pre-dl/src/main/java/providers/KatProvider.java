@@ -23,7 +23,7 @@ public class KatProvider implements IProvider {
 
     @Override
     public List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
-        final String query = tvShowName + "S" + season + " E" + episode + " " + quality;
+        final String query = tvShowName + " S" + season + "E" + episode + " " + quality;
 
         IHttpResponse response;
         try {
