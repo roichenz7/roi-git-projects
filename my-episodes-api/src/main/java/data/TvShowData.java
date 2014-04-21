@@ -8,6 +8,9 @@ public class TvShowData {
     private int id;
     private String name;
 
+    public TvShowData() {
+    }
+
     public TvShowData(Node node) {
         NamedNodeMap attributes = node.getAttributes();
         id = Integer.parseInt(attributes.getNamedItem("id").getNodeValue());
