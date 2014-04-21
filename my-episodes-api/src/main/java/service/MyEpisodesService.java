@@ -1,6 +1,6 @@
 package service;
 
-import data.TvShowStatusData;
+import data.TvShowData;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface MyEpisodesService {
     /**
      * @return tv shows status
      */
-    List<TvShowStatusData> getStatus();
+    List<TvShowData> getStatus();
 
     /**
      * Marks given episode as acquired

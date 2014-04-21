@@ -8,6 +8,10 @@ public class TvShowData {
     private int id;
     private String name;
 
+    // TODO: list of acquired + seen episodes
+
+    // TODO: list of episodes to acquire
+
     public TvShowData() {
     }
 
