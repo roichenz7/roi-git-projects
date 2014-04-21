@@ -86,8 +86,12 @@ public class PhdProvider implements IProvider {
             seeds = Integer.parseInt(elements.get(4).text());
             peers = Integer.parseInt(elements.get(5).text());
 
-            downloadLink = elements.get(2).getElementsByAttribute("href").get(2).attr("href");
-            // TODO: get direct download link...
+            String temp = elements.get(2).getElementsByAttribute("href").get(2).attr("href");
+            if (temp.contains("istoretor")) {
+                String[] array = temp.replaceAll("http://", "").split("/");
+                String hash = array[2].toUpperCase();
+                downloadLink = "http://istoretor.com/fdown.php?hash=" + hash;
+            }
         }
     }
 }
