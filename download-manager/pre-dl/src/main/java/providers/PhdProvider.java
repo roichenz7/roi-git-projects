@@ -9,6 +9,9 @@ import http.IHttpResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class PhdProvider implements IProvider {
 
@@ -41,9 +44,15 @@ public class PhdProvider implements IProvider {
             throw new SearchException(query, "Http response: " + response);
         }
 
-        String body = response.getBody();
-        // TODO
+        Pattern pattern = Pattern.compile("<tr>[^(</tr>)]*</tr>", Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(response.getBody());
+        List<String> values = new ArrayList<>();
+        while (matcher.find()) {
+            values.add(matcher.group(1));
+        }
 
-        return new ArrayList<>();
+        return values.stream()
+                .map(ResultData::new)
+                .collect(Collectors.toList());
     }
 }
