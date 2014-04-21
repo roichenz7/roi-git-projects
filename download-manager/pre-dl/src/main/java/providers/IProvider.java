@@ -8,6 +8,9 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public interface IProvider {
@@ -41,9 +44,20 @@ public interface IProvider {
      */
     default ResultData getBestResult(List<ResultData> results) {
         return results.stream()
-                .filter(d -> d.getSeeds() > 100)
+                .filter(d -> acceptedOrigins().contains(d.getOrigin()))
+                .sorted((l, r) -> l.getSeeds() - r.getSeeds())
                 .findFirst()
                 .orElseThrow(ResultNotFoundException::new);
+    }
+
+    /**
+     * @return accepted origins
+     */
+    default Collection<String> acceptedOrigins() {
+        return Collections.unmodifiableList(Arrays.asList("DIMENSION",
+                "2HD",
+                "KILLERS",
+                "REMARKABLE"));
     }
 
     /**
