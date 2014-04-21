@@ -10,7 +10,9 @@ public class TvShowData {
 
     // TODO: list of acquired + seen episodes
 
-    // TODO: list of episodes to acquire
+    // TODO: list of episodes to acquire + watch
+
+    // TODO: is ongoing
 
     public TvShowData() {
     }

@@ -30,6 +30,8 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public List<TvShowData> getStatus() {
+        // TODO: use views.php?type=epsbyshow&showid=XXX for each show
+        // TODO: or just use myshows.php
         return null;
     }
 
