@@ -1,11 +1,16 @@
 package data;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ShowData {
 
     private String title;
     private String season;
     private int seasonNumber;
     private int episodeNumber;
+
+    private String quality;
 
     private String origin;
     private boolean isProper;
@@ -35,6 +40,14 @@ public class ShowData {
 
     public int getEpisodeNumber() {
         return episodeNumber;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
     }
 
     public String getOrigin() {
@@ -82,7 +95,13 @@ public class ShowData {
         if (filename.matches("PROPER"))
             showData.setProper(true);
 
-        // TODO; set origin
+        Matcher matcher = Pattern.compile(".*(720p|1080p).*").matcher(filename);
+        if (matcher.find())
+            showData.setQuality(matcher.group(1));
+
+        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE).*").matcher(filename);
+        if (matcher.find())
+            showData.setOrigin(matcher.group(1));
 
         String[] tokens = filename.split(regex);
         for (String temp : tokens) {
