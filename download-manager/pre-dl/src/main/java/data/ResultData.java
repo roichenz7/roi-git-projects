@@ -3,24 +3,26 @@ package data;
 import enums.Quality;
 import org.jsoup.nodes.Element;
 
-public class ResultData {
+public abstract class ResultData {
 
-    private String tvShowName;
-    private int season;
-    private int episode;
-    private Quality quality;
+    protected String tvShowName;
+    protected int season;
+    protected int episode;
+    protected Quality quality;
 
-    private int seeds;
-    private int peers;
+    protected int seeds;
+    protected int peers;
 
-    private String origin;
-    private boolean isProper;
+    protected String origin;
+    protected boolean isProper;
 
-    private String downloadLink;
+    protected String downloadLink;
 
     public ResultData(Element source) {
-        // TODO: init fields
+        initialize(source);
     }
+
+    protected abstract void initialize(Element source);
 
     public String getTvShowName() {
         return tvShowName;
