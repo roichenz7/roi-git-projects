@@ -24,7 +24,7 @@ public class PhdProvider implements IProvider {
 
     @Override
     public List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
-        final String query = String.format("%s+s%02de%02d+%s", tvShowName, season, episode, quality);
+        final String query = String.format("%s s%02de%02d %s", tvShowName, season, episode, quality);
 
         IHttpResponse response;
         try {
@@ -32,9 +32,6 @@ public class PhdProvider implements IProvider {
                     .withUrlParam("page", "torrents")
                     .withUrlParam("search", query)
                     .withUrlParam("active", "0")
-                    .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0")
-                    .withAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                    .withHeader("Accept-Language", "en-US,en;q=0.5")
                     .execute();
         } catch (Exception e) {
             throw new SearchException(query, e);
