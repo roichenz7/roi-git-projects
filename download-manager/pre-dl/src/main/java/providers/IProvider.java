@@ -14,6 +14,11 @@ public interface IProvider {
     String getName();
 
     /**
+     * @return provider base url
+     */
+    String getBaseUrl();
+
+    /**
      * Performs search according to given parameters
      *
      * @param tvShowName tv show name

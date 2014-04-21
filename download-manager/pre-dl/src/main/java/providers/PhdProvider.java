@@ -9,8 +9,13 @@ import java.util.List;
 public class PhdProvider implements IProvider {
 
     @Override
-    public String getName() {
+    public final String getName() {
         return "PHD";
+    }
+
+    @Override
+    public final String getBaseUrl() {
+        return null;
     }
 
     @Override
