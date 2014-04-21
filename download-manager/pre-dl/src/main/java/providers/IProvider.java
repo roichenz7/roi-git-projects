@@ -4,6 +4,10 @@ import data.ResultData;
 import enums.Quality;
 import exceptions.ResultNotFoundException;
 
+import java.io.FileOutputStream;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.List;
 
 public interface IProvider {
@@ -46,6 +50,12 @@ public interface IProvider {
      * Downloads file according to given result
      *
      * @param resultData result
+     * @throws Exception
      */
-    void downloadFile(ResultData resultData);
+    default void downloadFile(ResultData resultData) throws Exception {
+        URL website = new URL(resultData.getDownloadLink());
+        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+        FileOutputStream fos = new FileOutputStream(resultData + ".torrent");
+        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+    }
 }

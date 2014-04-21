@@ -47,8 +47,4 @@ public class KatProvider implements IProvider {
 
         return new ArrayList<>();
     }
-
-    @Override
-    public void downloadFile(ResultData resultData) {
-    }
 }

@@ -22,8 +22,4 @@ public class PhdProvider implements IProvider {
     public List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
         return new ArrayList<>();
     }
-
-    @Override
-    public void downloadFile(ResultData resultData) {
-    }
 }
