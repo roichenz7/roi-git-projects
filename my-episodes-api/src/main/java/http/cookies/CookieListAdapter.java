@@ -12,13 +12,11 @@ import java.util.stream.Collector;
 
 public class CookieListAdapter extends ArrayList<Cookie> {
 
-    private String listAsString = "";
-
     @Override
     public String toString() {
-        listAsString = "";
-        forEach(c -> listAsString += c + "; ");
-        return listAsString;
+        StringBuilder sb = new StringBuilder();
+        forEach(c -> sb.append(c).append("; "));
+        return sb.toString();
     }
 
     /**
