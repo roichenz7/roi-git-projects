@@ -41,8 +41,16 @@ public class ShowData {
         return origin;
     }
 
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
     public boolean isProper() {
         return isProper;
+    }
+
+    public void setProper(boolean isProper) {
+        this.isProper = isProper;
     }
 
     public boolean isEmpty() {
@@ -67,8 +75,15 @@ public class ShowData {
      * @return empty data if unsuccessful, valid data otherwise
      */
     public static ShowData fromFilename(String filename, String regex) {
+        // TODO: parse better using pattern matching
         ShowData showData = new ShowData();
         String title = "";
+
+        if (filename.matches("PROPER"))
+            showData.setProper(true);
+
+        // TODO; set origin
+
         String[] tokens = filename.split(regex);
         for (String temp : tokens) {
             if (temp.matches("S[0-9][0-9](E[0-9][0-9])+")) { // found season & episode/s
