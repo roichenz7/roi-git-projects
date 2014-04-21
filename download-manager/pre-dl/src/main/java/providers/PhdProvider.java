@@ -1,6 +1,7 @@
 package providers;
 
 import data.ResultData;
+import data.ShowData;
 import enums.Quality;
 import exceptions.SearchException;
 import http.HttpMethod;
@@ -9,6 +10,8 @@ import http.IHttpResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -54,7 +57,36 @@ public class PhdProvider implements IProvider {
                             .matcher(e.html());
                     return matcher.find() && !matcher.find();
                 })
-                .map(ResultData::new)
+                .map(PhdResultData::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * PHD result data inner class
+     */
+    private static class PhdResultData extends ResultData {
+
+        public PhdResultData(Element source) {
+            super(source);
+        }
+
+        @Override
+        protected void initialize(Element source) {
+            Elements elements = source.getElementsByTag("td");
+
+            ShowData showData = ShowData.fromFilename(elements.get(1).text(), " ");
+            tvShowName = showData.getTitle();
+            season = showData.getSeasonNumber();
+            episode = showData.getEpisodeNumber();
+
+            quality = Quality.fromString(showData.getQuality());
+            origin = showData.getOrigin();
+            isProper = showData.isProper();
+
+            seeds = Integer.parseInt(elements.get(4).text());
+            peers = Integer.parseInt(elements.get(5).text());
+
+            downloadLink = elements.get(2).getElementsByAttribute("href").get(2).attr("href");
+        }
     }
 }
