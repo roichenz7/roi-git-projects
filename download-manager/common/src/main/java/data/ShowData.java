@@ -7,6 +7,9 @@ public class ShowData {
     private int seasonNumber;
     private int episodeNumber;
 
+    private String origin;
+    private boolean isProper;
+
     public ShowData() {
     }
 
@@ -34,6 +37,14 @@ public class ShowData {
         return episodeNumber;
     }
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public boolean isProper() {
+        return isProper;
+    }
+
     public boolean isEmpty() {
         return title == null && season == null;
     }
@@ -45,9 +56,20 @@ public class ShowData {
      * @return empty data if unsuccessful, valid data otherwise
      */
     public static ShowData fromFilename(String filename) {
+        return fromFilename(filename, "[.]");
+    }
+
+    /**
+     * Creates show data from given filename
+     *
+     * @param filename: filename to parse
+     * @param regex: regex
+     * @return empty data if unsuccessful, valid data otherwise
+     */
+    public static ShowData fromFilename(String filename, String regex) {
         ShowData showData = new ShowData();
         String title = "";
-        String[] tokens = filename.split("[.]");
+        String[] tokens = filename.split(regex);
         for (String temp : tokens) {
             if (temp.matches("S[0-9][0-9](E[0-9][0-9])+")) { // found season & episode/s
                 char c1 = temp.charAt(1);
