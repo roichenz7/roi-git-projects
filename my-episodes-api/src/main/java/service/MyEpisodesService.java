@@ -1,5 +1,9 @@
 package service;
 
+import data.TvShowStatusData;
+
+import java.util.List;
+
 public interface MyEpisodesService {
 
     /**
@@ -8,6 +12,11 @@ public interface MyEpisodesService {
      * @param filename configuration filename
      */
     void configure(String filename);
+
+    /**
+     * @return tv shows status
+     */
+    List<TvShowStatusData> getStatus();
 
     /**
      * Marks given episode as acquired

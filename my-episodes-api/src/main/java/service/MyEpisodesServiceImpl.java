@@ -4,6 +4,7 @@ import com.ning.http.client.cookie.Cookie;
 import data.ITvShowParser;
 import data.TvShowData;
 import data.TvShowParser;
+import data.TvShowStatusData;
 import exceptions.LoginException;
 import exceptions.UpdateException;
 import http.HttpMethod;
@@ -26,6 +27,11 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     @Override
     public void configure(String filename) {
         tvShowParser.deserialize(filename);
+    }
+
+    @Override
+    public List<TvShowStatusData> getStatus() {
+        return null;
     }
 
     @Override
