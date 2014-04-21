@@ -1,6 +1,7 @@
 package data;
 
 import enums.Quality;
+import org.jsoup.nodes.Element;
 
 public class ResultData {
 
@@ -17,7 +18,7 @@ public class ResultData {
 
     private String downloadLink;
 
-    public ResultData(String source) {
+    public ResultData(Element source) {
         // TODO: init fields
     }
 
