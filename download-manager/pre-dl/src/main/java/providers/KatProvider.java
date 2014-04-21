@@ -33,6 +33,10 @@ public class KatProvider implements IProvider {
                     .withAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .withHeader("Accept-Language", "en-US,en;q=0.5")
                     .withHeader("Accept-Encoding", "gzip, deflate")
+                    .withHeader("DNT", "1")
+                    .withHeader("Cookie", "country_code=IL; state=1398091871535; _ga=GA1.2.543244531.1398081658; lang_detected=en; lang_code=en")
+                    .withHeader("Connection", "keep-alive")
+                    .withHeader("Cache-Control", "max-age=0")
                     .execute();
         } catch (Exception e) {
             throw new SearchException(query, e);
