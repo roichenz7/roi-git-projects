@@ -9,8 +9,12 @@ import http.IHttpResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class PhdProvider implements IProvider {
@@ -47,8 +51,23 @@ public class PhdProvider implements IProvider {
         Document document = Jsoup.parse(response.getBody());
         return document.select("tr")
                 .stream()
-                .filter(e -> e.html().contains("<a href=\"magnet:?"))
+                .filter(new ResultPredicate())
                 .map(ResultData::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Result predicate inner class
+     */
+    private static class ResultPredicate implements Predicate<Element> {
+
+        @Override
+        public boolean test(Element element) {
+            Matcher matcher = Pattern.compile("<a href=\"magnet:?")
+                    .matcher(element.html());
+
+            // @return true if the above pattern appears exactly once in given element
+            return matcher.find() && !matcher.find();
+        }
     }
 }
