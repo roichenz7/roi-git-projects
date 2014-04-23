@@ -16,6 +16,10 @@ public class EpisodeData {
         return tvShowData;
     }
 
+    public String getTvShowName() {
+        return tvShowData.getName();
+    }
+
     public int getSeason() {
         return season;
     }
