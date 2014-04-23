@@ -22,6 +22,10 @@ public class ShowData {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getSeason() {
         return season;
     }
