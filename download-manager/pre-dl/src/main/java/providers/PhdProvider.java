@@ -1,5 +1,6 @@
 package providers;
 
+import data.RequestData;
 import data.ResultData;
 import data.ShowData;
 import enums.Quality;
@@ -31,22 +32,20 @@ public class PhdProvider implements IProvider {
     }
 
     @Override
-    public List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
-        final String query = String.format("%s s%02de%02d %s", tvShowName, season, episode, quality);
-
+    public List<ResultData> search(RequestData requestData) {
         IHttpResponse response;
         try {
             response = new HttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/index.php")
                     .withUrlParam("page", "torrents")
-                    .withUrlParam("search", query)
+                    .withUrlParam("search", requestData.toString())
                     .withUrlParam("active", "0")
                     .execute();
         } catch (Exception e) {
-            throw new SearchException(query, e);
+            throw new SearchException(requestData.toString(), e);
         }
 
         if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
-            throw new SearchException(query, "Http response: " + response);
+            throw new SearchException(requestData.toString(), "Http response: " + response);
         }
 
         Document document = Jsoup.parse(response.getBody());

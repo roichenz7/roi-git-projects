@@ -1,7 +1,7 @@
 package providers;
 
+import data.RequestData;
 import data.ResultData;
-import enums.Quality;
 import exceptions.SearchException;import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
@@ -22,9 +22,8 @@ public class KatProvider implements IProvider {
     }
 
     @Override
-    public List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
-        final String query = String.format("%s S%02dE%02d %s", tvShowName, season, episode, quality)
-                .replaceAll(" ", "%20");
+    public List<ResultData> search(RequestData requestData) {
+        final String query = requestData.toString().replaceAll(" ", "%20");
 
         IHttpResponse response;
         try {

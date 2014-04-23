@@ -1,5 +1,6 @@
 package providers;
 
+import data.RequestData;
 import data.ResultData;
 import enums.Quality;
 import exceptions.ResultNotFoundException;
@@ -22,6 +23,14 @@ public interface IProvider {
     String getBaseUrl();
 
     /**
+     * Performs search according to requestData
+     *
+     * @param requestData request data
+     * @return list of results
+     */
+    List<ResultData> search(RequestData requestData);
+
+    /**
      * Performs search according to given parameters
      *
      * @param tvShowName tv show name
@@ -30,7 +39,9 @@ public interface IProvider {
      * @param quality file quality
      * @return list of results
      */
-    List<ResultData> search(String tvShowName, int season, int episode, Quality quality);
+    default List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
+        return search(new RequestData(tvShowName, season, episode, quality));
+    }
 
     /**
      * Returns best result from given results
