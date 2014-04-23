@@ -13,6 +13,7 @@ import http.cookies.CookieAdapter;
 import http.cookies.CookieListAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MyEpisodesServiceImpl implements MyEpisodesService {
@@ -31,7 +32,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     }
 
     @Override
-    public List<TvShowData> getStatus() {
+    public Collection<TvShowData> getStatus() {
         // TODO: use views.php?type=epsbyshow&showid=XXX for each show
         // TODO: or just use myshows.php
         return new ArrayList<>();
