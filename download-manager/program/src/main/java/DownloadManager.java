@@ -37,7 +37,7 @@ public class DownloadManager {
                     throw new RuntimeException("Error");
             }
             case "--pre-dl":
-                return new PreDL(args[1]);
+                return new PreDL(args[1], args[2], args[3], args[4]);
             default:
                 throw new RuntimeException("download-manager: unknown flag (" + args[0] + ")");
         }
