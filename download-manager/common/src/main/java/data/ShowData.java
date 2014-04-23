@@ -22,16 +22,8 @@ public class ShowData {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getSeason() {
         return season;
-    }
-
-    public void setSeason(String season) {
-        this.season = season;
     }
 
     public int getSeasonNumber() {
@@ -46,24 +38,12 @@ public class ShowData {
         return quality;
     }
 
-    public void setQuality(String quality) {
-        this.quality = quality;
-    }
-
     public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
     public boolean isProper() {
         return isProper;
-    }
-
-    public void setProper(boolean isProper) {
-        this.isProper = isProper;
     }
 
     public boolean isEmpty() {
@@ -88,52 +68,34 @@ public class ShowData {
      * @return empty data if unsuccessful, valid data otherwise
      */
     public static ShowData fromFilename(String filename, String regex) {
-        // TODO: parse better using pattern matching
         ShowData showData = new ShowData();
-        String title = "";
 
-        if (filename.matches("PROPER"))
-            showData.setProper(true);
+        Matcher matcher = Pattern.compile("(.*)(S[0-9][0-9](E[0-9][0-9])+)(.*)").matcher(filename);
+        if (matcher.find()) {
+            showData.title = matcher.group(1).replaceAll(regex, " ").trim();
 
-        Matcher matcher = Pattern.compile(".*(720p|1080p).*").matcher(filename);
-        if (matcher.find())
-            showData.setQuality(matcher.group(1));
+            String seasonAndEpisodes = matcher.group(2);
 
-        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE|PublicHD).*").matcher(filename);
-        if (matcher.find())
-            showData.setOrigin(matcher.group(1));
+            String season = seasonAndEpisodes.replaceAll("S", "").replaceAll("E.*", "").replaceAll("0", "");
+            showData.season = "Season " + season;
+            showData.seasonNumber = Integer.parseInt(season);
 
-        String[] tokens = filename.split(regex);
-        for (String temp : tokens) {
-            if (temp.matches("S[0-9][0-9](E[0-9][0-9])+")) { // found season & episode/s
-                char c1 = temp.charAt(1);
-                char c2 = temp.charAt(2);
-                if (c1 == '0') {
-                    showData.setSeason("Season " + c2);
-                    showData.seasonNumber = Integer.parseInt(String.valueOf(c2));
-                }
-                else {
-                    showData.setSeason("Season " + c1 + c2);
-                    showData.seasonNumber = Integer.parseInt(String.valueOf(c1) + String.valueOf(c2));
-                }
-
-                // TODO: handle multiple episodes...
-                int index = temp.indexOf("E");
-                char c3 = temp.charAt(index + 1);
-                char c4 = temp.charAt(index + 2);
-                if (c3 == '0') {
-                    showData.episodeNumber = Integer.parseInt(String.valueOf(c4));
-                }
-                else {
-                    showData.episodeNumber = Integer.parseInt(String.valueOf(c3) + String.valueOf(c4));
-                }
-
-                showData.setTitle(title.trim());
-                return showData;
-            } else {
-                title = title + " " + temp;
-            }
+            String episode = seasonAndEpisodes.replaceAll("S.*E", ""); // TODO: handle multiple episodes
+            showData.episodeNumber = Integer.parseInt(episode);
         }
+
+        matcher = Pattern.compile(".*(720p|1080p).*").matcher(filename);
+        if (matcher.find())
+            showData.quality = matcher.group(1);
+        else
+            showData.quality = "";
+
+        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE|PublicHD|NTb|LOL|AFG|FoV).*").matcher(filename); // TODO: better
+        if (matcher.find())
+            showData.origin = matcher.group(1);
+
+        if (filename.matches(".*PROPER.*"))
+            showData.isProper = true;
 
         return showData;
     }
