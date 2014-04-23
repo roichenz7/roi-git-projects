@@ -99,7 +99,7 @@ public class ShowData {
         if (matcher.find())
             showData.setQuality(matcher.group(1));
 
-        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE).*").matcher(filename);
+        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE|PublicHD).*").matcher(filename);
         if (matcher.find())
             showData.setOrigin(matcher.group(1));
 

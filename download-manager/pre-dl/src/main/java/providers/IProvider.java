@@ -57,7 +57,8 @@ public interface IProvider {
         return Collections.unmodifiableList(Arrays.asList("DIMENSION",
                 "2HD",
                 "KILLERS",
-                "REMARKABLE"));
+                "REMARKABLE",
+                "PublicHD"));
     }
 
     /**
