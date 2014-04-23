@@ -12,12 +12,16 @@ public final class FileDownloader {
      *
      * @param downloadLink download link
      * @param targetFilename target file name
-     * @throws Exception
+     * @throws RuntimeException
      */
-    public static void downloadFile(String downloadLink, String targetFilename) throws Exception {
-        URL website = new URL(downloadLink);
-        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream(targetFilename + ".torrent");
-        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+    public static void downloadFile(String downloadLink, String targetFilename) throws RuntimeException {
+        try {
+            URL website = new URL(downloadLink);
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream(targetFilename + ".torrent");
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to download file from link: " + downloadLink, e);
+        }
     }
 }
