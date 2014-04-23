@@ -23,4 +23,9 @@ public class EpisodeData {
     public int getEpisode() {
         return episode;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s S%02dE%02d", tvShowData, season, episode);
+    }
 }
