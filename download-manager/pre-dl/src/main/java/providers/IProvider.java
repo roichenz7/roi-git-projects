@@ -4,10 +4,6 @@ import data.ResultData;
 import enums.Quality;
 import exceptions.ResultNotFoundException;
 
-import java.io.FileOutputStream;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -59,18 +55,5 @@ public interface IProvider {
                 "KILLERS",
                 "REMARKABLE",
                 "PublicHD"));
-    }
-
-    /**
-     * Downloads file according to given result
-     *
-     * @param resultData result
-     * @throws Exception
-     */
-    default void downloadFile(ResultData resultData) throws Exception {
-        URL website = new URL(resultData.getDownloadLink());
-        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream(resultData + ".torrent");
-        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
     }
 }
