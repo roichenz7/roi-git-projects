@@ -7,13 +7,6 @@ import java.util.List;
 public interface MyEpisodesService {
 
     /**
-     * Loads configuration from given filename
-     *
-     * @param filename configuration filename
-     */
-    void configure(String filename);
-
-    /**
      * @return tv shows status
      */
     List<TvShowData> getStatus();

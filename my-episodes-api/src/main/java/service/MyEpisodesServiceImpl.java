@@ -23,9 +23,9 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         login(username, password);
     }
 
-    @Override
-    public void configure(String filename) {
-        tvShowParser.deserialize(filename);
+    public MyEpisodesServiceImpl(final String username, final String password, final String configFilename) {
+        this(username, password);
+        tvShowParser.deserialize(configFilename);
     }
 
     @Override
