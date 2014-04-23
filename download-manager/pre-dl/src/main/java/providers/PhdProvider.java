@@ -51,6 +51,7 @@ public class PhdProvider implements IProvider {
         Document document = Jsoup.parse(response.getBody());
         return document.select("tr")
                 .stream()
+                .filter(e -> e.select("td").size() == 8)
                 .filter(e -> {
                     Matcher matcher = Pattern.compile("<a href=\"magnet:?")
                             .matcher(e.html());
