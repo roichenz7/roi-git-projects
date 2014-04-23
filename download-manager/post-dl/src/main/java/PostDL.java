@@ -83,11 +83,8 @@ public class PostDL implements Runnable {
         System.out.println("post-dl: found " + files.size() + " relevant files");
 
         if (isMarkAsAcquired) {
-            System.out.println("post-dl: logging in to my episodes, username: " + username);
-            myEpisodesService = new MyEpisodesServiceImpl(username, password);
-
-            System.out.println("post-dl: loading tv shows configuration file: " + tvShowsConfigFilename);
-            myEpisodesService.configure(tvShowsConfigFilename);
+            System.out.println("post-dl: logging in to my episodes, username: " + username + ", tv shows config: " + tvShowsConfigFilename);
+            myEpisodesService = new MyEpisodesServiceImpl(username, password, tvShowsConfigFilename);
         }
 
         // Build TV shows collection
