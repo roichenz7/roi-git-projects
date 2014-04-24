@@ -76,4 +76,19 @@ public class PreDLConfigData implements IPreDLConfigData {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("pre-dl-config:\n");
+        sb.append("download-dir: ").append(downloadDir);
+        sb.append("; default-quality: ").append(defaultQuality).append("\n");
+
+        sb.append("ignored-shows: ");
+        ignoredShows.forEach(x -> sb.append(x).append("; "));
+
+        sb.append(" special-shows: ");
+        specialShows.forEach(x -> sb.append(x).append("; "));
+
+        return sb.toString();
+    }
 }
