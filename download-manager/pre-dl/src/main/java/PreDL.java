@@ -81,7 +81,7 @@ public class PreDL implements Runnable {
 
             System.out.println("pre-dl: got " + results.size() + " results");
 
-            System.out.println("pre-dl: getting best results");
+            System.out.println("pre-dl: getting best result");
             ResultData result = provider.getBestResult(results);
 
             System.out.println("pre-dl: downloading file: " + result);
