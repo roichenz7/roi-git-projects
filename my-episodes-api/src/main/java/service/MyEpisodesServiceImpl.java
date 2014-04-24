@@ -4,6 +4,7 @@ import com.ning.http.client.cookie.Cookie;
 import data.ITvShowParser;
 import data.TvShowData;
 import data.TvShowParser;
+import exceptions.GetStatusException;
 import exceptions.LoginException;
 import exceptions.UpdateException;
 import http.HttpMethod;
@@ -35,6 +36,20 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     public Collection<TvShowData> getStatus() {
         // TODO: use views.php?type=epsbyshow&showid=XXX for each show
         // TODO: or just use myshows.php
+
+        IHttpResponse response;
+        try {
+            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
+                    .withHeader("Cookie", cookies.toString())
+                    .execute();
+        } catch (Exception e) {
+            throw new GetStatusException(e);
+        }
+
+        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+            throw new GetStatusException();
+        }
+
         return new ArrayList<>();
     }
 
