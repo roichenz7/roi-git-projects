@@ -2,7 +2,8 @@ package providers;
 
 import data.RequestData;
 import data.ResultData;
-import exceptions.SearchException;import http.HttpMethod;
+import exceptions.SearchException;
+import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
 

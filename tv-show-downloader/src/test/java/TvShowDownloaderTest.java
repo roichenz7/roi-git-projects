@@ -2,11 +2,13 @@ import data.ResultData;
 import enums.Quality;
 import file.FileDownloader;
 import org.junit.Test;
-import providers.*;
+import providers.IProvider;
+import providers.KatProvider;
+import providers.PhdProvider;
 
 import java.util.List;
 
-public class PreDLTest {
+public class TvShowDownloaderTest {
 
     @Test
     public void testKat() throws Exception {

@@ -1,8 +1,8 @@
 import config.PostDLConfigData;
 import config.IPostDLConfigData;
 import data.ShowData;
-import filters.DirectoryFilter;
-import filters.VideoFileFilter;
+import file.filters.DirectoryFilter;
+import file.filters.VideoFileFilter;
 import service.MyEpisodesService;
 import service.MyEpisodesServiceImpl;
 

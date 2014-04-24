@@ -8,7 +8,6 @@ import exceptions.SearchException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

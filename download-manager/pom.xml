@@ -12,7 +12,6 @@
     <modules>
         <module>pre-dl</module>
         <module>post-dl</module>
-        <module>common</module>
         <module>program</module>
     </modules>
 
