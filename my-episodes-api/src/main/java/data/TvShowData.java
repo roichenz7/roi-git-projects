@@ -14,7 +14,7 @@ public class TvShowData {
     private Collection<EpisodeData> acquiredEpisodes = new ArrayList<>();
     private Collection<EpisodeData> seenEpisodes = new ArrayList<>();
 
-    private Collection<EpisodeData> unacquiredEpisodes = new ArrayList<>();
+    private Collection<EpisodeData> unAcquiredEpisodes = new ArrayList<>();
     private Collection<EpisodeData> unseenEpisodes = new ArrayList<>();
 
     private boolean isOngoing; // TODO: status enum?
@@ -44,8 +44,8 @@ public class TvShowData {
         return seenEpisodes;
     }
 
-    public Collection<EpisodeData> getUnacquiredEpisodes() {
-        return unacquiredEpisodes;
+    public Collection<EpisodeData> getUnAcquiredEpisodes() {
+        return unAcquiredEpisodes;
     }
 
     public Collection<EpisodeData> getUnseenEpisodes() {
