@@ -1,10 +1,14 @@
 package data;
 
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShowData {
 
+    private int id = -1;
     private String title;
     private String season;
     private int seasonNumber;
@@ -16,6 +20,17 @@ public class ShowData {
     private boolean isProper;
 
     public ShowData() {
+    }
+
+    public ShowData(Node node) {
+        NamedNodeMap attributes = node.getAttributes();
+        id = Integer.parseInt(attributes.getNamedItem("id").getNodeValue());
+        title = attributes.getNamedItem("name").getNodeValue();
+        quality = attributes.getNamedItem("quality").getNodeValue();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
