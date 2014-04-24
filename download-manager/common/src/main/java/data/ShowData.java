@@ -133,4 +133,9 @@ public class ShowData {
 
         return showData;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d) (%s)", title, id, quality);
+    }
 }
