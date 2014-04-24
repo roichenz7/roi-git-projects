@@ -36,8 +36,7 @@ public class PreDL implements Runnable {
         System.out.println("pre-dl: getting list of episodes to acquire");
         List<EpisodeData> episodesToAcquire = myEpisodesService.getStatus()
                 .stream()
-                .filter(x -> !x.getUnacquiredEpisodes().isEmpty())
-                .flatMap(x -> x.getUnacquiredEpisodes().stream())
+                .flatMap(x -> x.getUnAcquiredEpisodes().stream())
                 .collect(Collectors.toList());
 
         if (episodesToAcquire.isEmpty()) {
