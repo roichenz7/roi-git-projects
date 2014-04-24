@@ -58,6 +58,6 @@ public class TvShowData {
 
     @Override
     public String toString() {
-        return name + "(" + id + ")";
+        return name + " (" + id + ")";
     }
 }
