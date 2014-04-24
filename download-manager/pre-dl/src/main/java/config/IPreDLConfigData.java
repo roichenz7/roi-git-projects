@@ -35,4 +35,16 @@ public interface IPreDLConfigData {
      * @return true if successful, false otherwise
      */
     boolean parse(String filename);
+
+    /**
+     * @param id tv show id
+     * @return tv show quality
+     */
+    default Quality getTvShowQuality(int id) {
+        return specialShows().stream()
+                .filter(x -> x.getId() == id)
+                .map(x -> Quality.fromString(x.getQuality()))
+                .findFirst()
+                .orElse(defaultQuality());
+    }
 }
