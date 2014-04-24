@@ -7,7 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 
-public class ConfigData implements IConfigData {
+public class PostDLConfigData implements IPostDLConfigData {
 
     private String sourceDir;
     private String targetDir;

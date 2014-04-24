@@ -1,5 +1,5 @@
-import config.ConfigData;
-import config.IConfigData;
+import config.PostDLConfigData;
+import config.IPostDLConfigData;
 import data.ShowData;
 import filters.DirectoryFilter;
 import filters.VideoFileFilter;
@@ -36,7 +36,7 @@ public class PostDL implements Runnable {
 
     @Override
     public void run() {
-        IConfigData config = new ConfigData();
+        IPostDLConfigData config = new PostDLConfigData();
         if (!config.parse(configFilename)) {
             System.out.println("post-dl: failed parsing configuration: " + configFilename);
             return;

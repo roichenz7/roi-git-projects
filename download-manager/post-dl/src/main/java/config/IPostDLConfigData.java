@@ -1,6 +1,6 @@
 package config;
 
-public interface IConfigData {
+public interface IPostDLConfigData {
 
     /**
      * @return source directory
