@@ -74,17 +74,17 @@ public class ShowData {
     public static ShowData fromFilename(String filename, String regex) {
         ShowData showData = new ShowData();
 
-        Matcher matcher = Pattern.compile("(.*)(S[0-9][0-9](E[0-9][0-9])+)(.*)").matcher(filename);
+        Matcher matcher = Pattern.compile("(.*)(S[0-9][0-9](E[0-9][0-9])+)(.*)", Pattern.CASE_INSENSITIVE).matcher(filename);
         if (matcher.find()) {
             showData.title = matcher.group(1).replaceAll(regex, " ").trim();
 
             String seasonAndEpisodes = matcher.group(2);
 
-            String season = seasonAndEpisodes.replaceAll("S", "").replaceAll("E.*", "").replaceAll("0", "");
+            String season = seasonAndEpisodes.replaceAll("[S|s]", "").replaceAll("[E|e].*", "").replaceAll("0", "");
             showData.season = "Season " + season;
             showData.seasonNumber = Integer.parseInt(season);
 
-            String episode = seasonAndEpisodes.replaceAll("S.*E", ""); // TODO: handle multiple episodes
+            String episode = Pattern.compile("S.*E", Pattern.CASE_INSENSITIVE).matcher(seasonAndEpisodes).replaceAll(""); // TODO: handle multiple episodes
             showData.episodeNumber = Integer.parseInt(episode);
         }
 
@@ -94,11 +94,12 @@ public class ShowData {
         else
             showData.quality = "";
 
-        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE|PublicHD|NTb|LOL|AFG|FoV).*").matcher(filename); // TODO: better
+        matcher = Pattern.compile(".*(DIMENSION|2HD|KILLERS|REMARKABLE|PublicHD|NTb|LOL|AFG|FoV).*", Pattern.CASE_INSENSITIVE).matcher(filename); // TODO: better
         if (matcher.find())
             showData.origin = matcher.group(1);
 
-        if (filename.matches(".*PROPER.*"))
+        matcher = Pattern.compile(".*(PROPER).*", Pattern.CASE_INSENSITIVE).matcher(filename);
+        if (matcher.find())
             showData.isProper = true;
 
         return showData;
