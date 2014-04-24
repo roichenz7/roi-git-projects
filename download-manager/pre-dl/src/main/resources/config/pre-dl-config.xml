@@ -1,4 +1,6 @@
-<pre-dl-config download_dir="//NAS/cache/.apps/torrents/watch">
-        <ignored_tv_show id="8603" name="Scandal"/>
-        <ignored_tv_show id="8353" name="Suits"/>
+<pre-dl-config download_dir="//NAS/cache/.apps/torrents/watch" default_quality="720p">
+    <ignored_tv_show id="8603" name="Scandal"/>
+    <ignored_tv_show id="8353" name="Suits"/>
+
+    <special_tv_show id="5926" name="Game Of Thrones" quality="1080p"/>
 </pre-dl-config>
