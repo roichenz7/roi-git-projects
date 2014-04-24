@@ -1,5 +1,6 @@
 package data;
 
+import org.jsoup.nodes.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -20,6 +21,9 @@ public class TvShowData {
     private boolean isOngoing; // TODO: status enum?
 
     public TvShowData() {
+    }
+
+    public TvShowData(Element element) {
     }
 
     public TvShowData(Node node) {
