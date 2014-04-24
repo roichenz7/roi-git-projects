@@ -48,8 +48,7 @@ public class PreDL implements Runnable {
             return;
         }
 
-        System.out.println("pre-dl: ignored tv shows:");
-        config.ignoredShows().forEach(System.out::println);
+        System.out.println(config);
 
         System.out.println("pre-dl: logging in to my episodes, username: " + username + ", tv shows config: " + tvShowsConfigFilename);
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password, tvShowsConfigFilename);
