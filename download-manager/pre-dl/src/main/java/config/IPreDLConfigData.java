@@ -4,7 +4,7 @@ import data.TvShowData;
 
 import java.util.Collection;
 
-public interface IConfigData {
+public interface IPreDLConfigData {
 
     /**
      * @return download directory

@@ -14,7 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.util.Collection;
 
-public class ConfigData implements IConfigData {
+public class PreDLConfigData implements IPreDLConfigData {
 
     private String downloadDir;
     private Collection<TvShowData> ignoredShows;

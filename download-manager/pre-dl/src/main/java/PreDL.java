@@ -1,5 +1,5 @@
-import config.ConfigData;
-import config.IConfigData;
+import config.PreDLConfigData;
+import config.IPreDLConfigData;
 import data.EpisodeData;
 import data.ResultData;
 import enums.Quality;
@@ -33,7 +33,7 @@ public class PreDL implements Runnable {
 
     @Override
     public void run() {
-        IConfigData config = new ConfigData();
+        IPreDLConfigData config = new PreDLConfigData();
         if (!config.parse(configFilename)) {
             System.out.println("pre-dl: failed parsing configuration: " + configFilename);
             return;
