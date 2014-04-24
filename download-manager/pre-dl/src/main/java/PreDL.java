@@ -2,6 +2,7 @@ import config.PreDLConfigData;
 import config.IPreDLConfigData;
 import data.EpisodeData;
 import data.ResultData;
+import enums.Quality;
 import file.FileDownloader;
 import providers.IProvider;
 import providers.PhdProvider;
@@ -22,7 +23,7 @@ public class PreDL implements Runnable {
     private final IProvider provider;
 
     public PreDL(String configFilename, String tvShowsConfigFilename, String username, String password) {
-        this.configFilename = configFilename; // TODO: ???
+        this.configFilename = configFilename;
         this.tvShowsConfigFilename = tvShowsConfigFilename;
         this.username = username;
         this.password = password;
@@ -70,12 +71,13 @@ public class PreDL implements Runnable {
 
         System.out.println("pre-dl: processing un-acquired episodes");
         episodesToAcquire.forEach(e -> {
-            System.out.println("pre-dl: searching for:" + e);
+            Quality quality = config.getTvShowQuality(e.getTvShowData().getId());
+            System.out.println("pre-dl: searching for:" + e + " [" + quality + "]");
 
             List<ResultData> results = provider.search(e.getTvShowName(),
                     e.getSeason(),
                     e.getEpisode(),
-                    config.defaultQuality()); // TODO: handle shows with special quality from config
+                    quality);
 
             System.out.println("pre-dl: got " + results.size() + " results");
 
