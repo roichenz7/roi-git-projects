@@ -12,10 +12,11 @@ import http.HttpRequestBuilder;
 import http.IHttpResponse;
 import http.cookies.CookieAdapter;
 import http.cookies.CookieListAdapter;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyEpisodesServiceImpl implements MyEpisodesService {
 
@@ -33,7 +34,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     }
 
     @Override
-    public Collection<TvShowData> getStatus() {
+    public List<TvShowData> getStatus() {
         // TODO: use views.php?type=epsbyshow&showid=XXX for each show
         // TODO: or just use myshows.php
 
@@ -50,7 +51,12 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new GetStatusException();
         }
 
-        return new ArrayList<>();
+        Document document = Jsoup.parse(response.getBody());
+        return document.select("tr")
+                .stream()
+                .filter(e -> e.select("td").size() == 6)
+                .map(TvShowData::new) // TODO
+                .collect(Collectors.toList());
     }
 
     @Override
