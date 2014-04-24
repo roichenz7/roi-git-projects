@@ -1,8 +1,10 @@
 package config;
 
+import data.ShowData;
 import data.TvShowData;
+import enums.Quality;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface IPreDLConfigData {
 
@@ -12,9 +14,19 @@ public interface IPreDLConfigData {
     String downloadDir();
 
     /**
+     * @return default quality
+     */
+    Quality defaultQuality();
+
+    /**
      * @return ignored shows
      */
-    Collection<TvShowData> ignoredShows();
+    List<TvShowData> ignoredShows();
+
+    /**
+     * @return special shows
+     */
+    List<ShowData> specialShows();
 
     /**
      * Parses given configuration file

@@ -1,23 +1,24 @@
 package config;
 
-import data.ITvShowParser;
+import data.ShowData;
 import data.TvShowData;
-import data.TvShowParser;
-import data.serializers.ISerializer;
-import data.serializers.XmlSerializer;
+import enums.Quality;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import xml.NodeListFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PreDLConfigData implements IPreDLConfigData {
 
     private String downloadDir;
-    private Collection<TvShowData> ignoredShows;
+    private Quality defaultQuality;
+    private List<TvShowData> ignoredShows;
+    private List<ShowData> specialShows;
 
     @Override
     public String downloadDir() {
@@ -25,8 +26,18 @@ public class PreDLConfigData implements IPreDLConfigData {
     }
 
     @Override
-    public Collection<TvShowData> ignoredShows() {
+    public Quality defaultQuality() {
+        return defaultQuality;
+    }
+
+    @Override
+    public List<TvShowData> ignoredShows() {
         return ignoredShows;
+    }
+
+    @Override
+    public List<ShowData> specialShows() {
+        return specialShows;
     }
 
     @Override
@@ -43,25 +54,22 @@ public class PreDLConfigData implements IPreDLConfigData {
             if (downloadDir.isEmpty())
                 return false;
 
-            ITvShowParser tvShowParser = new TvShowParser() {
-                @Override
-                protected ISerializer<TvShowData> getSerializer() {
-                    return new XmlSerializer<TvShowData>() {
-                        @Override
-                        protected String getElementTagName() {
-                            return "ignored_tv_show";
-                        }
+            String str = e.getAttribute("default_quality");
+            if (str.isEmpty())
+                return false;
+            else
+                defaultQuality = Quality.fromString(str);
 
-                        @Override
-                        protected TvShowData createElement(Node node) {
-                            return new TvShowData(node);
-                        }
-                    };
-                }
-            };
+            ignoredShows = NodeListFactory.elementsByName(e, "ignored_tv_show")
+                    .stream()
+                    .map(TvShowData::new)
+                    .collect(Collectors.toList());
 
-            tvShowParser.deserialize(filename);
-            ignoredShows = tvShowParser.getAll();
+            specialShows = NodeListFactory.elementsByName(e, "special_tv_show")
+                    .stream()
+                    .map(ShowData::new)
+                    .collect(Collectors.toList());
+
         } catch (Exception e) {
             return false;
         }
