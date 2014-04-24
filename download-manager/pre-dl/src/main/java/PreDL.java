@@ -2,7 +2,6 @@ import config.PreDLConfigData;
 import config.IPreDLConfigData;
 import data.EpisodeData;
 import data.ResultData;
-import enums.Quality;
 import file.FileDownloader;
 import providers.IProvider;
 import providers.PhdProvider;
@@ -74,7 +73,11 @@ public class PreDL implements Runnable {
         episodesToAcquire.forEach(e -> {
             System.out.println("pre-dl: searching for:" + e);
 
-            List<ResultData> results = provider.search(e.getTvShowName(), e.getSeason(), e.getEpisode(), Quality.HD_720p); // TODO: quality from config
+            List<ResultData> results = provider.search(e.getTvShowName(),
+                    e.getSeason(),
+                    e.getEpisode(),
+                    config.defaultQuality()); // TODO: handle shows with special quality from config
+
             System.out.println("pre-dl: got " + results.size() + " results");
 
             System.out.println("pre-dl: getting best results");
