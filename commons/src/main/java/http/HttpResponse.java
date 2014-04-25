@@ -3,6 +3,7 @@ package http;
 import com.ning.http.client.Response;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class HttpResponse implements IHttpResponse {
@@ -32,6 +33,15 @@ public class HttpResponse implements IHttpResponse {
     public String getBody() {
         try {
             return response.getResponseBody();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public InputStream getBodyAsStream() {
+        try {
+            return response.getResponseBodyAsStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

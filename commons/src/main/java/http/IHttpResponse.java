@@ -1,5 +1,6 @@
 package http;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface IHttpResponse {
@@ -23,4 +24,9 @@ public interface IHttpResponse {
      * @return response body
      */
     String getBody();
+
+    /**
+     * @return response body as stream
+     */
+    InputStream getBodyAsStream();
 }
