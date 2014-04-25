@@ -1,5 +1,7 @@
 package data;
 
+import org.jsoup.nodes.Element;
+
 public class EpisodeData {
 
     private int tvShowId;
@@ -12,6 +14,10 @@ public class EpisodeData {
         this.tvShowName = tvShowName;
         this.season = season;
         this.episode = episode;
+    }
+
+    public EpisodeData(Element element) {
+
     }
 
     /**
