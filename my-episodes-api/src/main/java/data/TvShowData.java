@@ -1,31 +1,19 @@
 package data;
 
-import org.jsoup.nodes.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
 public class TvShowData {
 
     private int id;
     private String name;
 
-    private Collection<EpisodeData> acquiredEpisodes = new ArrayList<>();
-    private Collection<EpisodeData> seenEpisodes = new ArrayList<>();
-
-    private Collection<EpisodeData> unAcquiredEpisodes = new ArrayList<>();
-    private Collection<EpisodeData> unseenEpisodes = new ArrayList<>();
-
-    private boolean isOngoing; // TODO: status enum?
-
-    public TvShowData() {
-    }
-
-    public TvShowData(Element element) {
-        // TODO...
-    }
+    private Collection<EpisodeData> unAcquiredEpisodes = new HashSet<>();
+    private Collection<EpisodeData> unseenEpisodes = new HashSet<>();
 
     public TvShowData(Node node) {
         NamedNodeMap attributes = node.getAttributes();
@@ -33,32 +21,50 @@ public class TvShowData {
         name = attributes.getNamedItem("name").getNodeValue();
     }
 
+    /**
+     * @return tv show id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @return tv show name
+     */
     public String getName() {
         return name;
     }
 
-    public Collection<EpisodeData> getAcquiredEpisodes() {
-        return acquiredEpisodes;
-    }
-
-    public Collection<EpisodeData> getSeenEpisodes() {
-        return seenEpisodes;
-    }
-
+    /**
+     * @return un-acquired episodes
+     */
     public Collection<EpisodeData> getUnAcquiredEpisodes() {
-        return unAcquiredEpisodes;
+        return Collections.unmodifiableCollection(unAcquiredEpisodes);
     }
 
+    /**
+     * @return un-seen episodes
+     */
     public Collection<EpisodeData> getUnseenEpisodes() {
-        return unseenEpisodes;
+        return Collections.unmodifiableCollection(unseenEpisodes);
     }
 
-    public boolean isOngoing() {
-        return isOngoing;
+    /**
+     * Adds given episode to un-acquired episodes collection
+     *
+     * @param episodeData episode to add
+     */
+    public void addUnAcquiredEpisode(EpisodeData episodeData) {
+        unAcquiredEpisodes.add(episodeData);
+    }
+
+    /**
+     * Adds given episode to un-seen episodes collection
+     *
+     * @param episodeData episode to add
+     */
+    public void addUnSeenEpisode(EpisodeData episodeData) {
+        unseenEpisodes.add(episodeData);
     }
 
     @Override
@@ -88,10 +94,10 @@ public class TvShowData {
         unAcquiredEpisodes.forEach(e -> sb.append(e).append("; "));
         sb.append("\nun-seen: ");
         unseenEpisodes.forEach(e -> sb.append(e).append("; "));
-        sb.append("\nacquired: ");
-        acquiredEpisodes.forEach(e -> sb.append(e).append("; "));
-        sb.append("\nseen: ");
-        seenEpisodes.forEach(e -> sb.append(e).append("; "));
+//        sb.append("\nacquired: ");
+//        acquiredEpisodes.forEach(e -> sb.append(e).append("; "));
+//        sb.append("\nseen: ");
+//        seenEpisodes.forEach(e -> sb.append(e).append("; "));
 
         return sb.toString();
     }
