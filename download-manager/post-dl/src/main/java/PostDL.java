@@ -143,7 +143,7 @@ public class PostDL implements Runnable {
                 System.out.println("failed");
             }
 
-            if (isMarkAsAcquired) {
+            if (isMarkAsAcquired && VideoFileFilter.isVideoFile(file.getName())) {
                 System.out.println("post-dl: marking file as acquired: " + file.getName());
                 try {
                     myEpisodesService.markAsAcquired(data.getTitle(),
