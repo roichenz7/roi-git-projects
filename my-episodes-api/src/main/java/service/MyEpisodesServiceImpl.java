@@ -13,6 +13,7 @@ import http.HttpRequestBuilder;
 import http.IHttpResponse;
 import http.cookies.CookieAdapter;
 import http.cookies.CookieListAdapter;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -24,6 +25,9 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     private final String baseUrl = "http://www.myepisodes.com";
     private final ITvShowParser tvShowParser = new TvShowParser();
+
+    private String username;
+    private String passwordMD5;
     private List<Cookie> cookies;
 
     public MyEpisodesServiceImpl(final String username, final String password) {
@@ -58,11 +62,45 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public Collection<EpisodeData> getUnAcquiredEpisodes() {
+        IHttpResponse response;
+        try {
+            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
+                    .withUrlParam("feed", "unacquired")
+                    .withUrlParam("uid", username)
+                    .withUrlParam("pwdmd5", passwordMD5)
+                    .execute();
+        } catch (Exception e) {
+            throw new GetStatusException(e);
+        }
+
+        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+            throw new GetStatusException("Http response: " + response);
+        }
+
+        // TODO: parse response
+        Document document = Jsoup.parse(response.getBody());
         return new ArrayList<>();
     }
 
     @Override
     public Collection<EpisodeData> getUnSeenEpisodes() {
+        IHttpResponse response;
+        try {
+            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
+                    .withUrlParam("feed", "unwatched")
+                    .withUrlParam("uid", username)
+                    .withUrlParam("pwdmd5", passwordMD5)
+                    .execute();
+        } catch (Exception e) {
+            throw new GetStatusException(e);
+        }
+
+        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+            throw new GetStatusException("Http response: " + response);
+        }
+
+        // TODO: parse response
+        Document document = Jsoup.parse(response.getBody());
         return new ArrayList<>();
     }
 
@@ -138,6 +176,8 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new LoginException(username, e);
         }
 
+        this.username = username;
+        passwordMD5 = DigestUtils.md5Hex(password);
         cookies = response.getHeaders("Set-Cookie")
                 .stream()
                 .map(CookieAdapter::fromString)
