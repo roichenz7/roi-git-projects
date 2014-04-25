@@ -6,7 +6,7 @@ import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
 import providers.IProvider;
-import providers.PhdProvider;
+import providers.torrent.PhdProvider;
 import service.MyEpisodesService;
 import service.MyEpisodesServiceImpl;
 

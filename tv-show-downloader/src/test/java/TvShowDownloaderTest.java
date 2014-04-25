@@ -4,8 +4,8 @@ import file.FileDownloader;
 import file.FileType;
 import org.junit.Test;
 import providers.IProvider;
-import providers.KatProvider;
-import providers.PhdProvider;
+import providers.torrent.KatProvider;
+import providers.torrent.PhdProvider;
 
 import java.util.List;
 
