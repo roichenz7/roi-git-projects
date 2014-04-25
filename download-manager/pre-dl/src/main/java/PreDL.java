@@ -4,6 +4,7 @@ import data.EpisodeData;
 import data.ResultData;
 import enums.Quality;
 import file.FileDownloader;
+import file.FileType;
 import providers.IProvider;
 import providers.PhdProvider;
 import service.MyEpisodesService;
@@ -88,7 +89,7 @@ public class PreDL implements Runnable {
 
             System.out.println("pre-dl: downloading file: " + result);
             String filename = downloadDir.getPath() + "/" + result.toString();
-            FileDownloader.downloadFile(result.getDownloadLink(), filename);
+            FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
             System.out.println("pre-dl: file downloaded: " + filename + "\n");
         });
 
