@@ -1,5 +1,7 @@
 package enums;
 
+import data.ShowData;
+
 public enum Quality {
 
     HD_720p("720p"),
@@ -21,6 +23,10 @@ public enum Quality {
             return Quality.HD_1080p;
         else
             return Quality.SD;
+    }
+
+    public static Quality fromShowData(ShowData showData) {
+        return fromString(showData.getQuality());
     }
 
     @Override
