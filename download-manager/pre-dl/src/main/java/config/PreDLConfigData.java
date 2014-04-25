@@ -84,10 +84,16 @@ public class PreDLConfigData implements IPreDLConfigData {
         sb.append("; default-quality: ").append(defaultQuality).append("\n");
 
         sb.append("ignored-shows: ");
-        ignoredShows.forEach(x -> sb.append(x).append("; "));
+        ignoredShows.forEach(x -> sb.append(x.getName())
+                .append(" (")
+                .append(x.getId())
+                .append("); "));
 
-        sb.append(" special-shows: ");
-        specialShows.forEach(x -> sb.append(x).append("; "));
+        sb.append("\nspecial-shows: ");
+        specialShows.forEach(x -> sb.append(x.getTitle())
+                .append(" (")
+                .append(x.getId())
+                .append("); "));
 
         return sb.toString();
     }
