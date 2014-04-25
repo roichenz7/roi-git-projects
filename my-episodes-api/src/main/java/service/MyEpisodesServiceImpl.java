@@ -77,9 +77,8 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new GetStatusException("Http response: " + response);
         }
 
-        // TODO: parse response
         Document document = Jsoup.parse(response.getBody());
-        return new ArrayList<>();
+        return parseRssResponse(document);
     }
 
     @Override
@@ -99,9 +98,8 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new GetStatusException("Http response: " + response);
         }
 
-        // TODO: parse response
         Document document = Jsoup.parse(response.getBody());
-        return new ArrayList<>();
+        return parseRssResponse(document);
     }
 
     @Override
@@ -182,5 +180,9 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
                 .stream()
                 .map(CookieAdapter::fromString)
                 .collect(CookieListAdapter.toCookieList());
+    }
+
+    private Collection<EpisodeData> parseRssResponse(Document document) {
+        return null;
     }
 }
