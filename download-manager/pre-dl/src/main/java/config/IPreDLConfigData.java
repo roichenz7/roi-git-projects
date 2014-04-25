@@ -43,7 +43,7 @@ public interface IPreDLConfigData {
     default Quality getTvShowQuality(int id) {
         return specialShows().stream()
                 .filter(x -> x.getId() == id)
-                .map(x -> Quality.fromString(x.getQuality()))
+                .map(Quality::fromShowData)
                 .findFirst()
                 .orElse(defaultQuality());
     }
