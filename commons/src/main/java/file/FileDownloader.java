@@ -13,9 +13,8 @@ public final class FileDownloader {
      * @param downloadLink download link
      * @param targetFilename target file name
      * @param fileType file type
-     * @throws RuntimeException
      */
-    public static void downloadFile(String downloadLink, String targetFilename, FileType fileType) throws RuntimeException {
+    public static void downloadFile(String downloadLink, String targetFilename, FileType fileType) {
         try {
             URL website = new URL(downloadLink);
             ReadableByteChannel rbc = Channels.newChannel(website.openStream());
