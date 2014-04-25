@@ -54,7 +54,7 @@ public class PreDL implements Runnable {
         System.out.println("pre-dl: logging in to my episodes, username: " + username + ", tv shows config: " + tvShowsConfigFilename);
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password, tvShowsConfigFilename);
 
-        System.out.println("pre-dl: getting list of episodes to acquire");
+        System.out.println("\npre-dl: getting list of episodes to acquire");
         List<EpisodeData> episodesToAcquire = myEpisodesService.getStatus()
                 .stream()
                 .filter(x -> !config.ignoredShows().contains(x))
@@ -88,7 +88,7 @@ public class PreDL implements Runnable {
             System.out.println("pre-dl: downloading file: " + result);
             String filename = downloadDir.getPath() + "/" + result.toString();
             FileDownloader.downloadFile(result.getDownloadLink(), filename);
-            System.out.println("pre-dl: file downloaded: " + filename);
+            System.out.println("pre-dl: file downloaded: " + filename + "\n");
         });
 
         System.out.println("pre-dl: finished");
