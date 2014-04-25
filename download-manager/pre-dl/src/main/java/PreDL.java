@@ -64,6 +64,7 @@ public class PreDL implements Runnable {
 
         if (episodesToAcquire.isEmpty()) {
             System.out.println("pre-dl: there are no un-acquired episodes");
+            System.out.println("pre-dl: finished");
             return;
         }
 
