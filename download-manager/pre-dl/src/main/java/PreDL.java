@@ -6,7 +6,7 @@ import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
 import providers.IProvider;
-import providers.torrent.PhdProvider;
+import providers.torrent.TorrentProviderFactory;
 import service.MyEpisodesService;
 import service.MyEpisodesServiceImpl;
 
@@ -21,15 +21,13 @@ public class PreDL implements Runnable {
     private final String username;
     private final String password;
 
-    private final IProvider provider;
+    private IProvider provider;
 
     public PreDL(String configFilename, String tvShowsConfigFilename, String username, String password) {
         this.configFilename = configFilename;
         this.tvShowsConfigFilename = tvShowsConfigFilename;
         this.username = username;
         this.password = password;
-
-        this.provider = new PhdProvider(); // TODO: provider from config
     }
 
     @Override
@@ -51,6 +49,8 @@ public class PreDL implements Runnable {
         }
 
         System.out.println(config);
+
+        provider = TorrentProviderFactory.create(config.defaultProvider());
 
         System.out.println("pre-dl: logging in to my episodes, username: " + username + ", tv shows config: " + tvShowsConfigFilename);
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password, tvShowsConfigFilename);
