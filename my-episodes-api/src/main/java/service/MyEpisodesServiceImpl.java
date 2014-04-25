@@ -54,8 +54,10 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         Document document = Jsoup.parse(response.getBody());
         return document.select("tr")
                 .stream()
-                .filter(e -> e.select("td").size() == 6)
-                .map(TvShowData::new) // TODO
+                .filter(e -> e.select("td")
+                        .stream()
+                        .anyMatch(x -> x.html().matches(".*S[0-9][0-9]E[0-9][0-9].*")))
+                .map(TvShowData::new)
                 .collect(Collectors.toList());
     }
 
