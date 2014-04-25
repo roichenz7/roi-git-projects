@@ -94,10 +94,6 @@ public class TvShowData {
         unAcquiredEpisodes.forEach(e -> sb.append(e).append("; "));
         sb.append("\nun-seen: ");
         unseenEpisodes.forEach(e -> sb.append(e).append("; "));
-//        sb.append("\nacquired: ");
-//        acquiredEpisodes.forEach(e -> sb.append(e).append("; "));
-//        sb.append("\nseen: ");
-//        seenEpisodes.forEach(e -> sb.append(e).append("; "));
 
         return sb.toString();
     }
