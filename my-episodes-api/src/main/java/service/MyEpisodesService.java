@@ -1,7 +1,9 @@
 package service;
 
+import data.EpisodeData;
 import data.TvShowData;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface MyEpisodesService {
@@ -10,6 +12,16 @@ public interface MyEpisodesService {
      * @return tv shows status
      */
     List<TvShowData> getStatus();
+
+    /**
+     * @return un-acquired episodes
+     */
+    Collection<EpisodeData> getUnAcquiredEpisodes();
+
+    /**
+     * @return un-seen episodes
+     */
+    Collection<EpisodeData> getUnSeenEpisodes();
 
     /**
      * Marks given episode as acquired
