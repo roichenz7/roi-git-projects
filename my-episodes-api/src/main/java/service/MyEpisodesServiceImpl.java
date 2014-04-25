@@ -186,6 +186,9 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
                 .stream()
                 .map(CookieAdapter::fromString)
                 .collect(CookieListAdapter.toCookieList());
+
+        if (cookies.size() != 4)
+            throw new LoginException(username, "invalid user or password");
     }
 
     /**
