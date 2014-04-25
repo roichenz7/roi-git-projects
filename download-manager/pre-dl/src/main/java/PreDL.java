@@ -70,10 +70,10 @@ public class PreDL implements Runnable {
         System.out.println("pre-dl: un-acquired episodes:");
         episodesToAcquire.forEach(System.out::println);
 
-        System.out.println("pre-dl: processing un-acquired episodes");
+        System.out.println("\npre-dl: processing un-acquired episodes");
         episodesToAcquire.forEach(e -> {
             Quality quality = config.getTvShowQuality(e.getTvShowId());
-            System.out.println("pre-dl: searching for:" + e + " [" + quality + "]");
+            System.out.println("pre-dl: searching for: " + e + " [" + quality + "]");
 
             List<ResultData> results = provider.search(e.getTvShowName(),
                     e.getSeason(),
@@ -90,5 +90,7 @@ public class PreDL implements Runnable {
             FileDownloader.downloadFile(result.getDownloadLink(), filename);
             System.out.println("pre-dl: file downloaded: " + filename);
         });
+
+        System.out.println("pre-dl: finished");
     }
 }
