@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class EpisodeData {
+public class EpisodeData implements Comparable<EpisodeData> {
 
     private int tvShowId;
     private String tvShowName;
@@ -93,6 +93,17 @@ public class EpisodeData {
      */
     public boolean isAired() {
         return new Date().after(getAirDate());
+    }
+
+    @Override
+    public int compareTo(EpisodeData o) {
+        if (tvShowId != o.tvShowId)
+            return tvShowName.compareTo(o.tvShowName);
+
+        if (season != o.season)
+            return season - o.season;
+
+        return episode - o.episode;
     }
 
     @Override
