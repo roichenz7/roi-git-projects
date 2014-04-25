@@ -14,8 +14,9 @@ public class MyEpisodesTest {
 
     @Test
     public void testGetStatus() {
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***", "config/tv-shows.xml");
         Collection<TvShowData> status = myEpisodesService.getStatus();
+        status.forEach(System.out::println);
     }
 
     @Test
