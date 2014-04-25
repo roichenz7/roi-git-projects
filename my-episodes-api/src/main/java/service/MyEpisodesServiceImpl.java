@@ -1,6 +1,7 @@
 package service;
 
 import com.ning.http.client.cookie.Cookie;
+import data.EpisodeData;
 import data.ITvShowParser;
 import data.TvShowData;
 import data.TvShowParser;
@@ -15,7 +16,8 @@ import http.cookies.CookieListAdapter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MyEpisodesServiceImpl implements MyEpisodesService {
@@ -35,30 +37,32 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public List<TvShowData> getStatus() {
-        // TODO: use views.php?type=epsbyshow&showid=XXX for each show
-        // TODO: or just use myshows.php
-
-        IHttpResponse response;
-        try {
-            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
-                    .withHeader("Cookie", cookies.toString())
-                    .execute();
-        } catch (Exception e) {
-            throw new GetStatusException(e);
-        }
-
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
-            throw new GetStatusException();
-        }
-
-        Document document = Jsoup.parse(response.getBody());
-        return document.select("tr")
+        Map<Integer, TvShowData> tvShows = tvShowParser.getAll()
                 .stream()
-                .filter(e -> e.select("td")
-                        .stream()
-                        .anyMatch(x -> x.html().matches(".*S[0-9][0-9]E[0-9][0-9].*")))
-                .map(TvShowData::new)
+                .collect(Collectors.toMap(TvShowData::getId,
+                        Function.<TvShowData>identity()));
+
+        getUnAcquiredEpisodes().forEach(e ->
+                tvShows.get(e.getTvShowId())
+                        .addUnAcquiredEpisode(e));
+
+        getUnSeenEpisodes().forEach(e ->
+                tvShows.get(e.getTvShowId())
+                        .addUnSeenEpisode(e));
+
+        return tvShows.values()
+                .stream()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<EpisodeData> getUnAcquiredEpisodes() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public Collection<EpisodeData> getUnSeenEpisodes() {
+        return new ArrayList<>();
     }
 
     @Override
