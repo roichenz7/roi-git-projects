@@ -126,6 +126,6 @@ public class EpisodeData implements Comparable<EpisodeData> {
 
     @Override
     public String toString() {
-        return String.format("%s (%d) S%02dE%02d - [%s] - %s", tvShowName, tvShowId, season, episode, airDate, episodeName);
+        return String.format("%s (%d) - S%02dE%02d - [%s] - %s", tvShowName, tvShowId, season, episode, airDate, episodeName);
     }
 }
