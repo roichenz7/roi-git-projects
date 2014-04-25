@@ -39,7 +39,8 @@ public class EpisodeData {
 
             tvShowName = title[0].trim();
             episodeName = title[2].trim();
-            airDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).parse(title[3].trim());
+            String date = title[3].trim() + "-23-59";
+            airDate = new SimpleDateFormat("dd-MMM-yyyy-HH-mm", Locale.ENGLISH).parse(date);
         } catch (Exception e) {
             throw new EpisodeParseException(e);
         }
@@ -85,6 +86,13 @@ public class EpisodeData {
      */
     public Date getAirDate() {
         return airDate;
+    }
+
+    /**
+     * @return true if this episode has aired, false otherwise
+     */
+    public boolean isAired() {
+        return new Date().after(getAirDate());
     }
 
     @Override
