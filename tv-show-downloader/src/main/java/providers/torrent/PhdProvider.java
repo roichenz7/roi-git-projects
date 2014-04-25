@@ -1,4 +1,4 @@
-package providers;
+package providers.torrent;
 
 import data.RequestData;
 import data.ResultData;
@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PhdProvider implements IProvider {
+public class PhdProvider implements ITorrentProvider {
 
     @Override
     public final String getName() {

@@ -1,4 +1,4 @@
-package providers;
+package providers.torrent;
 
 import data.RequestData;
 import data.ResultData;
@@ -10,7 +10,7 @@ import http.IHttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KatProvider implements IProvider {
+public class KatProvider implements ITorrentProvider {
 
     @Override
     public final String getName() {
