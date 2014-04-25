@@ -52,6 +52,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
         return tvShows.values()
                 .stream()
+                .sorted((l, r) -> l.getName().compareTo(r.getName()))
                 .collect(Collectors.toList());
     }
 
