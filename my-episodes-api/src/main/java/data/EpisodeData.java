@@ -39,7 +39,7 @@ public class EpisodeData implements Comparable<EpisodeData> {
 
             tvShowName = title[0].trim();
             episodeName = title[2].trim();
-            String date = title[3].trim() + "-23-59";
+            String date = title[3].trim() + "-10-00";
             airDate = new SimpleDateFormat("dd-MMM-yyyy-HH-mm", Locale.ENGLISH).parse(date);
         } catch (Exception e) {
             throw new EpisodeParseException(e);
@@ -126,6 +126,6 @@ public class EpisodeData implements Comparable<EpisodeData> {
 
     @Override
     public String toString() {
-        return String.format("%s (%d) S%02dE%02d - %s", tvShowName, tvShowId, season, episode, episodeName);
+        return String.format("%s (%d) S%02dE%02d - [%s] - %s", tvShowName, tvShowId, season, episode, airDate, episodeName);
     }
 }
