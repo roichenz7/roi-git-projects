@@ -71,7 +71,7 @@ public class PreDL implements Runnable {
 
         System.out.println("pre-dl: processing un-acquired episodes");
         episodesToAcquire.forEach(e -> {
-            Quality quality = config.getTvShowQuality(e.getTvShowData().getId());
+            Quality quality = config.getTvShowQuality(e.getTvShowId());
             System.out.println("pre-dl: searching for:" + e + " [" + quality + "]");
 
             List<ResultData> results = provider.search(e.getTvShowName(),
