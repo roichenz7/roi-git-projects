@@ -78,6 +78,21 @@ public class TvShowData {
 
     @Override
     public String toString() {
-        return name + " (" + id + ")";
+        StringBuilder sb = new StringBuilder()
+                .append(name)
+                .append(" (")
+                .append(id)
+                .append(")");
+
+        sb.append("\nun-acquired: ");
+        unAcquiredEpisodes.forEach(e -> sb.append(e).append("; "));
+        sb.append("\nun-seen: ");
+        unseenEpisodes.forEach(e -> sb.append(e).append("; "));
+        sb.append("\nacquired: ");
+        acquiredEpisodes.forEach(e -> sb.append(e).append("; "));
+        sb.append("\nseen: ");
+        seenEpisodes.forEach(e -> sb.append(e).append("; "));
+
+        return sb.toString();
     }
 }
