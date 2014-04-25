@@ -5,15 +5,15 @@ import org.w3c.dom.Node;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.TreeSet;
 
 public class TvShowData {
 
     private int id;
     private String name;
 
-    private Collection<EpisodeData> unAcquiredEpisodes = new HashSet<>();
-    private Collection<EpisodeData> unseenEpisodes = new HashSet<>();
+    private Collection<EpisodeData> unAcquiredEpisodes = new TreeSet<>();
+    private Collection<EpisodeData> unseenEpisodes = new TreeSet<>();
 
     public TvShowData(Node node) {
         NamedNodeMap attributes = node.getAttributes();
