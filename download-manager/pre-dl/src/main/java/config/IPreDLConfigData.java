@@ -19,6 +19,11 @@ public interface IPreDLConfigData {
     Quality defaultQuality();
 
     /**
+     * @return default provider
+     */
+    String defaultProvider();
+
+    /**
      * @return ignored shows
      */
     List<TvShowData> ignoredShows();
