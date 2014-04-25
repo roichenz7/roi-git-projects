@@ -162,6 +162,12 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         markAsWatched(tvShowData.getId(), season, episode);
     }
 
+    /**
+     * Performs login to myepisodes
+     *
+     * @param username user name
+     * @param password password
+     */
     private void login(final String username, final String password) {
         IHttpResponse response;
         try {
@@ -182,7 +188,16 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
                 .collect(CookieListAdapter.toCookieList());
     }
 
-    private Collection<EpisodeData> parseRssResponse(Document document) {
-        return null;
+    /**
+     * Parses rss feed response
+     *
+     * @param document response document
+     * @return collection of episodes
+     */
+    private List<EpisodeData> parseRssResponse(Document document) {
+        return document.select("item")
+                .stream()
+                .map(EpisodeData::new)
+                .collect(Collectors.toList());
     }
 }
