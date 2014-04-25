@@ -1,23 +1,48 @@
 package data;
 
+import exceptions.EpisodeParseException;
 import org.jsoup.nodes.Element;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class EpisodeData {
 
     private int tvShowId;
     private String tvShowName;
+
     private int season;
     private int episode;
 
-    public EpisodeData(int tvShowId, String tvShowName, int season, int episode) {
-        this.tvShowId = tvShowId;
-        this.tvShowName = tvShowName;
-        this.season = season;
-        this.episode = episode;
-    }
+    private String episodeName;
+
+    private Date airDate;
 
     public EpisodeData(Element element) {
+        try {
+            String[] guid = element.select("guid")
+                    .get(0)
+                    .text()
+                    .split("-");
 
+            tvShowId = Integer.parseInt(guid[0]);
+            season = Integer.parseInt(guid[1]);
+            episode = Integer.parseInt(guid[2]);
+
+            String titleText = element.select("title")
+                    .get(0)
+                    .text();
+            String[] title = titleText.substring(1, titleText.length() - 1)
+                    .trim()
+                    .split("\\]\\[");
+
+            tvShowName = title[0].trim();
+            episodeName = title[2].trim();
+            airDate = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).parse(title[3].trim());
+        } catch (Exception e) {
+            throw new EpisodeParseException(e);
+        }
     }
 
     /**
@@ -48,6 +73,20 @@ public class EpisodeData {
         return episode;
     }
 
+    /**
+     * @return episode's name
+     */
+    public String getEpisodeName() {
+        return episodeName;
+    }
+
+    /**
+     * @return episode's air date
+     */
+    public Date getAirDate() {
+        return airDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,6 +107,6 @@ public class EpisodeData {
 
     @Override
     public String toString() {
-        return String.format("%s (%d) S%02dE%02d", tvShowName, tvShowId, season, episode);
+        return String.format("%s (%d) S%02dE%02d - %s", tvShowName, tvShowId, season, episode, episodeName);
     }
 }
