@@ -3,7 +3,6 @@ package providers;
 import data.RequestData;
 import data.ResultData;
 import enums.Quality;
-import exceptions.ResultNotFoundException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,13 +48,7 @@ public interface IProvider {
      * @param results results
      * @return best result
      */
-    default ResultData getBestResult(List<ResultData> results) {
-        return results.stream()
-                .filter(d -> acceptedOrigins().contains(d.getOrigin()))
-                .sorted((l, r) -> r.getSeeds() - l.getSeeds())
-                .findFirst()
-                .orElseThrow(ResultNotFoundException::new);
-    }
+    ResultData getBestResult(List<ResultData> results);
 
     /**
      * @return accepted origins
