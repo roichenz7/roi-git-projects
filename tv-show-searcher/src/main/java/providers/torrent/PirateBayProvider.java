@@ -2,6 +2,8 @@ package providers.torrent;
 
 import data.RequestData;
 import data.ResultData;
+import data.ShowData;
+import enums.Quality;
 import exceptions.SearchException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
@@ -9,6 +11,7 @@ import http.IHttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -67,7 +70,23 @@ public class PirateBayProvider implements ITorrentProvider {
 
         @Override
         protected void initialize(Element source) {
-            // TODO
+            Elements elements = source.getElementsByTag("td");
+
+            ShowData showData = ShowData.fromFilename(elements.get(1).text());
+            tvShowName = showData.getTitle();
+            season = showData.getSeasonNumber();
+            episode = showData.getEpisodeNumber();
+
+            quality = Quality.fromString(showData.getQuality());
+            origin = showData.getOrigin();
+            isProper = showData.isProper();
+
+            seeds = Integer.parseInt(elements.get(2).text());
+            peers = Integer.parseInt(elements.get(3).text());
+
+
+            //TODO: build download link
+
         }
     }
 }
