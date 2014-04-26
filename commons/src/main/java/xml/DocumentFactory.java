@@ -5,6 +5,7 @@ import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -39,10 +40,16 @@ public class DocumentFactory {
         Document doc;
         InputStream inputStream = null;
         try {
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(filename);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(inputStream);
+
+            File file = new File(filename);
+            if (file.exists()) {
+                doc = dBuilder.parse(file);
+            } else {
+                inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(filename);
+                doc = dBuilder.parse(inputStream);
+            }
         } catch (Exception e) {
             throw new RuntimeException("Failed to create xml document from filename", e);
         } finally {
