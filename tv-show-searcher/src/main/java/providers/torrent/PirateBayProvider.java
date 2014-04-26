@@ -3,7 +3,6 @@ package providers.torrent;
 import data.RequestData;
 import data.ResultData;
 import data.ShowData;
-import enums.Quality;
 import exceptions.SearchException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
@@ -73,20 +72,12 @@ public class PirateBayProvider implements ITorrentProvider {
             Elements elements = source.getElementsByTag("td");
 
             ShowData showData = ShowData.fromFilename(elements.get(1).text());
-            tvShowName = showData.getTitle();
-            season = showData.getSeasonNumber();
-            episode = showData.getEpisodeNumber();
-
-            quality = Quality.fromString(showData.getQuality());
-            origin = showData.getOrigin();
-            isProper = showData.isProper();
+            initialize(showData);
 
             seeds = Integer.parseInt(elements.get(2).text());
             peers = Integer.parseInt(elements.get(3).text());
 
-
             //TODO: build download link
-
         }
     }
 }
