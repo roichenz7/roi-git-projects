@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 public class PhdProvider implements ITorrentProvider {
 
     @Override
-    public final String getName() {
+    public String getName() {
         return "PHD";
     }
 
     @Override
-    public final String getBaseUrl() {
+    public String getBaseUrl() {
         return "http://publichd.se";
     }
 
