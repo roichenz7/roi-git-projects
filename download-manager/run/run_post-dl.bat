@@ -1,2 +1,2 @@
-java -jar download-manager.jar --post-dl config/post-dl-config.xml
+java -cp download-manager.jar DownloadManager --post-dl config/post-dl-config.xml
 pause
