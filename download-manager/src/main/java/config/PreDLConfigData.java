@@ -5,11 +5,9 @@ import data.TvShowData;
 import enums.Quality;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import xml.DocumentFactory;
 import xml.NodeListFactory;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,10 +48,7 @@ public class PreDLConfigData implements IPreDLConfigData {
     @Override
     public boolean parse(String filename) {
         try {
-            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(filename);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputStream);
+            Document doc = DocumentFactory.createFromFilename(filename);
             Element e = doc.getDocumentElement();
             e.normalize();
 

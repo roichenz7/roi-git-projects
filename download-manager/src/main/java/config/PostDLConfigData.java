@@ -2,10 +2,7 @@ package config;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.InputStream;
+import xml.DocumentFactory;
 
 public class PostDLConfigData implements IPostDLConfigData {
 
@@ -31,10 +28,7 @@ public class PostDLConfigData implements IPostDLConfigData {
     @Override
     public boolean parse(String filename) {
         try {
-            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(filename);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputStream);
+            Document doc = DocumentFactory.createFromFilename(filename);
             Element e = doc.getDocumentElement();
             e.normalize();
 
