@@ -89,4 +89,18 @@ public class ShowDataTest {
         assertThat(showData.getOrigin(), is(""));
         assertThat(showData.isProper(), is(false));
     }
+
+    @Test
+    public void test7() {
+        ShowData showData = ShowData.fromFilename("Pooki Shmooki - s11xe12.720p");
+
+        assertThat(showData.isEmpty(), is(false));
+        assertThat(showData.getTitle(), is("Pooki Shmooki"));
+        assertThat(showData.getSeason(), is("Season 11"));
+        assertThat(showData.getSeasonNumber(), is(11));
+        assertThat(showData.getEpisodeNumber(), is(12));
+        assertThat(showData.getQuality(), is("720p"));
+        assertThat(showData.getOrigin(), is(""));
+        assertThat(showData.isProper(), is(false));
+    }
 }
