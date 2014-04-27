@@ -4,12 +4,20 @@ import service.MyEpisodesService;
 import service.MyEpisodesServiceImpl;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class MyEpisodesTest {
 
     @Test
     public void testLogin() {
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+    }
+
+    @Test
+    public void testGetMyShows() {
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
+        Map<Integer, String> myShows = myEpisodesService.getMyShows();
+        myShows.forEach((l, r) -> System.out.printf("<%d, %s>", l, r));
     }
 
     @Test
