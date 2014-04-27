@@ -77,7 +77,13 @@ public class PirateBayProvider implements ITorrentProvider {
             seeds = Integer.parseInt(elements.get(2).text());
             peers = Integer.parseInt(elements.get(3).text());
 
-            //TODO: build download link
+            String temp = elements.get(1).getElementsByAttribute("href").get(0).attr("href");
+            String [] array = temp.split("/");
+            String id = array[2];
+            String showName = array[3];
+
+            // http://piratebaytorrents.info/9877669/Arrow.S02E18.720p.HDTV.X264-DIMENSION.9877669.TPB.torrent
+            downloadLink = "http://piratebaytorrents.info/" + id + "/" + showName + "." + id + ".TPB.torrent";
         }
     }
 }
