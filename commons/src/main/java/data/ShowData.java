@@ -95,6 +95,7 @@ public class ShowData {
         if (matcher.find()) {
             showData.title = matcher.group(1)
                     .replaceAll(titleSplitRegex, " ")
+                    .replaceAll("-", " ")
                     .trim();
 
             String seasonAndEpisodes = matcher.group(2);
