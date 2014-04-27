@@ -103,4 +103,18 @@ public class ShowDataTest {
         assertThat(showData.getOrigin(), is(""));
         assertThat(showData.isProper(), is(false));
     }
+
+    @Test
+    public void test8() {
+        ShowData showData = ShowData.fromFilename("Quak Quak - 04x17.1080p");
+
+        assertThat(showData.isEmpty(), is(false));
+        assertThat(showData.getTitle(), is("Quak Quak"));
+        assertThat(showData.getSeason(), is("Season 4"));
+        assertThat(showData.getSeasonNumber(), is(4));
+        assertThat(showData.getEpisodeNumber(), is(17));
+        assertThat(showData.getQuality(), is("1080p"));
+        assertThat(showData.getOrigin(), is(""));
+        assertThat(showData.isProper(), is(false));
+    }
 }
