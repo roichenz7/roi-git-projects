@@ -72,7 +72,7 @@ public class ShowData {
     /**
      * Creates show data from given filename
      *
-     * @param filename: filename to parse
+     * @param filename filename to parse
      * @return empty data if unsuccessful, valid data otherwise
      */
     public static ShowData fromFilename(String filename) {
@@ -82,11 +82,11 @@ public class ShowData {
     /**
      * Creates show data from given filename
      *
-     * @param filename: filename to parse
-     * @param regex: regex
+     * @param filename filename to parse
+     * @param titleSplitRegex titleSplitRegex
      * @return empty data if unsuccessful, valid data otherwise
      */
-    public static ShowData fromFilename(String filename, String regex) {
+    public static ShowData fromFilename(String filename, String titleSplitRegex) {
         ShowData showData = new ShowData();
 
         Matcher matcher = Pattern.compile("(.*)(S[0-9][0-9](E[0-9][0-9])+)(.*)", Pattern.CASE_INSENSITIVE)
@@ -94,7 +94,7 @@ public class ShowData {
 
         if (matcher.find()) {
             showData.title = matcher.group(1)
-                    .replaceAll(regex, " ")
+                    .replaceAll(titleSplitRegex, " ")
                     .trim();
 
             String seasonAndEpisodes = matcher.group(2);
