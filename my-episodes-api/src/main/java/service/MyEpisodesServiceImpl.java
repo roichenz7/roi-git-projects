@@ -5,6 +5,7 @@ import data.EpisodeData;
 import data.ITvShowParser;
 import data.TvShowData;
 import data.TvShowParser;
+import exceptions.GetMyShowsException;
 import exceptions.GetStatusException;
 import exceptions.LoginException;
 import exceptions.UpdateException;
@@ -16,6 +17,7 @@ import http.cookies.CookieListAdapter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.*;
 import java.util.function.Function;
@@ -40,9 +42,38 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     }
 
     @Override
-    public List<TvShowData> getStatus() {
-        Map<Integer, TvShowData> tvShows = tvShowParser.getAll()
+    public Map<Integer, String> getMyShows() {
+        IHttpResponse response;
+        try {
+            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/shows.php")
+                    .withUrlParam("type", "manage")
+                    .withHeader("Cookie", cookies.toString())
+                    .execute();
+        } catch (Exception e) {
+            throw new GetMyShowsException(e);
+        }
+
+        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+            throw new GetMyShowsException("Http response: " + response);
+        }
+
+        Document document = Jsoup.parse(response.getBody());
+        return document.select("table tbody tr td")
                 .stream()
+                .filter(e -> e.html().contains("Your Favorite Show List"))
+                .collect(Collectors.<Element>toList())
+                .get(0)
+                .select("option")
+                .stream()
+                .collect(Collectors.toMap(o -> Integer.parseInt(o.val()), Element::text));
+    }
+
+    @Override
+    public List<TvShowData> getStatus() {
+        Map<Integer, TvShowData> tvShows = getMyShows()
+                .entrySet()
+                .stream()
+                .map(e -> new TvShowData(e.getKey(), e.getValue()))
                 .collect(Collectors.toMap(TvShowData::getId,
                         Function.<TvShowData>identity()));
 

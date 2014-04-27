@@ -5,8 +5,14 @@ import data.TvShowData;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface MyEpisodesService {
+
+    /**
+     * @return my shows (show id, show name), not including ignored shows
+     */
+    Map<Integer, String> getMyShows();
 
     /**
      * @return tv shows status
