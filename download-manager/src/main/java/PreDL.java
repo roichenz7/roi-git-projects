@@ -17,15 +17,13 @@ import java.util.stream.Collectors;
 public class PreDL implements Runnable {
 
     private final String configFilename;
-    private final String tvShowsConfigFilename;
     private final String username;
     private final String password;
 
     private IProvider provider;
 
-    public PreDL(String configFilename, String tvShowsConfigFilename, String username, String password) {
+    public PreDL(String configFilename, String username, String password) {
         this.configFilename = configFilename;
-        this.tvShowsConfigFilename = tvShowsConfigFilename;
         this.username = username;
         this.password = password;
     }
@@ -52,8 +50,8 @@ public class PreDL implements Runnable {
 
         provider = TorrentProviderFactory.create(config.defaultProvider());
 
-        System.out.println("pre-dl: logging in to my episodes, username: " + username + ", tv shows config: " + tvShowsConfigFilename);
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password, tvShowsConfigFilename);
+        System.out.println("pre-dl: logging in to my episodes, username: " + username);
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password);
 
         System.out.println("\npre-dl: getting list of episodes to acquire");
         List<EpisodeData> episodesToAcquire = myEpisodesService.getStatus()
