@@ -17,7 +17,7 @@ public class MyEpisodesTest {
     public void testGetMyShows() {
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
         Map<Integer, String> myShows = myEpisodesService.getMyShows();
-        myShows.forEach((l, r) -> System.out.printf("<%d, %s>", l, r));
+        myShows.forEach((l, r) -> System.out.printf("<%d, %s>\n", l, r));
     }
 
     @Test
