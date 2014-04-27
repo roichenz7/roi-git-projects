@@ -22,7 +22,7 @@ public class MyEpisodesTest {
 
     @Test
     public void testGetStatus() {
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***", "config/tv-shows.xml");
+        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl("roichenz7", "***");
         Collection<TvShowData> status = myEpisodesService.getStatus();
         status.forEach(System.out::println);
     }
