@@ -75,20 +75,28 @@ public class PreDL implements Runnable {
             Quality quality = config.getTvShowQuality(e.getTvShowId());
             System.out.println("pre-dl: searching for: " + e + " [" + quality + "]");
 
-            List<ResultData> results = provider.search(e.getTvShowName(),
-                    e.getSeason(),
-                    e.getEpisode(),
-                    quality);
+            try {
+                List<ResultData> results = provider.search(e.getTvShowName(),
+                        e.getSeason(),
+                        e.getEpisode(),
+                        quality);
 
-            System.out.println("pre-dl: got " + results.size() + " results");
+                if (!results.isEmpty()) {
+                    System.out.println("pre-dl: got " + results.size() + " results");
 
-            System.out.println("pre-dl: getting best result");
-            ResultData result = provider.getBestResult(results);
+                    System.out.println("pre-dl: getting best result");
+                    ResultData result = provider.getBestResult(results);
 
-            System.out.println("pre-dl: downloading file: " + result);
-            String filename = downloadDir.getPath() + "/" + result.toString();
-            FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
-            System.out.println("pre-dl: file downloaded: " + filename + "\n");
+                    System.out.println("pre-dl: downloading file: " + result);
+                    String filename = downloadDir.getPath() + "/" + result.toString();
+                    FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
+                    System.out.println("pre-dl: file downloaded: " + filename + "\n");
+                } else {
+                    System.out.println("pre-dl: no results found");
+                }
+            } catch (Exception ex) {
+                System.out.println("pre-dl: failed processing of: " + e + ". reason: " + ex);
+            }
         });
 
         System.out.println("pre-dl: finished");
