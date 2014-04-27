@@ -6,7 +6,7 @@
 
     <groupId>my-episodes-api</groupId>
     <artifactId>my-episodes-api</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
