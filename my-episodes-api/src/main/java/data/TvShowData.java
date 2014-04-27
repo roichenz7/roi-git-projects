@@ -15,6 +15,11 @@ public class TvShowData {
     private Collection<EpisodeData> unAcquiredEpisodes = new TreeSet<>();
     private Collection<EpisodeData> unseenEpisodes = new TreeSet<>();
 
+    public TvShowData(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public TvShowData(Node node) {
         NamedNodeMap attributes = node.getAttributes();
         id = Integer.parseInt(attributes.getNamedItem("id").getNodeValue());
