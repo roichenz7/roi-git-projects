@@ -1,4 +1,5 @@
 import data.ShowData;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -106,6 +107,21 @@ public class ShowDataTest {
 
     @Test
     public void test8() {
+        ShowData showData = ShowData.fromFilename("Person.of.Interest.S05E07.720p-2HD [PublicHD]");
+
+        assertThat(showData.isEmpty(), is(false));
+        assertThat(showData.getTitle(), is("Person of Interest"));
+        assertThat(showData.getSeason(), is("Season 5"));
+        assertThat(showData.getSeasonNumber(), is(5));
+        assertThat(showData.getEpisodeNumber(), is(7));
+        assertThat(showData.getQuality(), is("720p"));
+        assertThat(showData.getOrigin(), is("2HD"));
+        assertThat(showData.isProper(), is(false));
+    }
+
+    @Test
+    @Ignore
+    public void test9() {
         ShowData showData = ShowData.fromFilename("Quak Quak - 04x17.1080p");
 
         assertThat(showData.isEmpty(), is(false));
