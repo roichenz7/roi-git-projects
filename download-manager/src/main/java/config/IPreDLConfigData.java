@@ -34,6 +34,11 @@ public interface IPreDLConfigData {
     List<ShowData> specialShows();
 
     /**
+     * @return accepted origins
+     */
+    List<String> acceptedOrigins();
+
+    /**
      * Parses given configuration file
      *
      * @param filename configuration file

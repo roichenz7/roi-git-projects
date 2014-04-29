@@ -5,6 +5,7 @@ import data.TvShowData;
 import enums.Quality;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import xml.DocumentFactory;
 import xml.NodeListFactory;
 
@@ -19,6 +20,7 @@ public class PreDLConfigData implements IPreDLConfigData {
 
     private List<TvShowData> ignoredShows;
     private List<ShowData> specialShows;
+    private List<String> acceptedOrigins;
 
     @Override
     public String downloadDir() {
@@ -43,6 +45,11 @@ public class PreDLConfigData implements IPreDLConfigData {
     @Override
     public List<ShowData> specialShows() {
         return specialShows;
+    }
+
+    @Override
+    public List<String> acceptedOrigins() {
+        return acceptedOrigins;
     }
 
     @Override
@@ -76,6 +83,11 @@ public class PreDLConfigData implements IPreDLConfigData {
                     .map(ShowData::new)
                     .collect(Collectors.toList());
 
+            acceptedOrigins = NodeListFactory.elementsByName(e, "accepted_origin")
+                    .stream()
+                    .map(Node::getTextContent)
+                    .collect(Collectors.toList());
+
         } catch (Exception e) {
             return false;
         }
@@ -101,6 +113,10 @@ public class PreDLConfigData implements IPreDLConfigData {
                 .append(" (")
                 .append(x.getId())
                 .append("); "));
+
+        sb.append("\naccepted-origins: ");
+        acceptedOrigins.forEach(x -> sb.append(x)
+                .append("; "));
 
         return sb.toString();
     }
