@@ -4,12 +4,14 @@ import data.RequestData;
 import data.ResultData;
 import enums.Quality;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public interface IProvider {
+
+    /**
+     * Accepted origins field
+     */
+    List<String> acceptedOrigins = new ArrayList<>();
 
     /**
      * @return provider name
@@ -51,13 +53,12 @@ public interface IProvider {
     ResultData getBestResult(List<ResultData> results);
 
     /**
-     * @return accepted origins
+     * Sets accepted origins, to be used by 'getBestResult'
+     *
+     * @param origins accepted origins
      */
-    default Collection<String> acceptedOrigins() {
-        return Collections.unmodifiableList(Arrays.asList("DIMENSION",
-                "2HD",
-                "KILLERS",
-                "REMARKABLE",
-                "PublicHD"));
+    default void setAcceptedOrigins(List<String> origins) {
+        acceptedOrigins.clear();
+        acceptedOrigins.addAll(origins);
     }
 }

@@ -16,7 +16,7 @@ public interface ISrtProvider extends IProvider {
      */
     default ResultData getBestResult(List<ResultData> results) {
         return results.stream()
-                .filter(d -> acceptedOrigins().contains(d.getOrigin()))
+                .filter(d -> acceptedOrigins.contains(d.getOrigin()))
                 .findFirst()
                 .orElseThrow(ResultNotFoundException::new);
     }

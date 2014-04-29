@@ -16,7 +16,7 @@ public interface ITorrentProvider extends IProvider {
      */
     default ResultData getBestResult(List<ResultData> results) {
         return results.stream()
-                .filter(d -> acceptedOrigins().contains(d.getOrigin()))
+                .filter(d -> acceptedOrigins.contains(d.getOrigin()))
                 .sorted((l, r) -> r.getSeeds() - l.getSeeds())
                 .findFirst()
                 .orElseThrow(ResultNotFoundException::new);
