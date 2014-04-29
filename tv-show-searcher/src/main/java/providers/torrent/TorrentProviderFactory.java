@@ -22,6 +22,9 @@ public class TorrentProviderFactory {
      * @return provider
      */
     public static IProvider create(String name) {
+        if (!providers.containsKey(name))
+            throw new IllegalArgumentException("No such provider: " + name);
+
         return providers.get(name);
     }
 }
