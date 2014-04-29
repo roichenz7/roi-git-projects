@@ -72,15 +72,17 @@ public class PhdProvider implements ITorrentProvider {
         protected void initialize(Element source) {
             Elements elements = source.getElementsByTag("td");
 
-            ShowData showData = ShowData.fromFilename(elements.get(1).text(), " ");
+            String temp = elements.get(2).getElementsByAttribute("href").get(2).attr("href");
+            String[] array = temp.replaceAll("http://", "").split("/");
+            String filename = array[3].replaceAll("\\+%5BPublicHD%5D\\.torrent", "");
+
+            ShowData showData = ShowData.fromFilename(filename);
             initialize(showData);
 
             seeds = Integer.parseInt(elements.get(4).text());
             peers = Integer.parseInt(elements.get(5).text());
 
-            String temp = elements.get(2).getElementsByAttribute("href").get(2).attr("href");
             if (temp.contains("istoretor")) {
-                String[] array = temp.replaceAll("http://", "").split("/");
                 String hash = array[2].toUpperCase();
                 downloadLink = "http://istoretor.com/fdown.php?hash=" + hash;
             }
