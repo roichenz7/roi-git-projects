@@ -49,6 +49,7 @@ public class PreDL implements Runnable {
         System.out.println(config);
 
         provider = TorrentProviderFactory.create(config.defaultProvider());
+        provider.setAcceptedOrigins(config.acceptedOrigins());
 
         System.out.println("pre-dl: logging in to my episodes, username: " + username);
         MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password);
