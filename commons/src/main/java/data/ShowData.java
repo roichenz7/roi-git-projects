@@ -120,11 +120,11 @@ public class ShowData {
         else
             showData.quality = "";
 
-        matcher = Pattern.compile("(.*)(-[a-zA-Z0-9]*)(.*)")
+        matcher = Pattern.compile("(.*)(-)([a-zA-Z0-9]*)(.*)")
                 .matcher(filename);
 
         if (matcher.find())
-            showData.origin = matcher.group(2);
+            showData.origin = matcher.group(3);
         else
             showData.origin = "";
 
