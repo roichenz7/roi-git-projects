@@ -71,16 +71,16 @@ public class PirateBayProvider implements ITorrentProvider {
         protected void initialize(Element source) {
             Elements elements = source.getElementsByTag("td");
 
-            ShowData showData = ShowData.fromFilename(elements.get(1).text());
-            initialize(showData);
-
-            seeds = Integer.parseInt(elements.get(2).text());
-            peers = Integer.parseInt(elements.get(3).text());
-
             String temp = elements.get(1).getElementsByAttribute("href").get(0).attr("href");
             String [] array = temp.split("/");
             String id = array[2];
             String showName = array[3];
+
+            ShowData showData = ShowData.fromFilename(showName);
+            initialize(showData);
+
+            seeds = Integer.parseInt(elements.get(2).text());
+            peers = Integer.parseInt(elements.get(3).text());
 
             downloadLink = "http://piratebaytorrents.info/" + id + "/" + showName + "." + id + ".TPB.torrent";
         }
