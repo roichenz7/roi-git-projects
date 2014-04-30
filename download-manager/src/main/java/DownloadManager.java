@@ -3,8 +3,6 @@ public class DownloadManager {
 
     /**
      * @param args program arguments
-     * args[0] = flag (--pre-dl / --post-dl)
-     * args[1] = config filename
      */
     public static void main(String[] args) {
         if(args.length != 2 && args.length != 4 && args.length != 5) {
