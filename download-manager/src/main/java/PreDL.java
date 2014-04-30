@@ -22,10 +22,23 @@ public class PreDL implements Runnable {
 
     private IProvider provider;
 
+    private boolean isMarkAsAcquired;
+    private boolean isMarkAsWatched;
+
     public PreDL(String configFilename, String username, String password) {
         this.configFilename = configFilename;
         this.username = username;
         this.password = password;
+    }
+
+    public PreDL withMarkAsAcquired() {
+        isMarkAsAcquired = true;
+        return this;
+    }
+
+    public PreDL withMarkAsWatched() {
+        isMarkAsWatched = true;
+        return this;
     }
 
     @Override
@@ -52,7 +65,7 @@ public class PreDL implements Runnable {
         provider.setAcceptedOrigins(config.acceptedOrigins());
 
         System.out.println("pre-dl: logging in to my episodes, username: " + username);
-        MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password);
+        final MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password);
 
         System.out.println("\npre-dl: getting list of episodes to acquire");
         List<EpisodeData> episodesToAcquire = myEpisodesService.getStatus()
@@ -74,7 +87,7 @@ public class PreDL implements Runnable {
         System.out.println("\npre-dl: processing un-acquired episodes");
         episodesToAcquire.forEach(e -> {
             Quality quality = config.getTvShowQuality(e.getTvShowId());
-            System.out.println("pre-dl: searching for: " + e + " [" + quality + "]");
+            System.out.println("\npre-dl: searching for: " + e + " [" + quality + "]");
 
             try {
                 List<ResultData> results = provider.search(e.getTvShowName(),
@@ -91,7 +104,15 @@ public class PreDL implements Runnable {
                     System.out.println("pre-dl: downloading file: " + result);
                     String filename = downloadDir.getPath() + "/" + result.toString();
                     FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
-                    System.out.println("pre-dl: file downloaded: " + filename + "\n");
+                    System.out.println("pre-dl: file downloaded: " + filename);
+
+                    if (isMarkAsWatched) {
+                        System.out.println("pre-dl: marking file as watched: " + result);
+                        myEpisodesService.markAsWatched(e.getTvShowId(), e.getSeason(), e.getEpisode());
+                    } else if (isMarkAsAcquired) {
+                        System.out.println("pre-dl: marking file as acquired: " + result);
+                        myEpisodesService.markAsAcquired(e.getTvShowId(), e.getSeason(), e.getEpisode());
+                    }
                 } else {
                     System.out.println("pre-dl: no results found");
                 }
@@ -100,6 +121,6 @@ public class PreDL implements Runnable {
             }
         });
 
-        System.out.println("pre-dl: finished");
+        System.out.println("\npre-dl: finished");
     }
 }
