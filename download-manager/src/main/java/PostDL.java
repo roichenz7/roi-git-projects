@@ -15,23 +15,23 @@ import java.util.List;
 public class PostDL implements Runnable {
 
     private final String configFilename;
-    private final String tvShowsConfigFilename;
-    private final String username;
-    private final String password;
+    private String tvShowsConfigFilename;
+    private String username;
+    private String password;
     private boolean isMarkAsAcquired;
     private MyEpisodesService myEpisodesService;
 
     public PostDL(String configFilename) {
-        this(configFilename, null, null, null);
+        this.configFilename = configFilename;
         this.isMarkAsAcquired = false;
     }
 
-    public PostDL(String configFilename, String tvShowsConfigFilename, String username, String password) {
-        this.configFilename = configFilename;
+    public PostDL withMarkAsAcquired(String tvShowsConfigFilename, String username, String password) {
         this.tvShowsConfigFilename = tvShowsConfigFilename;
         this.username = username;
         this.password = password;
         this.isMarkAsAcquired = true;
+        return this;
     }
 
     @Override
