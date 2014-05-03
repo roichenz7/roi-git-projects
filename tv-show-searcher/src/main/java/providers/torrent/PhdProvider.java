@@ -60,7 +60,7 @@ public class PhdProvider implements ITorrentProvider {
     }
 
     /**
-     * PHD result data inner class
+     * PHD search result inner class
      */
     private static class PhdSearchResult extends SearchResult {
 

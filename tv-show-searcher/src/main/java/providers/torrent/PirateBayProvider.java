@@ -59,7 +59,7 @@ public class PirateBayProvider implements ITorrentProvider {
     }
 
     /**
-     * PirateBay result data inner class
+     * PirateBay search result inner class
      */
     private static class PirateBaySearchResult extends SearchResult {
 
