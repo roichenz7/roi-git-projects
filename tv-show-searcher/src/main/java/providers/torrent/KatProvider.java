@@ -68,9 +68,9 @@ public class KatProvider implements ITorrentProvider {
         Document document = Jsoup.parse(responseBody.toString());
         return document.select("tr")
                 .stream()
-                .filter(e -> e.select("td").size() == 8)
+                .filter(e -> e.select("td").size() == 6)
                 .filter(e -> {
-                    Matcher matcher = Pattern.compile("<a href=\"magnet:?")
+                    Matcher matcher = Pattern.compile("href=\"magnet:?")
                             .matcher(e.html());
                     return matcher.find() && !matcher.find();
                 })
