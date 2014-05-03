@@ -156,7 +156,7 @@ public class ShowData {
                 .matcher(filename);
 
         if (matcher.find())
-            showData.origin = matcher.group(3).toUpperCase();
+            showData.origin = matcher.group(3);
         else
             showData.origin = "";
 
