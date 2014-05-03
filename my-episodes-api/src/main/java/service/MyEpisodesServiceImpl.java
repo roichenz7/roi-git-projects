@@ -73,7 +73,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         Map<Integer, TvShowData> tvShows = getMyShows()
                 .entrySet()
                 .stream()
-                .map(e -> new TvShowData(e.getKey(), e.getValue()))
+                .map(TvShowData::new)
                 .collect(Collectors.toMap(TvShowData::getId,
                         Function.<TvShowData>identity()));
 

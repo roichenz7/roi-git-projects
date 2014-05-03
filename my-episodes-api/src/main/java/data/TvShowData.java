@@ -5,6 +5,7 @@ import org.w3c.dom.Node;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.TreeSet;
 
 public class TvShowData {
@@ -18,6 +19,10 @@ public class TvShowData {
     public TvShowData(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public TvShowData(Map.Entry<Integer, String> entry) {
+        this(entry.getKey(), entry.getValue());
     }
 
     public TvShowData(Node node) {
