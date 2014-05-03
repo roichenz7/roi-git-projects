@@ -3,7 +3,7 @@ package data;
 import enums.Quality;
 import org.jsoup.nodes.Element;
 
-public abstract class ResultData {
+public abstract class SearchResult {
 
     protected String tvShowName;
     protected int season;
@@ -18,7 +18,7 @@ public abstract class ResultData {
 
     protected String downloadLink;
 
-    public ResultData(Element source) {
+    public SearchResult(Element source) {
         initialize(source);
     }
 

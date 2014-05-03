@@ -1,7 +1,7 @@
 package providers.srt;
 
-import data.RequestData;
-import data.ResultData;
+import data.SearchQuery;
+import data.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class TorecProvider implements ISrtProvider {
     }
 
     @Override
-    public List<ResultData> search(RequestData requestData) {
+    public List<SearchResult> search(SearchQuery searchQuery) {
         return new ArrayList<>(); // TODO
     }
 }

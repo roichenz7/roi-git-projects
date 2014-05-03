@@ -2,14 +2,14 @@ package data;
 
 import enums.Quality;
 
-public class RequestData {
+public class SearchQuery {
 
     private String tvShowName;
     private int season;
     private int episode;
     private Quality quality;
 
-    public RequestData(String tvShowName, int season, int episode, Quality quality) {
+    public SearchQuery(String tvShowName, int season, int episode, Quality quality) {
         this.tvShowName = tvShowName;
         this.season = season;
         this.episode = episode;

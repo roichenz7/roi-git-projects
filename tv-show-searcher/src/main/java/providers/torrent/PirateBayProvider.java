@@ -1,7 +1,7 @@
 package providers.torrent;
 
-import data.RequestData;
-import data.ResultData;
+import data.SearchQuery;
+import data.SearchResult;
 import data.ShowData;
 import exceptions.SearchException;
 import http.HttpMethod;
@@ -30,8 +30,8 @@ public class PirateBayProvider implements ITorrentProvider {
     }
 
     @Override
-    public List<ResultData> search(RequestData requestData) {
-        final String query = requestData.toString().replaceAll(" ", "%20");
+    public List<SearchResult> search(SearchQuery searchQuery) {
+        final String query = searchQuery.toString().replaceAll(" ", "%20");
 
         IHttpResponse response;
         try {
@@ -54,16 +54,16 @@ public class PirateBayProvider implements ITorrentProvider {
                             .matcher(e.html());
                     return matcher.find() && !matcher.find();
                 })
-                .map(PirateBayResultData::new)
+                .map(PirateBaySearchResult::new)
                 .collect(Collectors.toList());
     }
 
     /**
      * PirateBay result data inner class
      */
-    private static class PirateBayResultData extends ResultData {
+    private static class PirateBaySearchResult extends SearchResult {
 
-        public PirateBayResultData(Element source) {
+        public PirateBaySearchResult(Element source) {
             super(source);
         }
 

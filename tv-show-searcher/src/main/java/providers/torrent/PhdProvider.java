@@ -1,7 +1,7 @@
 package providers.torrent;
 
-import data.RequestData;
-import data.ResultData;
+import data.SearchQuery;
+import data.SearchResult;
 import data.ShowData;
 import exceptions.SearchException;
 import http.HttpMethod;
@@ -30,20 +30,20 @@ public class PhdProvider implements ITorrentProvider {
     }
 
     @Override
-    public List<ResultData> search(RequestData requestData) {
+    public List<SearchResult> search(SearchQuery searchQuery) {
         IHttpResponse response;
         try {
             response = new HttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/index.php")
                     .withUrlParam("page", "torrents")
-                    .withUrlParam("search", requestData.toString())
+                    .withUrlParam("search", searchQuery.toString())
                     .withUrlParam("active", "0")
                     .execute();
         } catch (Exception e) {
-            throw new SearchException(requestData.toString(), e);
+            throw new SearchException(searchQuery.toString(), e);
         }
 
         if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
-            throw new SearchException(requestData.toString(), "Http response: " + response);
+            throw new SearchException(searchQuery.toString(), "Http response: " + response);
         }
 
         Document document = Jsoup.parse(response.getBody());
@@ -55,16 +55,16 @@ public class PhdProvider implements ITorrentProvider {
                             .matcher(e.html());
                     return matcher.find() && !matcher.find();
                 })
-                .map(PhdResultData::new)
+                .map(PhdSearchResult::new)
                 .collect(Collectors.toList());
     }
 
     /**
      * PHD result data inner class
      */
-    private static class PhdResultData extends ResultData {
+    private static class PhdSearchResult extends SearchResult {
 
-        public PhdResultData(Element source) {
+        public PhdSearchResult(Element source) {
             super(source);
         }
 

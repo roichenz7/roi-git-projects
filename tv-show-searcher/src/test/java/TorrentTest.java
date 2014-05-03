@@ -1,4 +1,4 @@
-import data.ResultData;
+import data.SearchResult;
 import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
@@ -17,8 +17,8 @@ public class TorrentTest {
     public void testKat() {
         IProvider provider = TorrentProviderFactory.create("KAT");
         provider.setAcceptedOrigins(acceptedOrigins);
-        List<ResultData> results = provider.search("Arrow", 2, 18, Quality.HD_720p);
-        ResultData result = provider.getBestResult(results);
+        List<SearchResult> results = provider.search("Arrow", 2, 18, Quality.HD_720p);
+        SearchResult result = provider.getBestResult(results);
         FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT);
     }
 
@@ -26,8 +26,8 @@ public class TorrentTest {
     public void testPhd() {
         IProvider provider = TorrentProviderFactory.create("PHD");
         provider.setAcceptedOrigins(acceptedOrigins);
-        List<ResultData> results = provider.search("Community", 5, 13, Quality.HD_720p);
-        ResultData result = provider.getBestResult(results);
+        List<SearchResult> results = provider.search("Community", 5, 13, Quality.HD_720p);
+        SearchResult result = provider.getBestResult(results);
         FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT);
     }
 
@@ -35,8 +35,8 @@ public class TorrentTest {
     public void testPirateBay() {
         IProvider provider = TorrentProviderFactory.create("PirateBay");
         provider.setAcceptedOrigins(acceptedOrigins);
-        List<ResultData> results = provider.search("Game Of Thrones", 4, 1, Quality.HD_1080p);
-        ResultData result = provider.getBestResult(results);
+        List<SearchResult> results = provider.search("Game Of Thrones", 4, 1, Quality.HD_1080p);
+        SearchResult result = provider.getBestResult(results);
         FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT);
     }
 }

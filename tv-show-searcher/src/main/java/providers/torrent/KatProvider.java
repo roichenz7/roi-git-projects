@@ -1,7 +1,7 @@
 package providers.torrent;
 
-import data.RequestData;
-import data.ResultData;
+import data.SearchQuery;
+import data.SearchResult;
 import exceptions.SearchException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
@@ -23,8 +23,8 @@ public class KatProvider implements ITorrentProvider {
     }
 
     @Override
-    public List<ResultData> search(RequestData requestData) {
-        final String query = requestData.toString().replaceAll(" ", "%20");
+    public List<SearchResult> search(SearchQuery searchQuery) {
+        final String query = searchQuery.toString().replaceAll(" ", "%20");
 
         IHttpResponse response;
         try {

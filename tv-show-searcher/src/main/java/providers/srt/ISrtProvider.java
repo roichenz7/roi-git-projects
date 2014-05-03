@@ -1,6 +1,6 @@
 package providers.srt;
 
-import data.ResultData;
+import data.SearchResult;
 import exceptions.ResultNotFoundException;
 import providers.IProvider;
 
@@ -14,7 +14,7 @@ public interface ISrtProvider extends IProvider {
      * @param results results
      * @return best result
      */
-    default ResultData getBestResult(List<ResultData> results) {
+    default SearchResult getBestResult(List<SearchResult> results) {
         return results.stream()
                 .filter(d -> acceptedOrigins.contains(d.getOrigin()))
                 .findFirst()

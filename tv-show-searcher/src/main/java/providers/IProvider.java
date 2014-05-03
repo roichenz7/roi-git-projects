@@ -1,7 +1,7 @@
 package providers;
 
-import data.RequestData;
-import data.ResultData;
+import data.SearchQuery;
+import data.SearchResult;
 import enums.Quality;
 
 import java.util.*;
@@ -24,12 +24,12 @@ public interface IProvider {
     String getBaseUrl();
 
     /**
-     * Performs search according to requestData
+     * Performs search according to searchQuery
      *
-     * @param requestData request data
+     * @param searchQuery search query
      * @return list of results
      */
-    List<ResultData> search(RequestData requestData);
+    List<SearchResult> search(SearchQuery searchQuery);
 
     /**
      * Performs search according to given parameters
@@ -40,8 +40,8 @@ public interface IProvider {
      * @param quality file quality
      * @return list of results
      */
-    default List<ResultData> search(String tvShowName, int season, int episode, Quality quality) {
-        return search(new RequestData(tvShowName, season, episode, quality));
+    default List<SearchResult> search(String tvShowName, int season, int episode, Quality quality) {
+        return search(new SearchQuery(tvShowName, season, episode, quality));
     }
 
     /**
@@ -50,7 +50,7 @@ public interface IProvider {
      * @param results results
      * @return best result
      */
-    ResultData getBestResult(List<ResultData> results);
+    SearchResult getBestResult(List<SearchResult> results);
 
     /**
      * Sets accepted origins, to be used by 'getBestResult'
