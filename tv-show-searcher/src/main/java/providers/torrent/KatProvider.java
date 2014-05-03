@@ -2,6 +2,7 @@ package providers.torrent;
 
 import data.SearchQuery;
 import data.SearchResult;
+import data.ShowData;
 import exceptions.SearchException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
@@ -87,7 +88,19 @@ public class KatProvider implements ITorrentProvider {
         protected void initialize(Element source) {
             Elements elements = source.getElementsByTag("td");
 
-            // TODO
+            Element element = elements.get(0).select("div a[href=#]").get(0);
+            Matcher matcher = Pattern.compile("(.*)(\\{ 'name': '[^,]+)(.*)").matcher(element.attr("onclick")); // TODO
+            String name = matcher.group();
+
+            ShowData showData = ShowData.fromFilename(name);
+            initialize(showData);
+
+            seeds = Integer.parseInt(elements.get(4).text());
+            peers = Integer.parseInt(elements.get(5).text());
+
+            element = elements.get(0).select("div a[title=Download torrent file]").get(0);
+            String[] array = element.attr("href").split("\\?");
+            downloadLink = array[0];
         }
     }
 }
