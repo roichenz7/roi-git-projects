@@ -29,42 +29,74 @@ public class ShowData {
         quality = attributes.getNamedItem("quality").getNodeValue();
     }
 
+    /**
+     * @return show id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @return show title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets show title
+     *
+     * @param title title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * @return season
+     */
     public String getSeason() {
         return season;
     }
 
+    /**
+     * @return season number
+     */
     public int getSeasonNumber() {
         return seasonNumber;
     }
 
+    /**
+     * @return episode number
+     */
     public int getEpisodeNumber() {
         return episodeNumber;
     }
 
+    /**
+     * @return episode quality
+     */
     public String getQuality() {
         return quality;
     }
 
+    /**
+     * @return origin
+     */
     public String getOrigin() {
         return origin;
     }
 
+    /**
+     * @return true if proper, false otherwise
+     */
     public boolean isProper() {
         return isProper;
     }
 
+    /**
+     * @return true if this show data is empty, false otherwise
+     */
     public boolean isEmpty() {
         return title == null && season == null;
     }
