@@ -30,6 +30,13 @@ public abstract class SearchResult {
     }
 
     /**
+     * @return sanitized tv show name (removes all non-word characters)
+     */
+    public String getSanitizedTitle() {
+        return tvShowName.replaceAll("\\W", " ");
+    }
+
+    /**
      * @return season
      */
     public int getSeason() {
