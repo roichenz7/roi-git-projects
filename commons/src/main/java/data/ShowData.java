@@ -44,13 +44,6 @@ public class ShowData {
     }
 
     /**
-     * @return sanitized title (removes all non-word characters)
-     */
-    public String getSanitizedTitle() {
-        return title.replaceAll("\\W", " ");
-    }
-
-    /**
      * Sets show title
      *
      * @param title title
