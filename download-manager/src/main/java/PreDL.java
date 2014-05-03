@@ -90,7 +90,7 @@ public class PreDL implements Runnable {
             System.out.println("\npre-dl: searching for: " + e + " [" + quality + "]");
 
             try {
-                List<ResultData> results = provider.search(sanitize(e.getTvShowName()),
+                List<ResultData> results = provider.search(e.getSanitizedTvShowName()),
                         e.getSeason(),
                         e.getEpisode(),
                         quality);
@@ -122,15 +122,5 @@ public class PreDL implements Runnable {
         });
 
         System.out.println("\npre-dl: finished");
-    }
-
-    /**
-     * Removes all non-word characters from given input string
-     *
-     * @param str input string
-     * @return output string
-     */
-    private String sanitize(String str) {
-        return str.replaceAll("\\W", " ");
     }
 }
