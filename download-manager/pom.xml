@@ -7,25 +7,25 @@
     <groupId>download-manager</groupId>
     <artifactId>download-manager</artifactId>
     <packaging>pom</packaging>
-    <version>1.3.3-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>commons</groupId>
             <artifactId>commons</artifactId>
-            <version>1.3.1-SNAPSHOT</version>
+            <version>1.4.0-SNAPSHOT</version>
         </dependency>
 		
 		<dependency>
             <groupId>my-episodes-api</groupId>
             <artifactId>my-episodes-api</artifactId>
-            <version>1.3.1-SNAPSHOT</version>
+            <version>1.4.0-SNAPSHOT</version>
         </dependency>
 		
 		<dependency>
             <groupId>tv-show-searcher</groupId>
             <artifactId>tv-show-searcher</artifactId>
-            <version>1.3.1-SNAPSHOT</version>
+            <version>1.4.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
