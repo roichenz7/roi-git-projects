@@ -39,7 +39,7 @@ public class EpisodeData implements Comparable<EpisodeData> {
 
             tvShowName = title[0].trim();
             episodeName = title[2].trim();
-            String date = title[3].trim() + "-9-00";
+            String date = title[3].trim() + "-8-00";
             airDate = new SimpleDateFormat("dd-MMM-yyyy-HH-mm", Locale.ENGLISH).parse(date);
         } catch (Exception e) {
             throw new EpisodeParseException(e);
