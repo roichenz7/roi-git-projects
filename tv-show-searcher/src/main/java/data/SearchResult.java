@@ -32,7 +32,7 @@ public abstract class SearchResult {
     /**
      * @return sanitized tv show name (removes all non-word characters)
      */
-    public String getSanitizedTitle() {
+    public String getSanitizedTvShowName() {
         return tvShowName.replaceAll("\\W", " ");
     }
 
