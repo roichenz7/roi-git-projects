@@ -89,8 +89,10 @@ public class KatProvider implements ITorrentProvider {
             Elements elements = source.getElementsByTag("td");
 
             Element element = elements.get(0).select("div a[href=#]").get(0);
-            Matcher matcher = Pattern.compile("(.*)(\\{ 'name': '[^,]+)(.*)").matcher(element.attr("onclick")); // TODO
-            String name = matcher.group();
+            String name = element.attr("onclick")
+                    .replaceAll(".*, \\{ 'name': '", "")
+                    .replaceAll("', 'magnet':.*", "")
+                    .replaceAll("%20", "\\.");
 
             ShowData showData = ShowData.fromFilename(name);
             initialize(showData);
