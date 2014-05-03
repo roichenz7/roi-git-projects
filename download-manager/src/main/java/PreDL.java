@@ -1,7 +1,7 @@
 import config.PreDLConfigData;
 import config.IPreDLConfigData;
 import data.EpisodeData;
-import data.ResultData;
+import data.SearchResult;
 import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
@@ -90,7 +90,7 @@ public class PreDL implements Runnable {
             System.out.println("\npre-dl: searching for: " + e + " [" + quality + "]");
 
             try {
-                List<ResultData> results = provider.search(e.getSanitizedTvShowName()),
+                List<SearchResult> results = provider.search(e.getSanitizedTvShowName(),
                         e.getSeason(),
                         e.getEpisode(),
                         quality);
@@ -99,7 +99,7 @@ public class PreDL implements Runnable {
                     System.out.println("pre-dl: got " + results.size() + " results");
 
                     System.out.println("pre-dl: getting best result");
-                    ResultData result = provider.getBestResult(results);
+                    SearchResult result = provider.getBestResult(results);
 
                     System.out.println("pre-dl: downloading file: " + result);
                     String filename = downloadDir.getPath() + "/" + result.toString();
