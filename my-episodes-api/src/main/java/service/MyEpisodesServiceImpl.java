@@ -231,6 +231,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     private List<EpisodeData> parseRssResponse(Document document) {
         return document.select("item")
                 .stream()
+                .filter(e -> !e.html().contains("<title>No Episodes</title>"))
                 .map(EpisodeData::new)
                 .collect(Collectors.toList());
     }
