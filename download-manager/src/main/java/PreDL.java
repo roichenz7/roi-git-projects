@@ -102,7 +102,7 @@ public class PreDL implements Runnable {
                     SearchResult result = provider.getBestResult(results);
 
                     System.out.println("pre-dl: downloading file: " + result);
-                    String filename = downloadDir.getPath() + "/" + result.toString();
+                    String filename = downloadDir.getPath() + "/" + result.toString() + ".[" + provider.getName() + "]";
                     FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
                     System.out.println("pre-dl: file downloaded: " + filename);
 
