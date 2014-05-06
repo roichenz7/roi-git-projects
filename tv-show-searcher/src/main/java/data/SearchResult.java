@@ -87,7 +87,7 @@ public abstract class SearchResult {
 
     @Override
     public String toString() {
-        return String.format("%s.S%02dE%02d.%s", tvShowName, season, episode, quality);
+        return String.format("%s.S%02dE%02d.%s.%s", tvShowName, season, episode, quality, origin);
     }
 
     /**
