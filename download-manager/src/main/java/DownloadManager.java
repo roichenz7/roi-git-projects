@@ -1,3 +1,5 @@
+import postDL.PostDL;
+import preDL.PreDL;
 
 public class DownloadManager {
 
