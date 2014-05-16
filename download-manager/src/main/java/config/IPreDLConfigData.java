@@ -19,9 +19,9 @@ public interface IPreDLConfigData {
     Quality defaultQuality();
 
     /**
-     * @return default provider
+     * @return providers
      */
-    String defaultProvider();
+    List<String> providers();
 
     /**
      * @return ignored shows

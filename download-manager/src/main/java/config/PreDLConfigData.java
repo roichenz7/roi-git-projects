@@ -16,8 +16,7 @@ public class PreDLConfigData implements IPreDLConfigData {
 
     private String downloadDir;
     private Quality defaultQuality;
-    private String defaultProvider;
-
+    private List<String> providers;
     private List<TvShowData> ignoredShows;
     private List<ShowData> specialShows;
     private List<String> acceptedOrigins;
@@ -33,8 +32,8 @@ public class PreDLConfigData implements IPreDLConfigData {
     }
 
     @Override
-    public String defaultProvider() {
-        return defaultProvider;
+    public List<String> providers() {
+        return providers;
     }
 
     @Override
@@ -69,9 +68,10 @@ public class PreDLConfigData implements IPreDLConfigData {
             else
                 defaultQuality = Quality.fromString(str);
 
-            defaultProvider = e.getAttribute("default_provider");
-            if (defaultProvider.isEmpty())
-                return false;
+            providers = NodeListFactory.elementsByName(e, "provider")
+                    .stream()
+                    .map(Node::getTextContent)
+                    .collect(Collectors.toList());
 
             ignoredShows = NodeListFactory.elementsByName(e, "ignored_tv_show")
                     .stream()
@@ -100,9 +100,11 @@ public class PreDLConfigData implements IPreDLConfigData {
         StringBuilder sb = new StringBuilder("pre-dl-config:\n");
         sb.append("download-dir: ").append(downloadDir);
         sb.append("; default-quality: ").append(defaultQuality);
-        sb.append("; default-provider: ").append(defaultProvider).append("\n");
 
-        sb.append("ignored-shows: ");
+        sb.append("\nproviders: ");
+        providers.forEach(x -> sb.append(x).append("; "));
+
+        sb.append("\nignored-shows: ");
         ignoredShows.forEach(x -> sb.append(x.getName())
                 .append(" (")
                 .append(x.getId())
