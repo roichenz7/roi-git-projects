@@ -26,6 +26,11 @@ public interface IHttpResponse {
     String getBody();
 
     /**
+     * @return response body after un-zipping
+     */
+    String getUnzippedBody();
+
+    /**
      * @return response body as stream
      */
     InputStream getBodyAsStream();
