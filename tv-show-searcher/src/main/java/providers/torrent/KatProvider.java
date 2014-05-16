@@ -12,13 +12,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.zip.GZIPInputStream;
 
 public class KatProvider implements ITorrentProvider {
 
@@ -52,17 +49,7 @@ public class KatProvider implements ITorrentProvider {
             throw new SearchException(query, "Http response: " + response);
         }
 
-        StringBuilder responseBody = new StringBuilder();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new GZIPInputStream(response.getBodyAsStream())))) {
-            String line;
-            while ((line = in.readLine()) != null) {
-                responseBody.append(line);
-            }
-        } catch (Exception e) {
-            throw new SearchException(query, e);
-        }
-
-        Document document = Jsoup.parse(responseBody.toString());
+        Document document = Jsoup.parse(response.getUnzippedBody());
         return document.select("tr")
                 .stream()
                 .filter(e -> e.select("td").size() == 6)
