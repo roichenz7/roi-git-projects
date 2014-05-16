@@ -1,12 +1,12 @@
 package preDL;
 
-import config.PreDLConfigData;
 import config.IPreDLConfigData;
+import config.PreDLConfigData;
 import data.EpisodeData;
-import data.SearchResult;
 import enums.Quality;
-import file.FileDownloader;
-import file.FileType;
+import preDL.handlers.EpisodeHandler;
+import preDL.handlers.EpisodeHandlerAdapter;
+import preDL.handlers.EpisodeHandlerBase;
 import providers.IProvider;
 import providers.torrent.TorrentProviderFactory;
 import service.MyEpisodesService;
@@ -21,9 +21,7 @@ public class PreDL implements Runnable {
     private final String configFilename;
     private final String username;
     private final String password;
-
-    private IProvider provider;
-
+    private EpisodeHandler episodeHandler;
     private boolean isMarkAsAcquired;
     private boolean isMarkAsWatched;
 
@@ -63,8 +61,19 @@ public class PreDL implements Runnable {
 
         System.out.println(config);
 
-        provider = TorrentProviderFactory.create(config.defaultProvider());
-        provider.setAcceptedOrigins(config.acceptedOrigins());
+        episodeHandler = new EpisodeHandlerBase() {
+            @Override
+            protected boolean doHandle(EpisodeData episode, Quality quality, String downloadPath) {
+                return false;
+            }
+        };
+
+        EpisodeHandler curr = episodeHandler;
+        for (String name : config.providers()) {
+            IProvider provider = TorrentProviderFactory.create(name);
+            provider.setAcceptedOrigins(config.acceptedOrigins());
+            curr = ((EpisodeHandlerBase) curr).setNext(new EpisodeHandlerAdapter(provider));
+        }
 
         System.out.println("pre-dl: logging in to my episodes, username: " + username);
         final MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password);
@@ -88,35 +97,18 @@ public class PreDL implements Runnable {
 
         System.out.println("\npre-dl: processing un-acquired episodes");
         episodesToAcquire.forEach(e -> {
-            Quality quality = config.getTvShowQuality(e.getTvShowId());
-            System.out.println("\npre-dl: searching for: " + e + " [" + quality + "]");
-
             try {
-                List<SearchResult> results = provider.search(e.getSanitizedTvShowName(),
-                        e.getSeason(),
-                        e.getEpisode(),
-                        quality);
+                Quality quality = config.getTvShowQuality(e.getTvShowId());
+                System.out.println("\npre-dl: searching for: " + e + " [" + quality + "]");
+                if (!episodeHandler.handle(e, quality, downloadDir.getPath()))
+                    throw new RuntimeException("failed to handle episode: " + e);
 
-                if (!results.isEmpty()) {
-                    System.out.println("pre-dl: got " + results.size() + " results");
-
-                    System.out.println("pre-dl: getting best result");
-                    SearchResult result = provider.getBestResult(results);
-
-                    System.out.println("pre-dl: downloading file: " + result);
-                    String filename = downloadDir.getPath() + "/" + result.toString() + ".[" + provider.getName() + "]";
-                    FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
-                    System.out.println("pre-dl: file downloaded: " + filename);
-
-                    if (isMarkAsWatched) {
-                        System.out.println("pre-dl: marking file as watched: " + result);
-                        myEpisodesService.markAsWatched(e.getTvShowId(), e.getSeason(), e.getEpisode());
-                    } else if (isMarkAsAcquired) {
-                        System.out.println("pre-dl: marking file as acquired: " + result);
-                        myEpisodesService.markAsAcquired(e.getTvShowId(), e.getSeason(), e.getEpisode());
-                    }
-                } else {
-                    System.out.println("pre-dl: no results found");
+                if (isMarkAsWatched) {
+                    System.out.println("pre-dl: marking file as watched: " + e);
+                    myEpisodesService.markAsWatched(e.getTvShowId(), e.getSeason(), e.getEpisode());
+                } else if (isMarkAsAcquired) {
+                    System.out.println("pre-dl: marking file as acquired: " + e);
+                    myEpisodesService.markAsAcquired(e.getTvShowId(), e.getSeason(), e.getEpisode());
                 }
             } catch (Exception ex) {
                 System.out.println("pre-dl: failed processing of: " + e + ". reason: " + ex);
