@@ -1,4 +1,9 @@
-<pre-dl-config download_dir="//NAS/cache/.apps/torrents/watch" default_quality="720p" default_provider="PHD">
+<pre-dl-config download_dir="//NAS/cache/.apps/torrents/watch" default_quality="720p">
+    <provider>PHD</provider>
+    <provider>KAT</provider>
+    <provider>PirateBay</provider>
+
+    <ignored_tv_show id="6211" name="Childrens Hospital"/>
     <ignored_tv_show id="8603" name="Scandal"/>
     <ignored_tv_show id="8353" name="Suits"/>
 
