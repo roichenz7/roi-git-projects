@@ -2,15 +2,13 @@ package providers.torrent;
 
 import data.SearchQuery;
 import data.SearchResult;
-import data.ShowData;
 import exceptions.SearchException;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import providers.torrent.results.KatSearchResult;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -60,36 +58,5 @@ public class KatProvider implements ITorrentProvider {
                 })
                 .map(KatSearchResult::new)
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * KAT search result inner class
-     */
-    private static class KatSearchResult extends SearchResult {
-
-        public KatSearchResult(Element source) {
-            super(source);
-        }
-
-        @Override
-        protected void initialize(Element source) {
-            Elements elements = source.getElementsByTag("td");
-
-            Element element = elements.get(0).select("div a[href=#]").get(0);
-            String name = element.attr("onclick")
-                    .replaceAll(".*, \\{ 'name': '", "")
-                    .replaceAll("', 'magnet':.*", "")
-                    .replaceAll("%20", "\\.");
-
-            ShowData showData = ShowData.fromFilename(name);
-            initialize(showData);
-
-            seeds = Integer.parseInt(elements.get(4).text());
-            peers = Integer.parseInt(elements.get(5).text());
-
-            element = elements.get(0).select("div a[title=Download torrent file]").get(0);
-            String[] array = element.attr("href").split("\\?");
-            downloadLink = array[0];
-        }
     }
 }
