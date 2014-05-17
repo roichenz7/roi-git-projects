@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class KatProvider implements ITorrentProvider {
 
     @Override
-    public final String getName() {
+    public String getName() {
         return "KAT";
     }
 
     @Override
-    public final String getBaseUrl() {
+    public String getBaseUrl() {
         return "http://kickass.to";
     }
 
