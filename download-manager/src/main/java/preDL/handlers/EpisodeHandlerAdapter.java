@@ -1,6 +1,7 @@
 package preDL.handlers;
 
 import data.EpisodeData;
+import data.SearchQuery;
 import data.SearchResult;
 import enums.Quality;
 import file.FileDownloader;
@@ -21,10 +22,12 @@ public class EpisodeHandlerAdapter extends EpisodeHandlerBase {
     protected boolean doHandle(EpisodeData episode, Quality quality, String downloadPath) {
         try {
             System.out.println(this + ": searching for: " + episode + " [" + quality + "]");
-            List<SearchResult> results = provider.search(episode.getSanitizedTvShowName(),
+            SearchQuery query = new SearchQuery(episode.getSanitizedTvShowName(),
                     episode.getSeason(),
                     episode.getEpisode(),
                     quality);
+
+            List<SearchResult> results = provider.search(query);
             if (results.isEmpty()) {
                 System.out.println(this + ": no results found");
                 return false;
@@ -33,7 +36,7 @@ public class EpisodeHandlerAdapter extends EpisodeHandlerBase {
             System.out.println(this + ": got " + results.size() + " results");
 
             System.out.println(this + ": getting best result");
-            SearchResult result = provider.getBestResult(results);
+            SearchResult result = provider.getBestResult(results, query);
 
             System.out.println(this + ": downloading file: " + result);
             String filename = downloadPath + "/" + result.toString() + ".[" + provider.getName() + "]";
