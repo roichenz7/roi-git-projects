@@ -1,3 +1,4 @@
+import data.SearchQuery;
 import data.SearchResult;
 import enums.Quality;
 import file.FileDownloader;
@@ -17,8 +18,11 @@ public class TorrentTest {
     public void testKat() {
         IProvider provider = TorrentProviderFactory.create("KAT");
         provider.setAcceptedOrigins(acceptedOrigins);
-        List<SearchResult> results = provider.search("Arrow", 2, 18, Quality.HD_720p);
-        SearchResult result = provider.getBestResult(results);
+
+        SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
+        List<SearchResult> results = provider.search(query);
+
+        SearchResult result = provider.getBestResult(results, query);
         FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT);
     }
 
@@ -26,8 +30,11 @@ public class TorrentTest {
     public void testPhd() {
         IProvider provider = TorrentProviderFactory.create("PHD");
         provider.setAcceptedOrigins(acceptedOrigins);
-        List<SearchResult> results = provider.search("Community", 5, 13, Quality.HD_720p);
-        SearchResult result = provider.getBestResult(results);
+
+        SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
+        List<SearchResult> results = provider.search(query);
+
+        SearchResult result = provider.getBestResult(results, query);
         FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT);
     }
 
@@ -35,8 +42,11 @@ public class TorrentTest {
     public void testPirateBay() {
         IProvider provider = TorrentProviderFactory.create("PirateBay");
         provider.setAcceptedOrigins(acceptedOrigins);
-        List<SearchResult> results = provider.search("Game Of Thrones", 4, 1, Quality.HD_1080p);
-        SearchResult result = provider.getBestResult(results);
+
+        SearchQuery query = new SearchQuery("Game Of Thrones", 4, 1, Quality.HD_1080p);
+        List<SearchResult> results = provider.search(query);
+
+        SearchResult result = provider.getBestResult(results, query);
         FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT);
     }
 }
