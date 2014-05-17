@@ -45,12 +45,13 @@ public interface IProvider {
     }
 
     /**
-     * Returns best result from given results
+     * Returns best result from given results with respect to search query
      *
-     * @param results results
+     * @param results search results
+     * @param query search query
      * @return best result
      */
-    SearchResult getBestResult(List<SearchResult> results);
+    SearchResult getBestResult(List<SearchResult> results, SearchQuery query);
 
     /**
      * Sets accepted origins, to be used by 'getBestResult'
