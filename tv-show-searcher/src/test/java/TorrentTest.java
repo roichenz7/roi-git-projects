@@ -19,7 +19,7 @@ public class TorrentTest {
         Provider provider = TorrentProviderFactory.create("KAT");
         provider.setAcceptedOrigins(acceptedOrigins);
 
-        SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
+        SearchQuery query = new SearchQuery("Arrow", 2, 23, Quality.HD_720p);
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
