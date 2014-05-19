@@ -6,15 +6,15 @@ import data.SearchResult;
 import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
-import providers.IProvider;
+import providers.Provider;
 
 import java.util.List;
 
 public class EpisodeHandlerAdapter extends EpisodeHandlerBase {
 
-    private IProvider provider;
+    private Provider provider;
 
-    public EpisodeHandlerAdapter(IProvider provider) {
+    public EpisodeHandlerAdapter(Provider provider) {
         this.provider = provider;
     }
 
@@ -43,7 +43,7 @@ public class EpisodeHandlerAdapter extends EpisodeHandlerBase {
             FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
             System.out.println(this + ": file downloaded: " + filename);
         } catch (Exception e) {
-            System.out.println(this + ": failed processing of: " + e + ". reason: " + e);
+            System.out.println(this + ": failed processing of: " + episode + ". reason: " + e);
             return false;
         }
 
