@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PirateBayProvider implements ITorrentProvider {
+public class PirateBayProvider implements TorrentProvider {
 
     @Override
     public String getName() {

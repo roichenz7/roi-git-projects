@@ -6,7 +6,7 @@ import data.SearchResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubsCenterProvider implements ISrtProvider {
+public class SubsCenterProvider implements SrtProvider {
 
     @Override
     public String getName() {

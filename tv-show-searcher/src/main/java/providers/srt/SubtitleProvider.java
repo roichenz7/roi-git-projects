@@ -6,7 +6,7 @@ import data.SearchResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubtitleProvider implements ISrtProvider {
+public class SubtitleProvider implements SrtProvider {
 
     public SubtitleProvider(final String email, final String password) {
         login(email, password);

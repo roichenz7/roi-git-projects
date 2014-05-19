@@ -6,7 +6,7 @@ import data.SearchResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TorecProvider implements ISrtProvider {
+public class TorecProvider implements SrtProvider {
 
     @Override
     public String getName() {

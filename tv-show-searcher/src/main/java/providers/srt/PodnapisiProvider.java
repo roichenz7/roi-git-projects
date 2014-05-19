@@ -6,7 +6,7 @@ import data.SearchResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PodnapisiProvider implements ISrtProvider {
+public class PodnapisiProvider implements SrtProvider {
 
     @Override
     public String getName() {

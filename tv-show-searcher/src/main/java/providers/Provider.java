@@ -6,7 +6,7 @@ import enums.Quality;
 
 import java.util.*;
 
-public interface IProvider {
+public interface Provider {
 
     /**
      * Accepted origins field

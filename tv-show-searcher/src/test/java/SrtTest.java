@@ -4,7 +4,7 @@ import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
 import org.junit.Test;
-import providers.IProvider;
+import providers.Provider;
 import providers.srt.SubsCenterProvider;
 import providers.srt.SubtitleProvider;
 import providers.srt.TorecProvider;
@@ -18,7 +18,7 @@ public class SrtTest {
 
     @Test
     public void testSubsCenter() {
-        IProvider provider = new SubsCenterProvider();
+        Provider provider = new SubsCenterProvider();
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("Modern Family", 5, 20, Quality.HD_720p);
@@ -30,7 +30,7 @@ public class SrtTest {
 
     @Test
     public void testSubtitle() {
-        IProvider provider = new SubtitleProvider("email", "password");
+        Provider provider = new SubtitleProvider("email", "password");
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
@@ -42,7 +42,7 @@ public class SrtTest {
 
     @Test
     public void testTorec() {
-        IProvider provider = new TorecProvider();
+        Provider provider = new TorecProvider();
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("Californication", 7, 2, Quality.HD_720p);

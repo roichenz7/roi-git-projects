@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PhdProvider implements ITorrentProvider {
+public class PhdProvider implements TorrentProvider {
 
     @Override
     public String getName() {

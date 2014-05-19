@@ -4,7 +4,7 @@ import enums.Quality;
 import file.FileDownloader;
 import file.FileType;
 import org.junit.Test;
-import providers.IProvider;
+import providers.Provider;
 import providers.torrent.TorrentProviderFactory;
 
 import java.util.Arrays;
@@ -16,7 +16,7 @@ public class TorrentTest {
 
     @Test
     public void testKat() {
-        IProvider provider = TorrentProviderFactory.create("KAT");
+        Provider provider = TorrentProviderFactory.create("KAT");
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
@@ -28,7 +28,7 @@ public class TorrentTest {
 
     @Test
     public void testPhd() {
-        IProvider provider = TorrentProviderFactory.create("PHD");
+        Provider provider = TorrentProviderFactory.create("PHD");
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
@@ -40,7 +40,7 @@ public class TorrentTest {
 
     @Test
     public void testPirateBay() {
-        IProvider provider = TorrentProviderFactory.create("PirateBay");
+        Provider provider = TorrentProviderFactory.create("PirateBay");
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("Game Of Thrones", 4, 1, Quality.HD_1080p);
