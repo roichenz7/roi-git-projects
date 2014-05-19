@@ -90,7 +90,7 @@ public abstract class SearchResult {
      * @return true if this result matches given query, false otherwise
      */
     public boolean matches(SearchQuery query) {
-        return tvShowName.equalsIgnoreCase(query.getTvShowName()) &&
+        return query.getTvShowName().equalsIgnoreCase(tvShowName) &&
                 season == query.getSeason() &&
                 episode == query.getEpisode() &&
                 quality.equals(query.getQuality());
