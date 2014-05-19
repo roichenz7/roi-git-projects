@@ -85,6 +85,17 @@ public abstract class SearchResult {
         return downloadLink;
     }
 
+    /**
+     * @param query search query
+     * @return true if this result matches given query, false otherwise
+     */
+    public boolean matches(SearchQuery query) {
+        return tvShowName.equalsIgnoreCase(query.getTvShowName()) &&
+                season == query.getSeason() &&
+                episode == query.getEpisode() &&
+                quality.equals(query.getQuality());
+    }
+
     @Override
     public String toString() {
         return String.format("%s.S%02dE%02d.%s.%s", tvShowName, season, episode, quality, origin);
