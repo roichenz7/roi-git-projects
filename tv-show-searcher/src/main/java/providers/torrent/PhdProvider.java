@@ -24,7 +24,7 @@ public class PhdProvider implements TorrentProvider {
 
     @Override
     public String getBaseUrl() {
-        return "http://publichd.se";
+        return "http://phd.re";
     }
 
     @Override
