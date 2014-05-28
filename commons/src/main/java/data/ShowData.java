@@ -149,8 +149,10 @@ public class ShowData {
         matcher = Pattern.compile(".*(720p|1080p).*").matcher(filename);
         if (matcher.find())
             showData.quality = matcher.group(1);
+        else if (filename.matches(".*(HDTV).*"))
+            showData.quality = "HD";
         else
-            showData.quality = "";
+            showData.quality = "SD";
 
         matcher = Pattern.compile("(.*)(-)([a-zA-Z0-9]*)(.*)")
                 .matcher(filename);
