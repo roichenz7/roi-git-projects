@@ -6,13 +6,13 @@
 
     <groupId>my-episodes-api</groupId>
     <artifactId>my-episodes-api</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
+    <version>1.8.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>commons</groupId>
             <artifactId>commons</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
+            <version>1.8.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
