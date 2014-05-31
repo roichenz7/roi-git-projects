@@ -26,6 +26,6 @@ public class PhdSearchResult extends SearchResult {
         peers = Integer.parseInt(elements.get(5).text());
 
         String hash = array[1].replaceAll("&f", "").toUpperCase();
-        downloadLink = "http://istoretor.com/fdown.php?hash=" + hash;
+        downloadLink = "http://phd.re/download.php?id=" + hash + "&f=a.torrent";
     }
 }
