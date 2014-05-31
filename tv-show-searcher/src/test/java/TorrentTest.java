@@ -12,7 +12,20 @@ import java.util.List;
 
 public class TorrentTest {
 
-    private final List<String> acceptedOrigins = Arrays.asList("DIMENSION", "2HD", "KILLERS", "REMARKABLE", "PublicHD", "NTb");
+    private final List<String> acceptedOrigins =
+            Arrays.asList("DIMENSION",
+                    "2HD",
+                    "KILLERS",
+                    "REMARKABLE",
+                    "PublicHD",
+                    "EXCELLENCE",
+                    "BAJSKORV",
+                    "BATV",
+                    "DAA",
+                    "NTb",
+                    "LOL",
+                    "AFG",
+                    "FoV");
 
     @Test
     public void testKat() {
@@ -31,7 +44,7 @@ public class TorrentTest {
         Provider provider = TorrentProviderFactory.create("PHD");
         provider.setAcceptedOrigins(acceptedOrigins);
 
-        SearchQuery query = new SearchQuery("The Mentalist", 6, 18, Quality.HD_720p);
+        SearchQuery query = new SearchQuery("The 100", 1, 11, Quality.HD);
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
