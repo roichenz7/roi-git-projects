@@ -3,6 +3,8 @@ package providers.torrent;
 import data.SearchQuery;
 import data.SearchResult;
 import exceptions.SearchException;
+import file.FileDownloader;
+import file.FileType;
 import http.HttpMethod;
 import http.HttpRequestBuilder;
 import http.IHttpResponse;
@@ -10,10 +12,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import providers.torrent.results.KatSearchResult;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.zip.GZIPInputStream;
 
 public class KatProvider implements TorrentProvider {
 
@@ -58,5 +62,16 @@ public class KatProvider implements TorrentProvider {
                 })
                 .map(KatSearchResult::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void download(SearchResult result) {
+        FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT, x -> {
+            try {
+                return new GZIPInputStream(x);
+            } catch (IOException e) {
+                return null;
+            }
+        });
     }
 }
