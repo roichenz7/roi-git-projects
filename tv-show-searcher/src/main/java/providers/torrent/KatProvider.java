@@ -65,8 +65,9 @@ public class KatProvider implements TorrentProvider {
     }
 
     @Override
-    public void download(SearchResult result) {
-        FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.TORRENT, x -> {
+    public void download(SearchResult result, String downloadPath) {
+        String filename = result.toString() + ".[" + getName() + "]";
+        FileDownloader.downloadFile(result.getDownloadLink(), downloadPath, filename, FileType.TORRENT, x -> {
             try {
                 return new GZIPInputStream(x);
             } catch (IOException e) {
