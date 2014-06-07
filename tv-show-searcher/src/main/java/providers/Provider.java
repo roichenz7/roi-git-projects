@@ -54,6 +54,13 @@ public interface Provider {
     SearchResult getBestResult(List<SearchResult> results, SearchQuery query);
 
     /**
+     * Downloads file from given search result
+     *
+     * @param result search result
+     */
+    void download(SearchResult result);
+
+    /**
      * Sets accepted origins, to be used by 'getBestResult'
      *
      * @param origins accepted origins
