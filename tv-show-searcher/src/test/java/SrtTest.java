@@ -1,8 +1,6 @@
 import data.SearchQuery;
 import data.SearchResult;
 import enums.Quality;
-import file.FileDownloader;
-import file.FileType;
 import org.junit.Test;
 import providers.Provider;
 import providers.srt.SubsCenterProvider;
@@ -25,7 +23,7 @@ public class SrtTest {
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
-        FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.SRT);
+        provider.download(result);
     }
 
     @Test
@@ -37,7 +35,7 @@ public class SrtTest {
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
-        FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.SRT);
+        provider.download(result);
     }
 
     @Test
@@ -49,6 +47,6 @@ public class SrtTest {
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
-        FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.SRT);
+        provider.download(result);
     }
 }
