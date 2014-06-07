@@ -2,16 +2,16 @@
  quality: 1080p/720p/HD/SD
  provider: PHD/KAT/PirateBay
  -->
-<pre-dl-config download_dir="//NAS/cache/.apps/torrents/watch" default_quality="720p">
-    <provider>PHD</provider>
+<pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
     <provider>PirateBay</provider>
     <provider>KAT</provider>
+    <provider>PHD</provider>
 
     <ignored_tv_show id="6211" name="Childrens Hospital"/>
-    <ignored_tv_show id="8603" name="Scandal"/>
     <ignored_tv_show id="8353" name="Suits"/>
 
     <special_tv_show id="5926" name="Game Of Thrones" quality="1080p"/>
+    <special_tv_show id="8603" name="Scandal" quality="HD"/>
 
     <accepted_origin>DIMENSION</accepted_origin>
     <accepted_origin>2HD</accepted_origin>
@@ -22,6 +22,7 @@
     <accepted_origin>BAJSKORV</accepted_origin>
     <accepted_origin>BATV</accepted_origin>
     <accepted_origin>DAA</accepted_origin>
+    <accepted_origin>W4F</accepted_origin>
     <accepted_origin>NTb</accepted_origin>
     <accepted_origin>LOL</accepted_origin>
     <accepted_origin>AFG</accepted_origin>
