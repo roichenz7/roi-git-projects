@@ -3,8 +3,8 @@
  provider: PHD/KAT/PirateBay
  -->
 <pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
-    <provider>PirateBay</provider>
     <provider>KAT</provider>
+    <provider>PirateBay</provider>
     <provider>PHD</provider>
 
     <ignored_tv_show id="6211" name="Childrens Hospital"/>
