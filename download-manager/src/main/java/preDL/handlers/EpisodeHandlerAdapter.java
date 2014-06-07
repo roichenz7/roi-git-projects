@@ -4,8 +4,6 @@ import data.EpisodeData;
 import data.SearchQuery;
 import data.SearchResult;
 import enums.Quality;
-import file.FileDownloader;
-import file.FileType;
 import providers.Provider;
 
 import java.util.List;
@@ -40,7 +38,7 @@ public class EpisodeHandlerAdapter extends EpisodeHandlerBase {
 
             System.out.println(this + ": downloading file: " + result);
             String filename = downloadPath + "/" + result.toString() + ".[" + provider.getName() + "]";
-            FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
+            provider.download(result, downloadPath);
             System.out.println(this + ": file downloaded: " + filename);
         } catch (Exception e) {
             System.out.println(this + ": failed processing of: " + episode + ". reason: " + e);
