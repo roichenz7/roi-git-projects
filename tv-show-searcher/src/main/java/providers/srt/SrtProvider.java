@@ -21,7 +21,8 @@ public interface SrtProvider extends Provider {
     }
 
     @Override
-    default void download(SearchResult result) {
-        FileDownloader.downloadFile(result.getDownloadLink(), result.toString(), FileType.SRT);
+    default void download(SearchResult result, String downloadPath) {
+        String filename = downloadPath + "/" + result.toString() + ".[" + getName() + "]";
+        FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.SRT);
     }
 }

@@ -58,7 +58,17 @@ public interface Provider {
      *
      * @param result search result
      */
-    void download(SearchResult result);
+    default void download(SearchResult result) {
+        download(result, ".");
+    }
+
+    /**
+     * Downloads file from given search result
+     *
+     * @param result search result
+     * @param downloadPath target download path
+     */
+    void download(SearchResult result, String downloadPath);
 
     /**
      * Sets accepted origins, to be used by 'getBestResult'
