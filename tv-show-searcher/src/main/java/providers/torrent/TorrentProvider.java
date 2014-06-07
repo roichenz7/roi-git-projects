@@ -23,7 +23,7 @@ public interface TorrentProvider extends Provider {
 
     @Override
     default void download(SearchResult result, String downloadPath) {
-        String filename = downloadPath + "/" + result.toString() + ".[" + getName() + "]";
-        FileDownloader.downloadFile(result.getDownloadLink(), filename, FileType.TORRENT);
+        String filename = result.toString() + ".[" + getName() + "]";
+        FileDownloader.downloadFile(result.getDownloadLink(), downloadPath, filename, FileType.TORRENT);
     }
 }
