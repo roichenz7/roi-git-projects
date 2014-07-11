@@ -6,7 +6,7 @@
 
     <groupId>tv-show-searcher</groupId>
     <artifactId>tv-show-searcher</artifactId>
-    <version>1.10.0-SNAPSHOT</version>
+    <version>1.11.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
