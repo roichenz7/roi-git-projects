@@ -38,6 +38,18 @@ public class TorrentTest {
     }
 
     @Test
+    public void testKatProxy() {
+        Provider provider = TorrentProviderFactory.create("KATProxy");
+        provider.setAcceptedOrigins(acceptedOrigins);
+
+        SearchQuery query = new SearchQuery("Graceland", 2, 3, Quality.HD_720p);
+        List<SearchResult> results = provider.search(query);
+
+        SearchResult result = provider.getBestResult(results, query);
+        provider.download(result);
+    }
+
+    @Test
     public void testPhd() {
         Provider provider = TorrentProviderFactory.create("PHD");
         provider.setAcceptedOrigins(acceptedOrigins);
