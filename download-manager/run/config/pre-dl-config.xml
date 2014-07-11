@@ -1,9 +1,10 @@
 <!-- pre-dl-config
  quality: 1080p/720p/HD/SD
- provider: PHD/KAT/PirateBay
+ provider: KAT/KATProxy/PirateBay/PHD
  -->
 <pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
     <provider>KAT</provider>
+    <provider>KATProxy</provider>
     <provider>PirateBay</provider>
     <provider>PHD</provider>
 
@@ -15,8 +16,10 @@
 
     <accepted_origin>DIMENSION</accepted_origin>
     <accepted_origin>2HD</accepted_origin>
+    <accepted_origin>EVOLVE</accepted_origin>
     <accepted_origin>KILLERS</accepted_origin>
     <accepted_origin>REMARKABLE</accepted_origin>
+    <accepted_origin>IMMERSE</accepted_origin>
     <accepted_origin>PublicHD</accepted_origin>
     <accepted_origin>EXCELLENCE</accepted_origin>
     <accepted_origin>BAJSKORV</accepted_origin>
