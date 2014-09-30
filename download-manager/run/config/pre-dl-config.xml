@@ -12,7 +12,6 @@
     <ignored_tv_show id="8353" name="Suits"/>
 
     <special_tv_show id="5926" name="Game Of Thrones" quality="1080p"/>
-    <special_tv_show id="8603" name="Scandal" quality="HD"/>
 
     <accepted_origin>DIMENSION</accepted_origin>
     <accepted_origin>2HD</accepted_origin>
