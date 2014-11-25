@@ -6,7 +6,7 @@ public enum Quality {
 
     HD_720p("720p"),
     HD_1080p("1080p"),
-    HD("HD"),
+    HD("HDTV"),
     SD("SD"),
     UNKNOWN("");
 
