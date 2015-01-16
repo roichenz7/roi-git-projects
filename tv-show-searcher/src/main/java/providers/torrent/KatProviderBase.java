@@ -47,7 +47,10 @@ public abstract class KatProviderBase implements TorrentProvider {
             throw new SearchException(query, "Http response: " + response);
         }
 
-        Document document = Jsoup.parse(response.getUnzippedBody());
+        String body = response.tryGetUnzippedBody()
+                .orElse(response.getBody());
+
+        Document document = Jsoup.parse(body);
         return document.select("tr")
                 .stream()
                 .filter(e -> e.select("td").size() == 6)
