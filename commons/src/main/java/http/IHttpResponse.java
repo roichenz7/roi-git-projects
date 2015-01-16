@@ -2,6 +2,7 @@ package http;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 public interface IHttpResponse {
 
@@ -29,6 +30,11 @@ public interface IHttpResponse {
      * @return response body after un-zipping
      */
     String getUnzippedBody();
+
+    /**
+     * @return optional response body after un-zipping
+     */
+    Optional<String> tryGetUnzippedBody();
 
     /**
      * @return response body as stream

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
 public class HttpResponse implements IHttpResponse {
@@ -53,6 +54,15 @@ public class HttpResponse implements IHttpResponse {
             throw new RuntimeException(e);
         }
         return responseBody.toString();
+    }
+
+    @Override
+    public Optional<String> tryGetUnzippedBody() {
+        try {
+            return Optional.of(getUnzippedBody());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     @Override
