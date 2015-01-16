@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>roi-git-projects</groupId>
+    <artifactId>download-manager-modules</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <name>download-manager-modules</name>
+
+	<modules>
+		<module>commons</module>
+		<module>my-episodes-api</module>
+		<module>tv-show-searcher</module>
+		<module>download-manager</module>
+	</modules>
+	
+</project>
