@@ -70,7 +70,7 @@ public abstract class KatProviderBase implements TorrentProvider {
             try {
                 return new GZIPInputStream(x);
             } catch (IOException e) {
-                return null;
+                return x;
             }
         });
     }
