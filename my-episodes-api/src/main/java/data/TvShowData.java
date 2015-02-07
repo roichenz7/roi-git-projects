@@ -1,6 +1,7 @@
 package data;
 
 import org.w3c.dom.Node;
+import string.StringUtils;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,7 +18,7 @@ public class TvShowData {
 
     public TvShowData(int id, String name) {
         this.id = id;
-        this.name = removeSpecialChars(name);
+        this.name = StringUtils.removeSpecialChars(name);
     }
 
     public TvShowData(Map.Entry<Integer, String> entry) {
@@ -104,9 +105,5 @@ public class TvShowData {
         unseenEpisodes.forEach(e -> sb.append(e).append("; "));
 
         return sb.toString();
-    }
-
-    private static String removeSpecialChars(String source) {
-        return source.replaceAll("[^\\w\\s]","");
     }
 }

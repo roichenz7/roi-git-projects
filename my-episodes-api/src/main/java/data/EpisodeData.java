@@ -2,6 +2,7 @@ package data;
 
 import exceptions.EpisodeParseException;
 import org.jsoup.nodes.Element;
+import string.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,7 +65,7 @@ public class EpisodeData implements Comparable<EpisodeData> {
      * @return sanitized tv show name (removes all non-word characters)
      */
     public String getSanitizedTvShowName() {
-        return tvShowName.replaceAll("\\W", " ");
+        return StringUtils.removeSpecialChars(tvShowName);
     }
 
     /**
