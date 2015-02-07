@@ -7,7 +7,7 @@
     <groupId>download-manager</groupId>
     <artifactId>download-manager</artifactId>
     <packaging>pom</packaging>
-    <version>1.14.0-SNAPSHOT</version>
+    <version>1.15.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -19,7 +19,7 @@
 		<dependency>
             <groupId>my-episodes-api</groupId>
             <artifactId>my-episodes-api</artifactId>
-            <version>1.10.0-SNAPSHOT</version>
+            <version>1.11.0-SNAPSHOT</version>
         </dependency>
 		
 		<dependency>
