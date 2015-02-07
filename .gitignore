@@ -3,3 +3,4 @@
 target/
 out/
 download-manager/out/
+*.MF
