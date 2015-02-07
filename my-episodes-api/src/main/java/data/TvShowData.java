@@ -1,6 +1,5 @@
 package data;
 
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.util.Collection;
@@ -18,7 +17,7 @@ public class TvShowData {
 
     public TvShowData(int id, String name) {
         this.id = id;
-        this.name = name;
+        this.name = removeSpecialChars(name);
     }
 
     public TvShowData(Map.Entry<Integer, String> entry) {
@@ -26,9 +25,8 @@ public class TvShowData {
     }
 
     public TvShowData(Node node) {
-        NamedNodeMap attributes = node.getAttributes();
-        id = Integer.parseInt(attributes.getNamedItem("id").getNodeValue());
-        name = attributes.getNamedItem("name").getNodeValue();
+        this(Integer.parseInt(node.getAttributes().getNamedItem("id").getNodeValue()),
+                node.getAttributes().getNamedItem("name").getNodeValue());
     }
 
     /**
@@ -106,5 +104,9 @@ public class TvShowData {
         unseenEpisodes.forEach(e -> sb.append(e).append("; "));
 
         return sb.toString();
+    }
+
+    private static String removeSpecialChars(String source) {
+        return source.replaceAll("[^\\w\\s]","");
     }
 }
