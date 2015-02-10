@@ -120,8 +120,22 @@ public class ShowDataTest {
     }
 
     @Test
-    @Ignore
     public void test9() {
+        ShowData showData = ShowData.fromFilename("Brooklyn.Nine-Nine.S02E02.720p-KUKU");
+
+        assertThat(showData.isEmpty(), is(false));
+        assertThat(showData.getTitle(), is("Brooklyn Nine Nine"));
+        assertThat(showData.getSeason(), is("Season 2"));
+        assertThat(showData.getSeasonNumber(), is(2));
+        assertThat(showData.getEpisodeNumber(), is(2));
+        assertThat(showData.getQuality(), is("720p"));
+        assertThat(showData.getOrigin(), is("KUKU"));
+        assertThat(showData.isProper(), is(false));
+    }
+
+    @Test
+    @Ignore
+    public void test10() {
         ShowData showData = ShowData.fromFilename("Quak Quak - 04x17.1080p");
 
         assertThat(showData.isEmpty(), is(false));
