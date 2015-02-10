@@ -9,6 +9,6 @@ public class KatProvider extends KatProviderBase {
 
     @Override
     public String getBaseUrl() {
-        return "http://kickass.so";
+        return "http://kickass.to";
     }
 }
