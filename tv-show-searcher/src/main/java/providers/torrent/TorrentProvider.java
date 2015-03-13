@@ -18,7 +18,7 @@ public interface TorrentProvider extends Provider {
                 .filter(x -> acceptedOrigins.contains(x.getOrigin()))
                 .sorted((l, r) -> r.getSeeds() - l.getSeeds())
                 .findFirst()
-                .orElseThrow(ResultNotFoundException::new);
+                .orElseThrow(() -> new ResultNotFoundException("search query: " + query));
     }
 
     @Override
