@@ -48,7 +48,7 @@ public class PirateBayProvider implements TorrentProvider {
         }
 
         String body = response.tryGetUnzippedBody()
-                .orElse(response.getBody());
+                .orElseGet(response::getBody);
 
         Document document = Jsoup.parse(body);
 
