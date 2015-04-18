@@ -19,6 +19,11 @@ public class DefaultHttpResponse implements HttpResponse {
     }
 
     @Override
+    public boolean isSuccessful() {
+        return response.getStatusCode() == 200 && response.getStatusText().equals("OK");
+    }
+
+    @Override
     public int getStatusCode() {
         return response.getStatusCode();
     }

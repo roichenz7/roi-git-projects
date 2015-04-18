@@ -40,7 +40,7 @@ public class PhdProvider implements TorrentProvider {
             throw new SearchException(searchQuery.toString(), e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new SearchException(searchQuery.toString(), "Http response: " + response);
         }
 

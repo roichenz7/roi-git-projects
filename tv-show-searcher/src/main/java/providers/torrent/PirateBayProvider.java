@@ -43,7 +43,7 @@ public class PirateBayProvider implements TorrentProvider {
             throw new SearchException(query, e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new SearchException(query, "Http response: " + response);
         }
 

@@ -53,7 +53,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new GetMyShowsException(e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new GetMyShowsException("Http response: " + response);
         }
 
@@ -104,7 +104,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new GetStatusException(e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new GetStatusException("Http response: " + response);
         }
 
@@ -125,7 +125,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new GetStatusException(e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new GetStatusException("Http response: " + response);
         }
 
@@ -149,7 +149,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new UpdateException(showId, season, episode, e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new UpdateException(showId, season, episode, "Http response: " + response);
         }
     }
@@ -179,7 +179,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
             throw new UpdateException(showId, season, episode, e);
         }
 
-        if (response.getStatusCode() != 200 || !response.getStatusText().equals("OK")) {
+        if (!response.isSuccessful()) {
             throw new UpdateException(showId, season, episode, "Http response: " + response);
         }
     }

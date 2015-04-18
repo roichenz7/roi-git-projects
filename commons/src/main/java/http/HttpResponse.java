@@ -7,6 +7,11 @@ import java.util.Optional;
 public interface HttpResponse {
 
     /**
+     * @return true if successful (200 OK), false otherwise
+     */
+    boolean isSuccessful();
+
+    /**
      * @return response status code
      */
     int getStatusCode();
