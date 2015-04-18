@@ -11,7 +11,11 @@ public class HttpRequest implements IHttpRequest {
     }
 
     @Override
-    public IHttpResponse execute() throws Exception {
-        return new HttpResponse(builder.execute().get());
+    public IHttpResponse execute() {
+        try {
+            return new HttpResponse(builder.execute().get());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to execute http request", e);
+        }
     }
 }

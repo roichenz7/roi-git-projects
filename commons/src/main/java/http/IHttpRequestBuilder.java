@@ -64,9 +64,8 @@ public interface IHttpRequestBuilder {
      * Builds this request, executes it, and closes the connection used by this builder
      *
      * @return http response
-     * @throws Exception
      */
-    IHttpResponse execute() throws Exception;
+    IHttpResponse execute();
 
     /**
      * Closes the connection used by this builder

@@ -64,7 +64,7 @@ public class HttpRequestBuilder implements IHttpRequestBuilder {
     }
 
     @Override
-    public IHttpResponse execute() throws Exception {
+    public IHttpResponse execute() {
         IHttpResponse response = build().execute();
         close();
         return response;
