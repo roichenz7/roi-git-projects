@@ -11,7 +11,7 @@ import exceptions.LoginException;
 import exceptions.UpdateException;
 import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
-import http.IHttpResponse;
+import http.HttpResponse;
 import http.cookies.CookieAdapter;
 import http.cookies.CookieListAdapter;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -43,7 +43,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public Map<Integer, String> getMyShows() {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/shows.php")
                     .withUrlParam("type", "manage")
@@ -93,7 +93,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public Collection<EpisodeData> getUnAcquiredEpisodes() {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
                     .withUrlParam("feed", "unacquired")
@@ -114,7 +114,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public Collection<EpisodeData> getUnSeenEpisodes() {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
                     .withUrlParam("feed", "unwatched")
@@ -135,7 +135,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public void markAsAcquired(int showId, int season, int episode) {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
                     .withUrlParam("action", "Update")
@@ -165,7 +165,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
 
     @Override
     public void markAsWatched(int showId, int season, int episode) {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
                     .withUrlParam("action", "Update")
@@ -200,7 +200,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
      * @param password password
      */
     private void login(final String username, final String password) {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             final String body = String.format("username=%s&password=%s&action=Login&u=", username, password);
             response = new DefaultHttpRequestBuilder(HttpMethod.POST, baseUrl + "/login.php")

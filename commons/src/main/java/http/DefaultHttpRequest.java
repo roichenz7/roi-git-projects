@@ -2,7 +2,7 @@ package http;
 
 import com.ning.http.client.AsyncHttpClient;
 
-public class DefaultHttpRequest implements IHttpRequest {
+public class DefaultHttpRequest implements HttpRequest {
 
     private AsyncHttpClient.BoundRequestBuilder builder;
 
@@ -11,7 +11,7 @@ public class DefaultHttpRequest implements IHttpRequest {
     }
 
     @Override
-    public IHttpResponse execute() {
+    public HttpResponse execute() {
         try {
             return new DefaultHttpResponse(builder.execute().get());
         } catch (Exception e) {

@@ -5,7 +5,7 @@ import data.SearchResult;
 import exceptions.SearchException;
 import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
-import http.IHttpResponse;
+import http.HttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import providers.torrent.results.PhdSearchResult;
@@ -29,7 +29,7 @@ public class PhdProvider implements TorrentProvider {
 
     @Override
     public List<SearchResult> search(SearchQuery searchQuery) {
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/index.php")
                     .withUrlParam("page", "torrents")

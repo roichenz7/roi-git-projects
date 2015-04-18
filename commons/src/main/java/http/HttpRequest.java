@@ -1,11 +1,11 @@
 package http;
 
-public interface IHttpRequest {
+public interface HttpRequest {
 
     /**
      * Executes this request
      *
      * @return http response
      */
-    IHttpResponse execute();
+    HttpResponse execute();
 }

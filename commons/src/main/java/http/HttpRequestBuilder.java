@@ -2,7 +2,7 @@ package http;
 
 import com.ning.http.client.cookie.Cookie;
 
-public interface IHttpRequestBuilder {
+public interface HttpRequestBuilder {
 
     /**
      * Adds a url parameter with given name and value
@@ -11,7 +11,7 @@ public interface IHttpRequestBuilder {
      * @param value parameter value
      * @return self reference
      */
-    IHttpRequestBuilder withUrlParam(String name, String value);
+    HttpRequestBuilder withUrlParam(String name, String value);
 
     /**
      * Adds a header (name,value) to request headers
@@ -20,7 +20,7 @@ public interface IHttpRequestBuilder {
      * @param value header value
      * @return self reference
      */
-    IHttpRequestBuilder withHeader(String name, String value);
+    HttpRequestBuilder withHeader(String name, String value);
 
     /**
      * Adds an accept header ('Accept',value) to request headers
@@ -28,21 +28,21 @@ public interface IHttpRequestBuilder {
      * @param value header value
      * @return self reference
      */
-    IHttpRequestBuilder withAccept(String value);
+    HttpRequestBuilder withAccept(String value);
 
     /**
      * Adds given cookies to request
      *
      * @return self reference
      */
-    IHttpRequestBuilder withCookies(Cookie... cookies);
+    HttpRequestBuilder withCookies(Cookie... cookies);
 
     /**
      * Adds given cookies to request
      *
      * @return self reference
      */
-    IHttpRequestBuilder withCookies(Iterable<Cookie> cookies);
+    HttpRequestBuilder withCookies(Iterable<Cookie> cookies);
 
     /**
      * Sets request body
@@ -50,7 +50,7 @@ public interface IHttpRequestBuilder {
      * @param body request body
      * @return self reference
      */
-    IHttpRequestBuilder withBody(String body);
+    HttpRequestBuilder withBody(String body);
 
     /**
      * Builds this request
@@ -58,14 +58,14 @@ public interface IHttpRequestBuilder {
      *
      * @return built request
      */
-    IHttpRequest build();
+    HttpRequest build();
 
     /**
      * Builds this request, executes it, and closes the connection used by this builder
      *
      * @return http response
      */
-    IHttpResponse execute();
+    HttpResponse execute();
 
     /**
      * Closes the connection used by this builder

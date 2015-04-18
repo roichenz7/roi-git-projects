@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
-public class DefaultHttpResponse implements IHttpResponse {
+public class DefaultHttpResponse implements HttpResponse {
 
     private Response response;
 

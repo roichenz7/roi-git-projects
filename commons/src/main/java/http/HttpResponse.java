@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
-public interface IHttpResponse {
+public interface HttpResponse {
 
     /**
      * @return response status code

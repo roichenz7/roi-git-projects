@@ -5,7 +5,7 @@ import data.SearchResult;
 import exceptions.SearchException;
 import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
-import http.IHttpResponse;
+import http.HttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import providers.torrent.results.PirateBaySearchResult;
@@ -31,7 +31,7 @@ public class PirateBayProvider implements TorrentProvider {
     public List<SearchResult> search(SearchQuery searchQuery) {
         final String query = searchQuery.toString().replaceAll(" ", "%20");
 
-        IHttpResponse response;
+        HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/search/" + query + "/")
                     .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0")

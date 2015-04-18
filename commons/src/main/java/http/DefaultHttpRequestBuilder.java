@@ -6,7 +6,7 @@ import com.ning.http.client.cookie.Cookie;
 
 import java.util.Arrays;
 
-public class DefaultHttpRequestBuilder implements IHttpRequestBuilder {
+public class DefaultHttpRequestBuilder implements HttpRequestBuilder {
 
     private AsyncHttpClient client;
     private AsyncHttpClient.BoundRequestBuilder builder;
@@ -22,29 +22,29 @@ public class DefaultHttpRequestBuilder implements IHttpRequestBuilder {
     }
 
     @Override
-    public IHttpRequestBuilder withUrlParam(String name, String value) {
+    public HttpRequestBuilder withUrlParam(String name, String value) {
         builder.addQueryParameter(name, value);
         return this;
     }
 
     @Override
-    public IHttpRequestBuilder withHeader(String name, String value) {
+    public HttpRequestBuilder withHeader(String name, String value) {
         builder.addHeader(name, value);
         return this;
     }
 
     @Override
-    public IHttpRequestBuilder withAccept(String value) {
+    public HttpRequestBuilder withAccept(String value) {
         return withHeader("Accept", value);
     }
 
     @Override
-    public IHttpRequestBuilder withCookies(Cookie... cookies) {
+    public HttpRequestBuilder withCookies(Cookie... cookies) {
         return withCookies(Arrays.asList(cookies));
     }
 
     @Override
-    public IHttpRequestBuilder withCookies(Iterable<Cookie> cookies) {
+    public HttpRequestBuilder withCookies(Iterable<Cookie> cookies) {
         for (Cookie cookie : cookies) {
             builder.addCookie(cookie);
         }
@@ -52,20 +52,20 @@ public class DefaultHttpRequestBuilder implements IHttpRequestBuilder {
     }
 
     @Override
-    public IHttpRequestBuilder withBody(String body) {
+    public HttpRequestBuilder withBody(String body) {
         builder.setBody(body);
         builder.setBodyEncoding("UTF-8");
         return this;
     }
 
     @Override
-    public IHttpRequest build() {
+    public HttpRequest build() {
         return new DefaultHttpRequest(builder);
     }
 
     @Override
-    public IHttpResponse execute() {
-        IHttpResponse response = build().execute();
+    public HttpResponse execute() {
+        HttpResponse response = build().execute();
         close();
         return response;
     }
