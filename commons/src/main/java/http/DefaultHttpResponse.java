@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
-public class HttpResponse implements IHttpResponse {
+public class DefaultHttpResponse implements IHttpResponse {
 
     private Response response;
 
-    public HttpResponse(Response response) {
+    public DefaultHttpResponse(Response response) {
         this.response = response;
     }
 
@@ -76,6 +76,6 @@ public class HttpResponse implements IHttpResponse {
 
     @Override
     public String toString() {
-        return "HttpResponse{" + getStatusCode() + " " + getStatusText() + "}";
+        return "DefaultHttpResponse{" + getStatusCode() + " " + getStatusText() + "}";
     }
 }

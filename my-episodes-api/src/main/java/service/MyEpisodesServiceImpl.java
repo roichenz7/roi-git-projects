@@ -9,8 +9,8 @@ import exceptions.GetMyShowsException;
 import exceptions.GetStatusException;
 import exceptions.LoginException;
 import exceptions.UpdateException;
+import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
-import http.HttpRequestBuilder;
 import http.IHttpResponse;
 import http.cookies.CookieAdapter;
 import http.cookies.CookieListAdapter;
@@ -45,7 +45,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     public Map<Integer, String> getMyShows() {
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/shows.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/shows.php")
                     .withUrlParam("type", "manage")
                     .withHeader("Cookie", cookies.toString())
                     .execute();
@@ -95,7 +95,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     public Collection<EpisodeData> getUnAcquiredEpisodes() {
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
                     .withUrlParam("feed", "unacquired")
                     .withUrlParam("uid", username)
                     .withUrlParam("pwdmd5", passwordMD5)
@@ -116,7 +116,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     public Collection<EpisodeData> getUnSeenEpisodes() {
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/rss.php")
                     .withUrlParam("feed", "unwatched")
                     .withUrlParam("uid", username)
                     .withUrlParam("pwdmd5", passwordMD5)
@@ -137,7 +137,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     public void markAsAcquired(int showId, int season, int episode) {
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
                     .withUrlParam("action", "Update")
                     .withUrlParam("showid", String.valueOf(showId))
                     .withUrlParam("season", String.valueOf(season))
@@ -167,7 +167,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
     public void markAsWatched(int showId, int season, int episode) {
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, baseUrl + "/myshows.php")
                     .withUrlParam("action", "Update")
                     .withUrlParam("showid", String.valueOf(showId))
                     .withUrlParam("season", String.valueOf(season))
@@ -203,7 +203,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         IHttpResponse response;
         try {
             final String body = String.format("username=%s&password=%s&action=Login&u=", username, password);
-            response = new HttpRequestBuilder(HttpMethod.POST, baseUrl + "/login.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.POST, baseUrl + "/login.php")
                     .withHeader("Content-Type", "application/x-www-form-urlencoded")
                     .withBody(body)
                     .execute();

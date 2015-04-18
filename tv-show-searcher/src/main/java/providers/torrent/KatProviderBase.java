@@ -5,8 +5,8 @@ import data.SearchResult;
 import exceptions.SearchException;
 import file.FileDownloader;
 import file.FileType;
+import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
-import http.HttpRequestBuilder;
 import http.IHttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,7 +33,7 @@ public abstract class KatProviderBase implements TorrentProvider {
 
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/usearch/" + query + "/")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/usearch/" + query + "/")
                     .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0")
                     .withAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .withHeader("Accept-Language", "en-US,en;q=0.5")

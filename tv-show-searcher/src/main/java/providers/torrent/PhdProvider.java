@@ -3,8 +3,8 @@ package providers.torrent;
 import data.SearchQuery;
 import data.SearchResult;
 import exceptions.SearchException;
+import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
-import http.HttpRequestBuilder;
 import http.IHttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,7 +31,7 @@ public class PhdProvider implements TorrentProvider {
     public List<SearchResult> search(SearchQuery searchQuery) {
         IHttpResponse response;
         try {
-            response = new HttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/index.php")
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/index.php")
                     .withUrlParam("page", "torrents")
                     .withUrlParam("search", searchQuery.toString())
                     .withUrlParam("active", "0")

@@ -6,12 +6,12 @@ import com.ning.http.client.cookie.Cookie;
 
 import java.util.Arrays;
 
-public class HttpRequestBuilder implements IHttpRequestBuilder {
+public class DefaultHttpRequestBuilder implements IHttpRequestBuilder {
 
     private AsyncHttpClient client;
     private AsyncHttpClient.BoundRequestBuilder builder;
 
-    public HttpRequestBuilder(HttpMethod httpMethod, String url) {
+    public DefaultHttpRequestBuilder(HttpMethod httpMethod, String url) {
         AsyncHttpClientConfig config = new AsyncHttpClientConfig
                 .Builder()
                 .setConnectionTimeoutInMs(10000)
@@ -60,7 +60,7 @@ public class HttpRequestBuilder implements IHttpRequestBuilder {
 
     @Override
     public IHttpRequest build() {
-        return new HttpRequest(builder);
+        return new DefaultHttpRequest(builder);
     }
 
     @Override
