@@ -17,7 +17,7 @@ public interface SrtProvider extends Provider {
                 .filter(x -> x.matches(query))
                 .filter(x -> acceptedOrigins.contains(x.getOrigin()))
                 .findFirst()
-                .orElseThrow(ResultNotFoundException::new);
+                .orElseThrow(() -> new ResultNotFoundException("search query: " + query));
     }
 
     @Override
