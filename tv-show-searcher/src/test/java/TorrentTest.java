@@ -15,6 +15,7 @@ public class TorrentTest {
                     "2HD",
                     "KILLERS",
                     "REMARKABLE",
+                    "IMMERSE",
                     "PublicHD",
                     "EXCELLENCE",
                     "BAJSKORV",
@@ -67,6 +68,18 @@ public class TorrentTest {
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("Game Of Thrones", 4, 1, Quality.HD_1080p);
+        List<SearchResult> results = provider.search(query);
+
+        SearchResult result = provider.getBestResult(results, query);
+        provider.download(result);
+    }
+
+    @Test
+    public void testRarbg() {
+        Provider provider = TorrentProviderFactory.create("RARBG");
+        provider.setAcceptedOrigins(acceptedOrigins);
+
+        SearchQuery query = new SearchQuery("Silicon Valley", 2, 2, Quality.HD_720p);
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
