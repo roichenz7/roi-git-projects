@@ -2,10 +2,12 @@ package file;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.zip.GZIPInputStream;
 
 public final class FileUtils {
 
@@ -33,5 +35,19 @@ public final class FileUtils {
         return Files.list(directory)
                 .map(x -> x.toFile().getName())
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns input stream (gzipped or original)
+     *
+     * @param source source input stream
+     * @return input stream (gzipped or original)
+     */
+    public static InputStream gzipIfNeeded(InputStream source) {
+        try {
+            return new GZIPInputStream(source);
+        } catch (IOException e) {
+            return source;
+        }
     }
 }
