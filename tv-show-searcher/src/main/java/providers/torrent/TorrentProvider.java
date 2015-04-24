@@ -7,7 +7,9 @@ import file.FileDownloader;
 import file.FileType;
 import providers.Provider;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.function.Function;
 
 public interface TorrentProvider extends Provider {
 
@@ -24,6 +26,10 @@ public interface TorrentProvider extends Provider {
     @Override
     default void download(SearchResult result, String downloadPath) {
         String filename = result.toString() + ".[" + getName() + "]";
-        FileDownloader.downloadFile(result.getDownloadLink(), downloadPath, filename, FileType.TORRENT);
+        FileDownloader.downloadFile(result.getDownloadLink(), downloadPath, filename, FileType.TORRENT, inputStreamFunction());
+    }
+
+    default Function<InputStream, InputStream> inputStreamFunction() {
+        return Function.identity();
     }
 }
