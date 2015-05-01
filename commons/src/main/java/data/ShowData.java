@@ -133,10 +133,9 @@ public class ShowData {
             String seasonAndEpisodes = matcher.group(2);
 
             String season = seasonAndEpisodes.replaceAll("[S|s]", "")
-                    .replaceAll("x?[E|e].*", "")
-                    .replaceAll("0", "");
+                    .replaceAll("x?[E|e].*", "");
 
-            showData.season = "Season " + season;
+            showData.season = "Season " + Integer.valueOf(season);
             showData.seasonNumber = Integer.parseInt(season);
 
             String episode = Pattern.compile("S.*E", Pattern.CASE_INSENSITIVE)
@@ -162,7 +161,7 @@ public class ShowData {
         else
             showData.origin = "";
 
-        matcher = Pattern.compile(".*(PROPER).*", Pattern.CASE_INSENSITIVE)
+        matcher = Pattern.compile(".*(PROPER|REPACK).*", Pattern.CASE_INSENSITIVE)
                 .matcher(filename);
 
         if (matcher.find())
