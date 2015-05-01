@@ -147,4 +147,18 @@ public class ShowDataTest {
         assertThat(showData.getOrigin(), is(""));
         assertThat(showData.isProper(), is(false));
     }
+
+    @Test
+    public void test11() {
+        ShowData showData = ShowData.fromFilename("The.Flash.S10E20.REPACK.720p-Ass");
+
+        assertThat(showData.isEmpty(), is(false));
+        assertThat(showData.getTitle(), is("The Flash"));
+        assertThat(showData.getSeason(), is("Season 10"));
+        assertThat(showData.getSeasonNumber(), is(10));
+        assertThat(showData.getEpisodeNumber(), is(20));
+        assertThat(showData.getQuality(), is("720p"));
+        assertThat(showData.getOrigin(), is("Ass"));
+        assertThat(showData.isProper(), is(true));
+    }
 }
