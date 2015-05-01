@@ -86,6 +86,17 @@ public abstract class SearchResult {
     }
 
     /**
+     * @return score
+     */
+    public int getScore() {
+        int score = getSeeds();
+        if (isProper() && getSeeds() >= 50) {
+            score *= 2;
+        }
+        return score;
+    }
+
+    /**
      * @param query search query
      * @return true if this result matches given query, false otherwise
      */
