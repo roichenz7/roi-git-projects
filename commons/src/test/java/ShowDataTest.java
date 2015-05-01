@@ -30,7 +30,7 @@ public class ShowDataTest {
         assertThat(showData.getSeason(), is("Season 5"));
         assertThat(showData.getSeasonNumber(), is(5));
         assertThat(showData.getEpisodeNumber(), is(9));
-        assertThat(showData.getQuality(), is(""));
+        assertThat(showData.getQuality(), is("HD"));
         assertThat(showData.getOrigin(), is("LOL"));
         assertThat(showData.isProper(), is(false));
     }
@@ -58,7 +58,7 @@ public class ShowDataTest {
         assertThat(showData.getSeason(), is("Season 3"));
         assertThat(showData.getSeasonNumber(), is(3));
         assertThat(showData.getEpisodeNumber(), is(1));
-        assertThat(showData.getQuality(), is(""));
+        assertThat(showData.getQuality(), is("SD"));
         assertThat(showData.getOrigin(), is("lol"));
         assertThat(showData.isProper(), is(false));
     }
@@ -86,7 +86,7 @@ public class ShowDataTest {
         assertThat(showData.getSeason(), is("Season 14"));
         assertThat(showData.getSeasonNumber(), is(14));
         assertThat(showData.getEpisodeNumber(), is(15));
-        assertThat(showData.getQuality(), is(""));
+        assertThat(showData.getQuality(), is("SD"));
         assertThat(showData.getOrigin(), is(""));
         assertThat(showData.isProper(), is(false));
     }
