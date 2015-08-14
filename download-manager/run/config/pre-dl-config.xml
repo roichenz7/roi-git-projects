@@ -1,6 +1,6 @@
 <!-- pre-dl-config
  quality: 1080p/720p/HD/SD
- provider: KAT/KATProxy/RARBG/PirateBay/PHD
+ provider: KatProvider/KatProxyProvider/RarbgProvider/PirateBayProvider/PhdProvider
  -->
 <pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
     <provider name="KatProvider" url="http://kat.cr"/>
