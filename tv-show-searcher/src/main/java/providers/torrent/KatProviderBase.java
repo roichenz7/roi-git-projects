@@ -9,6 +9,7 @@ import http.HttpMethod;
 import http.HttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import providers.ProviderBase;
 import providers.torrent.results.KatSearchResult;
 
 import java.io.InputStream;
@@ -18,13 +19,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public abstract class KatProviderBase implements TorrentProvider {
+public abstract class KatProviderBase extends ProviderBase implements TorrentProvider {
 
-    @Override
-    public abstract String getName();
-
-    @Override
-    public abstract String getBaseUrl();
+    protected KatProviderBase(String baseUrl) {
+        super(baseUrl);
+    }
 
     @Override
     public List<SearchResult> search(SearchQuery searchQuery) {

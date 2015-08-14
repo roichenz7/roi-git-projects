@@ -8,24 +8,17 @@ import http.HttpMethod;
 import http.HttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import providers.ProviderBase;
 import providers.torrent.results.RarbgSearchResult;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class RarbgProvider implements TorrentProvider {
+public class RarbgProvider extends ProviderBase implements TorrentProvider {
 
-    public static final String BASE_URL = "http://rarbg.to";
-
-    @Override
-    public String getName() {
-        return "RARBG";
-    }
-
-    @Override
-    public String getBaseUrl() {
-        return BASE_URL;
+    public RarbgProvider(String baseUrl) {
+        super(baseUrl);
     }
 
     @Override
@@ -58,7 +51,7 @@ public class RarbgProvider implements TorrentProvider {
                 .stream()
                 .filter(e -> e.select("td").size() == 8)
                 .filter(e -> index.getAndIncrement() % 2 == 1)
-                .map(RarbgSearchResult::new)
+                .map(e -> new RarbgSearchResult(e, getBaseUrl()))
                 .collect(Collectors.toList());
     }
 }

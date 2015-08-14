@@ -8,6 +8,7 @@ import http.HttpMethod;
 import http.HttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import providers.ProviderBase;
 import providers.torrent.results.PhdSearchResult;
 
 import java.util.List;
@@ -15,16 +16,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PhdProvider implements TorrentProvider {
+public class PhdProvider extends ProviderBase implements TorrentProvider {
 
-    @Override
-    public String getName() {
-        return "PHD";
-    }
-
-    @Override
-    public String getBaseUrl() {
-        return "http://phd.re";
+    public PhdProvider(String baseUrl) {
+        super(baseUrl);
     }
 
     @Override

@@ -2,13 +2,7 @@ package providers.torrent;
 
 public class KatProxyProvider extends KatProviderBase {
 
-    @Override
-    public String getName() {
-        return "KATProxy";
-    }
-
-    @Override
-    public String getBaseUrl() {
-        return "http://katproxy.com";
+    public KatProxyProvider(String baseUrl) {
+        super(baseUrl);
     }
 }

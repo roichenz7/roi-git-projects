@@ -6,6 +6,8 @@ import enums.Quality;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import providers.Provider;
+import providers.ProviderFactory;
 import xml.DocumentFactory;
 import xml.NodeListFactory;
 
@@ -16,7 +18,7 @@ public class PreDLConfigData implements IPreDLConfigData {
 
     private String downloadDir;
     private Quality defaultQuality;
-    private List<String> providers;
+    private List<Provider> providers;
     private List<TvShowData> ignoredShows;
     private List<ShowData> specialShows;
     private List<String> acceptedOrigins;
@@ -32,7 +34,7 @@ public class PreDLConfigData implements IPreDLConfigData {
     }
 
     @Override
-    public List<String> providers() {
+    public List<Provider> providers() {
         return providers;
     }
 
@@ -70,7 +72,7 @@ public class PreDLConfigData implements IPreDLConfigData {
 
             providers = NodeListFactory.elementsByName(e, "provider")
                     .stream()
-                    .map(Node::getTextContent)
+                    .map(ProviderFactory::create)
                     .collect(Collectors.toList());
 
             ignoredShows = NodeListFactory.elementsByName(e, "ignored_tv_show")

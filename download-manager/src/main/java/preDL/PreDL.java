@@ -8,7 +8,6 @@ import preDL.handlers.EpisodeHandler;
 import preDL.handlers.EpisodeHandlerAdapter;
 import preDL.handlers.EpisodeHandlerBase;
 import providers.Provider;
-import providers.torrent.TorrentProviderFactory;
 import service.MyEpisodesService;
 import service.MyEpisodesServiceImpl;
 
@@ -69,8 +68,7 @@ public class PreDL implements Runnable {
         };
 
         EpisodeHandler curr = episodeHandler;
-        for (String name : config.providers()) {
-            Provider provider = TorrentProviderFactory.create(name);
+        for (Provider provider : config.providers()) {
             provider.setAcceptedOrigins(config.acceptedOrigins());
             curr = ((EpisodeHandlerBase) curr).setNext(new EpisodeHandlerAdapter(provider));
         }

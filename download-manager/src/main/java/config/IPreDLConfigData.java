@@ -3,6 +3,7 @@ package config;
 import data.ShowData;
 import data.TvShowData;
 import enums.Quality;
+import providers.Provider;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface IPreDLConfigData {
     /**
      * @return providers
      */
-    List<String> providers();
+    List<Provider> providers();
 
     /**
      * @return ignored shows

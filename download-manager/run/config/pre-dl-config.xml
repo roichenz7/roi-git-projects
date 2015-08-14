@@ -3,11 +3,10 @@
  provider: KAT/KATProxy/RARBG/PirateBay/PHD
  -->
 <pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
-    <provider>KAT</provider>
-    <provider>KATProxy</provider>
-    <provider>RARBG</provider>
-    <provider>PirateBay</provider>
-    <provider>PHD</provider>
+    <provider name="KatProvider" url="http://kat.cr"/>
+    <provider name="KatProxyProvider" url="http://katproxy.com"/>
+    <provider name="RarbgProvider" url="http://rarbg.to"/>
+    <provider name="PirateBayProvider" url="http://thepiratebay.se"/>
 
     <ignored_tv_show id="6211" name="Childrens Hospital"/>
     <ignored_tv_show id="8353" name="Suits"/>

@@ -8,6 +8,7 @@ import http.HttpMethod;
 import http.HttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import providers.ProviderBase;
 import providers.torrent.results.PirateBaySearchResult;
 
 import java.util.List;
@@ -15,16 +16,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class PirateBayProvider implements TorrentProvider {
+public class PirateBayProvider extends ProviderBase implements TorrentProvider {
 
-    @Override
-    public String getName() {
-        return "PirateBay";
-    }
-
-    @Override
-    public String getBaseUrl() {
-        return "http://thepiratebay.se";
+    public PirateBayProvider(String baseUrl) {
+        super(baseUrl);
     }
 
     @Override
