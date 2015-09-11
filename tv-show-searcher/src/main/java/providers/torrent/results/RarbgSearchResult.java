@@ -7,11 +7,9 @@ import org.jsoup.select.Elements;
 
 public class RarbgSearchResult extends SearchResult {
 
-    private final String baseUrl;
-
     public RarbgSearchResult(Element source, String baseUrl) {
         super(source);
-        this.baseUrl = baseUrl;
+        downloadLink = baseUrl + downloadLink;
     }
 
     @Override
@@ -31,6 +29,6 @@ public class RarbgSearchResult extends SearchResult {
         peers = Integer.parseInt(elements.get(5).text());
 
         final String id = elements.get(1).child(0).attr("href").replaceAll("/torrent/", "");
-        downloadLink = baseUrl + "/download.php?id=" + id + "&f=temp.torrent";
+        downloadLink = "/download.php?id=" + id + "&f=temp.torrent";
     }
 }
