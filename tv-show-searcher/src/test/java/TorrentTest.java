@@ -31,7 +31,7 @@ public class TorrentTest {
         Provider provider = ProviderFactory.create("KatProvider", "http://kat.cr");
         provider.setAcceptedOrigins(acceptedOrigins);
 
-        SearchQuery query = new SearchQuery("Orange Is The New Black", 2, 10, Quality.HD_720p);
+        SearchQuery query = new SearchQuery("The Last Ship", 2, 13, Quality.HD_720p);
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
@@ -79,7 +79,7 @@ public class TorrentTest {
         Provider provider = ProviderFactory.create("RarbgProvider", "http://rarbg.to");
         provider.setAcceptedOrigins(acceptedOrigins);
 
-        SearchQuery query = new SearchQuery("Silicon Valley", 2, 2, Quality.HD_720p);
+        SearchQuery query = new SearchQuery("The Last Ship", 2, 13, Quality.HD_720p);
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
