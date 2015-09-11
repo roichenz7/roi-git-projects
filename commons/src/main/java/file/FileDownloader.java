@@ -1,10 +1,13 @@
 package file;
 
+import http.DefaultHttpRequestBuilder;
+import http.HttpMethod;
+import http.HttpResponse;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.function.Function;
@@ -47,8 +50,8 @@ public final class FileDownloader {
                                     FileType fileType,
                                     Function<InputStream, InputStream> inputStreamFunction) {
         try {
-            URL url = new URL(downloadLink);
-            ReadableByteChannel rbc = Channels.newChannel(inputStreamFunction.apply(url.openStream()));
+            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink).execute();
+            ReadableByteChannel rbc = Channels.newChannel(inputStreamFunction.apply(response.getBodyAsStream()));
 
             File targetFile = new File(targetPath + "/" + targetFilename + "." + fileType);
             if (targetFile.exists())
