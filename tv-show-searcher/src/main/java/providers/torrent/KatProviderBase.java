@@ -32,7 +32,7 @@ public abstract class KatProviderBase extends ProviderBase implements TorrentPro
         HttpResponse response;
         try {
             response = new DefaultHttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/usearch/" + query + "/")
-                    .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0")
+                    .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0")
                     .withAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .withHeader("Accept-Language", "en-US,en;q=0.5")
                     .withHeader("Accept-Encoding", "gzip, deflate")
