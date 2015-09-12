@@ -1,5 +1,6 @@
 package providers.torrent;
 
+import com.ning.http.client.cookie.Cookie;
 import data.SearchQuery;
 import data.SearchResult;
 import exceptions.SearchException;
@@ -12,6 +13,7 @@ import providers.ProviderBase;
 import providers.torrent.results.RarbgSearchResult;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class RarbgProvider extends ProviderBase implements TorrentProvider {
@@ -26,12 +28,15 @@ public class RarbgProvider extends ProviderBase implements TorrentProvider {
 
         HttpResponse response;
         try {
-            response = new DefaultHttpRequestBuilder(HttpMethod.GET, getBaseUrl() + "/torrents.php")
+            final String url = getBaseUrl() + "/torrents.php";
+            response = new DefaultHttpRequestBuilder(HttpMethod.GET, url)
                     .withUrlParam("search", query)
                     .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0")
                     .withAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .withHeader("Accept-Language", "en-US,en;q=0.5")
                     .withHeader("Accept-Encoding", "gzip, deflate")
+                    .withHeader("Referer", url)
+                    .withCookies(createCookie())
                     .execute();
         } catch (Exception e) {
             throw new SearchException(query, e);
@@ -50,5 +55,16 @@ public class RarbgProvider extends ProviderBase implements TorrentProvider {
                 .filter(e -> e.select("td").size() == 8)
                 .map(e -> new RarbgSearchResult(e, getBaseUrl()))
                 .collect(Collectors.toList());
+    }
+
+    private Cookie createCookie() {
+        final String time = String.valueOf(calculateTime());
+        final String domain = getBaseUrl().replaceAll("http://", "");
+        return new Cookie("LastVisit", time, time, domain, "/", Long.MAX_VALUE, Integer.MAX_VALUE, false, false);
+    }
+
+    private long calculateTime() {
+        int n = new Random(System.currentTimeMillis()).nextInt(3600) + 3600;
+        return System.currentTimeMillis() / 1000 - n;
     }
 }
