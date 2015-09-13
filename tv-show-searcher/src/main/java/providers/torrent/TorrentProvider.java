@@ -5,10 +5,6 @@ import data.SearchResult;
 import exceptions.ResultNotFoundException;
 import file.FileDownloader;
 import file.FileType;
-import file.FileUtils;
-import http.DefaultHttpRequestBuilder;
-import http.HttpMethod;
-import http.HttpResponse;
 import providers.Provider;
 
 import java.io.InputStream;
@@ -34,9 +30,6 @@ public interface TorrentProvider extends Provider {
     }
 
     default Function<String, InputStream> downloadFunction() {
-        return downloadLink -> {
-            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink).execute();
-            return FileUtils.gzipIfNeeded(response.getBodyAsStream());
-        };
+        return FileDownloader.downloadFunction();
     }
 }
