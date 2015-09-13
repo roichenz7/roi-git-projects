@@ -67,7 +67,12 @@ public final class FileDownloader {
 
     public static Function<String, InputStream> downloadFunction() {
         return downloadLink -> {
-            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink).execute();
+            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink)
+                    .withHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0")
+                    .withAccept("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                    .withHeader("Accept-Language", "en-US,en;q=0.5")
+                    .withHeader("Accept-Encoding", "gzip, deflate")
+                    .execute();
             return FileUtils.gzipIfNeeded(response.getBodyAsStream());
         };
     }
