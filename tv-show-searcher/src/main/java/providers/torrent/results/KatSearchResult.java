@@ -29,6 +29,6 @@ public class KatSearchResult extends SearchResult {
 
         element = elements.get(0).select("div a[title=Download torrent file]").get(0);
         String[] array = element.attr("href").split("\\?");
-        downloadLink = array[0];
+        downloadLink = array[0].replaceAll("\\.torrent", "/temp\\.torrent");
     }
 }
