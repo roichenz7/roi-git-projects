@@ -28,30 +28,25 @@ public final class FileDownloader {
                                     String targetPath,
                                     String targetFilename,
                                     FileType fileType) {
-        downloadFile(downloadLink,
-                targetPath,
-                targetFilename,
-                fileType,
-                Function.<InputStream>identity());
+        downloadFile(downloadLink, downloadFunction(), targetPath, targetFilename, fileType);
     }
 
     /**
      * Downloads file according to given download link
      *
      * @param downloadLink download link
+     * @param downloadFunction download function
      * @param targetPath target path
      * @param targetFilename target file name
      * @param fileType file type
-     * @param inputStreamFunction input stream mapping function
      */
     public static void downloadFile(String downloadLink,
+                                    Function<String, InputStream> downloadFunction,
                                     String targetPath,
                                     String targetFilename,
-                                    FileType fileType,
-                                    Function<InputStream, InputStream> inputStreamFunction) {
+                                    FileType fileType) {
         try {
-            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink).execute();
-            ReadableByteChannel rbc = Channels.newChannel(inputStreamFunction.apply(response.getBodyAsStream()));
+            ReadableByteChannel rbc = Channels.newChannel(downloadFunction.apply(downloadLink));
 
             File targetFile = new File(targetPath + "/" + targetFilename + "." + fileType);
             if (targetFile.exists())
@@ -68,5 +63,12 @@ public final class FileDownloader {
         } catch (Exception e) {
             throw new RuntimeException("Failed to download file from link: " + downloadLink, e);
         }
+    }
+
+    public static Function<String, InputStream> downloadFunction() {
+        return downloadLink -> {
+            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink).execute();
+            return FileUtils.gzipIfNeeded(response.getBodyAsStream());
+        };
     }
 }

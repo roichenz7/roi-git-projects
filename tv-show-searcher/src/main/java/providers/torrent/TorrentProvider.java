@@ -5,6 +5,10 @@ import data.SearchResult;
 import exceptions.ResultNotFoundException;
 import file.FileDownloader;
 import file.FileType;
+import file.FileUtils;
+import http.DefaultHttpRequestBuilder;
+import http.HttpMethod;
+import http.HttpResponse;
 import providers.Provider;
 
 import java.io.InputStream;
@@ -26,10 +30,13 @@ public interface TorrentProvider extends Provider {
     @Override
     default void download(SearchResult result, String downloadPath) {
         String filename = result.toString() + ".[" + getName() + "]";
-        FileDownloader.downloadFile(result.getDownloadLink(), downloadPath, filename, FileType.TORRENT, inputStreamFunction());
+        FileDownloader.downloadFile(result.getDownloadLink(), downloadFunction(), downloadPath, filename, FileType.TORRENT);
     }
 
-    default Function<InputStream, InputStream> inputStreamFunction() {
-        return Function.identity();
+    default Function<String, InputStream> downloadFunction() {
+        return downloadLink -> {
+            HttpResponse response = new DefaultHttpRequestBuilder(HttpMethod.GET, downloadLink).execute();
+            return FileUtils.gzipIfNeeded(response.getBodyAsStream());
+        };
     }
 }

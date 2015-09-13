@@ -3,7 +3,6 @@ package providers.torrent;
 import data.SearchQuery;
 import data.SearchResult;
 import exceptions.SearchException;
-import file.FileUtils;
 import http.DefaultHttpRequestBuilder;
 import http.HttpMethod;
 import http.HttpResponse;
@@ -12,9 +11,7 @@ import org.jsoup.nodes.Document;
 import providers.ProviderBase;
 import providers.torrent.results.KatSearchResult;
 
-import java.io.InputStream;
 import java.util.List;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -59,10 +56,5 @@ public abstract class KatProviderBase extends ProviderBase implements TorrentPro
                 })
                 .map(KatSearchResult::new)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Function<InputStream, InputStream> inputStreamFunction() {
-        return FileUtils::gzipIfNeeded;
     }
 }
