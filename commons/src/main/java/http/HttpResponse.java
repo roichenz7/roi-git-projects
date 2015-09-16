@@ -27,6 +27,11 @@ public interface HttpResponse {
     List<String> getHeaders(String name);
 
     /**
+     * @return true if zipped, false otherwise
+     */
+    boolean isZipped();
+
+    /**
      * @return response body
      */
     String getBody();
@@ -45,4 +50,9 @@ public interface HttpResponse {
      * @return response body as stream
      */
     InputStream getBodyAsStream();
+
+    /**
+     * @return response body as zipped stream
+     */
+    InputStream getBodyAsZippedStream();
 }
