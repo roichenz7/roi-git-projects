@@ -1,5 +1,7 @@
 package file;
 
+import http.HttpResponse;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.zip.GZIPInputStream;
 
 public final class FileUtils {
 
@@ -40,14 +41,14 @@ public final class FileUtils {
     /**
      * Returns input stream (gzipped or original)
      *
-     * @param source source input stream
+     * @param response source http response
      * @return input stream (gzipped or original)
      */
-    public static InputStream gzipIfNeeded(InputStream source) {
-        try {
-            return new GZIPInputStream(source);
-        } catch (IOException e) {
-            return source;
+    public static InputStream gzipIfNeeded(HttpResponse response) {
+        if (response.isZipped()) {
+            return response.getBodyAsZippedStream();
+        } else {
+            return response.getBodyAsStream();
         }
     }
 }

@@ -74,7 +74,7 @@ public final class FileDownloader {
                     .withHeader("Accept-Encoding", "gzip, deflate")
                     .withHeader("Referer", downloadLink)
                     .execute();
-            return FileUtils.gzipIfNeeded(response.getBodyAsStream());
+            return FileUtils.gzipIfNeeded(response);
         };
     }
 }
