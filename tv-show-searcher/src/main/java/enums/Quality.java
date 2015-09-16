@@ -7,13 +7,13 @@ public enum Quality {
     HD_720p("720p"),
     HD_1080p("1080p"),
     HD("HDTV"),
-    SD("SD"),
+    SD(""),
     UNKNOWN("");
 
-    private String name;
+    private final String str;
 
-    private Quality(String name) {
-        this.name = name;
+    Quality(String str) {
+        this.str = str;
     }
 
     public static Quality fromString(String value) {
@@ -37,6 +37,6 @@ public enum Quality {
 
     @Override
     public String toString() {
-        return name;
+        return str;
     }
 }
