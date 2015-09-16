@@ -28,7 +28,7 @@ public class TorrentTest {
 
     @Test
     public void testKat() {
-        Provider provider = ProviderFactory.create("KatProvider", "http://kat.cr");
+        Provider provider = ProviderFactory.create("KatProvider", "https://kat.cr");
         provider.setAcceptedOrigins(acceptedOrigins);
 
         SearchQuery query = new SearchQuery("The Last Ship", 2, 13, Quality.HD_720p);

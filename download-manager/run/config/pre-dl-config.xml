@@ -3,7 +3,7 @@
  provider: KatProvider/KatProxyProvider/RarbgProvider/PirateBayProvider/PhdProvider
  -->
 <pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
-    <provider name="KatProvider" url="http://kat.cr"/>
+    <provider name="KatProvider" url="https://kat.cr"/>
     <provider name="KatProxyProvider" url="http://katproxy.com"/>
     <provider name="RarbgProvider" url="http://rarbg.to"/>
     <provider name="PirateBayProvider" url="http://thepiratebay.se"/>
