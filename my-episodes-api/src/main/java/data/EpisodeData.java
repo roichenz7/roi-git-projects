@@ -1,5 +1,6 @@
 package data;
 
+import com.uwetrottmann.trakt.v2.entities.CalendarShowEntry;
 import exceptions.EpisodeParseException;
 import org.jsoup.nodes.Element;
 import string.StringUtils;
@@ -45,6 +46,17 @@ public class EpisodeData implements Comparable<EpisodeData> {
         } catch (Exception e) {
             throw new EpisodeParseException(e);
         }
+    }
+
+    public EpisodeData(CalendarShowEntry showEntry) {
+        tvShowId = showEntry.show.ids.trakt;
+        season = showEntry.episode.season;
+        episode = showEntry.episode.number;
+
+        tvShowName = showEntry.show.title;
+        episodeName = showEntry.episode.title;
+
+        airDate = showEntry.first_aired.toDate();
     }
 
     /**
