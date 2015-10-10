@@ -29,6 +29,13 @@ class TvShowCollection {
                 .orElseThrow(() -> new GetMyShowsException("Cannot find show with id: " + traktId));
     }
 
+    BaseShow showByName(String traktName) {
+        return shows.stream()
+                .filter(s -> Objects.equals(s.show.ids.slug, traktName))
+                .findAny()
+                .orElseThrow(() -> new GetMyShowsException("Cannot find show with name: " + traktName));
+    }
+
     boolean isShowPartOfCollection(CalendarShowEntry entry) {
         return shows.stream().anyMatch(s -> Objects.equals(s.show.ids.trakt, entry.show.ids.trakt));
     }
