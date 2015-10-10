@@ -4,7 +4,6 @@ import com.uwetrottmann.trakt.v2.TraktV2;
 import com.uwetrottmann.trakt.v2.entities.CalendarShowEntry;
 import com.uwetrottmann.trakt.v2.entities.Username;
 import com.uwetrottmann.trakt.v2.enums.Extended;
-import com.uwetrottmann.trakt.v2.exceptions.OAuthUnauthorizedException;
 import data.EpisodeData;
 import data.TvShowData;
 import exceptions.GetMyShowsException;
@@ -35,7 +34,7 @@ public class TraktServiceImpl implements MyEpisodesService {
     public Map<Integer, String> getMyShows() {
         try {
             return getShowCollection().myShows();
-        } catch (OAuthUnauthorizedException e) {
+        } catch (Exception e) {
             throw new GetMyShowsException(e);
         }
     }
@@ -70,7 +69,7 @@ public class TraktServiceImpl implements MyEpisodesService {
         try {
             newEpisodes = getNewEpisodes();
             collection = getShowCollection();
-        } catch (OAuthUnauthorizedException e) {
+        } catch (Exception e) {
             throw new GetMyShowsException(e);
         }
 
@@ -110,7 +109,7 @@ public class TraktServiceImpl implements MyEpisodesService {
         return traktApi.calendars().shows(calculateStartDate(), DAYS_TO_SCAN);
     }
 
-    private TvShowCollection getShowCollection() throws OAuthUnauthorizedException {
+    private TvShowCollection getShowCollection() throws Exception {
         return new TvShowCollection(traktApi.users().collectionShows(username, Extended.DEFAULT_MIN));
     }
 
