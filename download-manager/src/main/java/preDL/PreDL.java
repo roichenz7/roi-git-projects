@@ -9,7 +9,7 @@ import preDL.handlers.EpisodeHandlerAdapter;
 import preDL.handlers.EpisodeHandlerBase;
 import providers.Provider;
 import service.MyEpisodesService;
-import service.MyEpisodesServiceImpl;
+import service.TraktServiceImpl;
 
 import java.io.File;
 import java.util.List;
@@ -73,14 +73,15 @@ public class PreDL implements Runnable {
             curr = ((EpisodeHandlerBase) curr).setNext(new EpisodeHandlerAdapter(provider));
         }
 
-        System.out.println("pre-dl: logging in to my episodes, username: " + username);
-        final MyEpisodesService myEpisodesService = new MyEpisodesServiceImpl(username, password);
+        System.out.println("pre-dl: logging in to trakt, username: " + username);
+        final MyEpisodesService myEpisodesService = new TraktServiceImpl(username, password);
 
         System.out.println("\npre-dl: getting list of episodes to acquire");
         List<EpisodeData> episodesToAcquire = myEpisodesService.getStatus()
                 .stream()
                 .filter(x -> !config.ignoredShows().contains(x))
                 .flatMap(x -> x.getUnAcquiredEpisodes().stream())
+                .filter(e -> !e.isSpecial())
                 .filter(EpisodeData::isAired)
                 .collect(Collectors.toList());
 
