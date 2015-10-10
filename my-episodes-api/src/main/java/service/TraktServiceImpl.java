@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class TraktServiceImpl implements MyEpisodesService {
 
-    private static final int DAYS_TO_SCAN = 21;
+    private static final int DAYS_TO_SCAN = 7;
 
     private final Username username;
     private final TraktV2 traktApi;
@@ -67,7 +67,7 @@ public class TraktServiceImpl implements MyEpisodesService {
         final List<CalendarShowEntry> newEpisodes;
         final TvShowCollection collection;
         try {
-            newEpisodes = getNewEpisodes();
+            newEpisodes = getNewEpisodesFromLastDays(DAYS_TO_SCAN);
             collection = getShowCollection();
         } catch (Exception e) {
             throw new GetMyShowsException(e);
@@ -105,8 +105,8 @@ public class TraktServiceImpl implements MyEpisodesService {
         // Empty
     }
 
-    private List<CalendarShowEntry> getNewEpisodes() {
-        return traktApi.calendars().shows(calculateStartDate(), DAYS_TO_SCAN);
+    private List<CalendarShowEntry> getNewEpisodesFromLastDays(int days) {
+        return traktApi.calendars().shows(calculateStartDate(), days);
     }
 
     private TvShowCollection getShowCollection() throws Exception {
