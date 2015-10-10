@@ -4,29 +4,59 @@
  -->
 <pre-dl-config download_dir="/mnt/cache/.apps/torrents/watch" default_quality="720p">
     <provider name="KatProvider" url="https://kat.cr"/>
-    <provider name="KatProxyProvider" url="http://katproxy.com"/>
     <provider name="RarbgProvider" url="http://rarbg.to"/>
-    <provider name="PirateBayProvider" url="http://thepiratebay.se"/>
 
     <ignored_tv_show id="6211" name="Childrens Hospital"/>
     <ignored_tv_show id="8353" name="Suits"/>
+    <ignored_tv_show id="330" name="America's Next Top Model"/>
+    <ignored_tv_show id="46699" name="Crossing Lines"/>
+    <ignored_tv_show id="33760" name="Downton Abbey"/>
+    <ignored_tv_show id="77805" name="Fresh Off The Boat"/>
+    <ignored_tv_show id="77790" name="Weird Loners"/>
+    <ignored_tv_show id="60278" name="Gotham"/>
+    <ignored_tv_show id="1656" name="SNL"/>
+    <ignored_tv_show id="39105" name="Scandal"/>
+    <ignored_tv_show id="54001" name="The Leftovers"/>
+    <ignored_tv_show id="55943" name="Orphan Black"/>
+    <ignored_tv_show id="1415" name="Orange Is The New Black"/>
+    <ignored_tv_show id="51377" name="Defiance"/>
+    <ignored_tv_show id="46699" name="Crossing Lines"/>
+    <ignored_tv_show id="58920" name="The Bletchley Circle"/>
+    <ignored_tv_show id="4565" name="Arrested Development"/>
+    <ignored_tv_show id="32228" name="The Killing"/>
+    <ignored_tv_show id="21619" name="House Of Cards 1990"/>
+    <ignored_tv_show id="1489" name="The Newsroom 1996"/>
+    <ignored_tv_show id="21410" name="White Collar"/>
+    <ignored_tv_show id="1893" name="Shameless"/>
 
-    <special_tv_show id="5926" name="Game Of Thrones" quality="1080p"/>
+    <special_tv_show id="1390" name="Game Of Thrones" quality="1080p"/>
+    <special_tv_show id="33760" name="Downton Abbey" quality="HD"/>
+    <special_tv_show id="77805" name="Fresh Off the Boat" quality="HD"/>
+    <special_tv_show id="77790" name="Weird Loners" quality="HD"/>
 
     <accepted_origin>DIMENSION</accepted_origin>
     <accepted_origin>2HD</accepted_origin>
     <accepted_origin>EVOLVE</accepted_origin>
+    <accepted_origin>FLEET</accepted_origin>
     <accepted_origin>KILLERS</accepted_origin>
     <accepted_origin>REMARKABLE</accepted_origin>
     <accepted_origin>IMMERSE</accepted_origin>
     <accepted_origin>PublicHD</accepted_origin>
     <accepted_origin>EXCELLENCE</accepted_origin>
     <accepted_origin>BAJSKORV</accepted_origin>
+    <accepted_origin>TASTETV</accepted_origin>
+    <accepted_origin>TLA</accepted_origin>
     <accepted_origin>BATV</accepted_origin>
+    <accepted_origin>0SEC</accepted_origin>
+    <accepted_origin>SNEAkY</accepted_origin>
+    <accepted_origin>FGT</accepted_origin>
     <accepted_origin>DAA</accepted_origin>
     <accepted_origin>W4F</accepted_origin>
-    <accepted_origin>NTb</accepted_origin>
     <accepted_origin>LOL</accepted_origin>
     <accepted_origin>AFG</accepted_origin>
     <accepted_origin>FoV</accepted_origin>
+    <accepted_origin>ASAP</accepted_origin>
+    <accepted_origin>aAF</accepted_origin>
+    <accepted_origin>FiHTV</accepted_origin>
+    <accepted_origin>spamTV</accepted_origin>
 </pre-dl-config>
