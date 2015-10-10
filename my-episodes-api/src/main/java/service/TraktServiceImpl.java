@@ -1,7 +1,6 @@
 package service;
 
 import com.uwetrottmann.trakt.v2.TraktV2;
-import com.uwetrottmann.trakt.v2.entities.BaseShow;
 import com.uwetrottmann.trakt.v2.entities.CalendarShowEntry;
 import com.uwetrottmann.trakt.v2.entities.Username;
 import com.uwetrottmann.trakt.v2.enums.Extended;
@@ -12,13 +11,16 @@ import exceptions.GetMyShowsException;
 import org.joda.time.Duration;
 import org.joda.time.Instant;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TraktServiceImpl implements MyEpisodesService {
 
-    private static final int DAYS_TO_SCAN = 14;
+    private static final int DAYS_TO_SCAN = 21;
 
     private final Username username;
     private final TraktV2 traktApi;
@@ -31,16 +33,11 @@ public class TraktServiceImpl implements MyEpisodesService {
 
     @Override
     public Map<Integer, String> getMyShows() {
-        final List<BaseShow> shows;
         try {
-            shows = getCollectedShows();
+            return getShowCollection().myShows();
         } catch (OAuthUnauthorizedException e) {
             throw new GetMyShowsException(e);
         }
-
-        return shows
-                .stream()
-                .collect(Collectors.toMap(s -> s.show.ids.trakt, s -> s.show.title));
     }
 
     @Override
@@ -69,18 +66,17 @@ public class TraktServiceImpl implements MyEpisodesService {
     @Override
     public Collection<EpisodeData> getUnAcquiredEpisodes() {
         final List<CalendarShowEntry> newEpisodes;
-        final List<BaseShow> collectedShows;
+        final TvShowCollection collection;
         try {
             newEpisodes = getNewEpisodes();
-            collectedShows = getCollectedShows();
+            collection = getShowCollection();
         } catch (OAuthUnauthorizedException e) {
             throw new GetMyShowsException(e);
         }
 
         return newEpisodes.stream()
-                .filter(e -> isShowPartOfCollection(collectedShows, e))
-                        // .filter(e -> !isShowHidden(collectedShows, e)) // TODO: fix
-                .filter(e -> !isEpisodeCollected(collectedShows, e))
+                .filter(collection::isShowPartOfCollection)
+                .filter(collection::isMissing)
                 .map(EpisodeData::new)
                 .collect(Collectors.toList());
     }
@@ -114,30 +110,8 @@ public class TraktServiceImpl implements MyEpisodesService {
         return traktApi.calendars().shows(calculateStartDate(), DAYS_TO_SCAN);
     }
 
-    private List<BaseShow> getCollectedShows() throws OAuthUnauthorizedException {
-        return traktApi.users().collectionShows(username, Extended.DEFAULT_MIN);
-    }
-
-    private boolean isShowPartOfCollection(Collection<BaseShow> collectedShows, CalendarShowEntry showEntry) {
-        return collectedShows.stream()
-                .anyMatch(s -> Objects.equals(s.show.ids.trakt, showEntry.show.ids.trakt));
-    }
-
-    private boolean isShowHidden(Collection<BaseShow> collectedShows, CalendarShowEntry showEntry) {
-        return collectedShows.stream()
-                .filter(s -> Objects.equals(s.show.ids.trakt, showEntry.show.ids.trakt))
-                .filter(s -> s.hidden_seasons != null)
-                .flatMap(s -> s.hidden_seasons.stream())
-                .anyMatch(s -> Objects.equals(s.number, showEntry.episode.season));
-    }
-
-    private boolean isEpisodeCollected(Collection<BaseShow> collectedShows, CalendarShowEntry showEntry) {
-        return collectedShows.stream()
-                .filter(s -> Objects.equals(s.show.ids.trakt, showEntry.show.ids.trakt))
-                .flatMap(s -> s.seasons.stream())
-                .filter(s -> Objects.equals(s.number, showEntry.episode.season))
-                .flatMap(s -> s.episodes.stream())
-                .anyMatch(e -> Objects.equals(e.number, showEntry.episode.number) && e.collected_at != null);
+    private TvShowCollection getShowCollection() throws OAuthUnauthorizedException {
+        return new TvShowCollection(traktApi.users().collectionShows(username, Extended.FULL));
     }
 
     private String calculateStartDate() {
