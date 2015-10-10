@@ -103,6 +103,13 @@ public class EpisodeData implements Comparable<EpisodeData> {
         return new Date().after(getAirDate());
     }
 
+    /**
+     * @return true if episode is special (S00E?? or S??E00), false otherwise
+     */
+    public boolean isSpecial() {
+        return season == 0 || episode == 0;
+    }
+
     @Override
     public int compareTo(EpisodeData o) {
         if (tvShowId != o.tvShowId)
@@ -121,7 +128,6 @@ public class EpisodeData implements Comparable<EpisodeData> {
 
         EpisodeData that = (EpisodeData) o;
         return tvShowId == that.tvShowId && season == that.season && episode == that.episode;
-
     }
 
     @Override
