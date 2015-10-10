@@ -111,7 +111,7 @@ public class TraktServiceImpl implements MyEpisodesService {
     }
 
     private TvShowCollection getShowCollection() throws OAuthUnauthorizedException {
-        return new TvShowCollection(traktApi.users().collectionShows(username, Extended.FULL));
+        return new TvShowCollection(traktApi.users().collectionShows(username, Extended.DEFAULT_MIN));
     }
 
     private String calculateStartDate() {
