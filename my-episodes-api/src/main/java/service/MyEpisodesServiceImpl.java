@@ -204,6 +204,7 @@ public class MyEpisodesServiceImpl implements MyEpisodesService {
         try {
             final String body = String.format("username=%s&password=%s&action=Login&u=", username, password);
             response = new DefaultHttpRequestBuilder(HttpMethod.POST, baseUrl + "/login.php")
+                    .withUrlParam("action", "login")
                     .withHeader("Content-Type", "application/x-www-form-urlencoded")
                     .withBody(body)
                     .execute();
