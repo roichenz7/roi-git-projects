@@ -81,6 +81,7 @@ public class PreDL implements Runnable {
                 .stream()
                 .filter(x -> !config.ignoredShows().contains(x))
                 .flatMap(x -> x.getUnAcquiredEpisodes().stream())
+                .filter(e -> !e.isSpecial())
                 .filter(EpisodeData::isAired)
                 .collect(Collectors.toList());
 
