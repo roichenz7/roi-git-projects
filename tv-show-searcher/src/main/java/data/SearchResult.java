@@ -86,14 +86,10 @@ public abstract class SearchResult {
     }
 
     /**
-     * @return score
+     * @return score (based on seeds & isProper)
      */
     public int getScore() {
-        int score = getSeeds();
-        if (isProper() && getSeeds() >= 50) {
-            score *= 2;
-        }
-        return score;
+        return getSeeds() * getScoreMultiplier();
     }
 
     /**
@@ -132,4 +128,8 @@ public abstract class SearchResult {
      * @param source source element
      */
     protected abstract void initialize(Element source);
+
+    private int getScoreMultiplier() {
+        return (isProper() && getSeeds() >= 50) ? 5 : 1;
+    }
 }
