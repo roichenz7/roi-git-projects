@@ -15,11 +15,12 @@ public class KatSearchResult extends SearchResult {
     protected void initialize(Element source) {
         Elements elements = source.getElementsByTag("td");
 
-        Element element = elements.get(0).select("div a[href=#]").get(0);
-        String name = element.attr("onclick")
-                .replaceAll(".*, \\{ 'name': '", "")
+        Element element = elements.get(0).select("span").get(0);
+        String name = element.attr("data-sc-params")
+                .replaceAll("\\{ 'name': '", "")
                 .replaceAll("', 'magnet':.*", "")
-                .replaceAll("%20", "\\.");
+                .replaceAll("%20", "\\.")
+                .replaceAll("%5B.*", "");
 
         ShowData showData = ShowData.fromFilename(name);
         initialize(showData);
