@@ -31,7 +31,7 @@ public class TorrentTest {
         Provider provider = ProviderFactory.create("KatProvider", "https://kat.cr");
         provider.setAcceptedOrigins(acceptedOrigins);
 
-        SearchQuery query = new SearchQuery("The Last Ship", 2, 13, Quality.HD_720p);
+        SearchQuery query = new SearchQuery("Modern Family", 7, 9, Quality.HD_720p);
         List<SearchResult> results = provider.search(query);
 
         SearchResult result = provider.getBestResult(results, query);
